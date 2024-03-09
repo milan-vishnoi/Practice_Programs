@@ -1,5 +1,7 @@
 package runLengthEncodeDecode;
 
+import static org.junit.Assert.assertArrayEquals;
+
 public class RunLengthEncoderDecoder
 {
    
@@ -13,28 +15,34 @@ public class RunLengthEncoderDecoder
     public String encoderDecoder(char mode,String str)
     {
         if(mode == 'E')
-        return encoder(str);
+        return encode(str);
         else if(mode == 'D')
-        return decoder(str);
+        return decode(str);
         else
         return "";
     }
 
-    public String encoder(String str)
+    public String encode(String str)
     {
        // char alphabet[] = new char[str.length()];
         //int count[] = new int [str.length()];
         String result="";
-        for(int i = 0; i<str.length(); i++)
+        result+= str.charAt(0);
+        int k = 1;
+        for(int i = 1; i<str.length(); i++)
         {  
-            int k;
-            result+=str.charAt(i);
-           for(k=0;str.charAt(i)==str.charAt(i+1);k++,i++)
-           {
+            if(str.charAt(i)==str.charAt(i-1))
+            k++;
+            else
+            {
+               result+= k;
+               k = 1;
+               result+= str.charAt(i);
 
-           }
-           result+=k;
+            }
+
         }
+        result += k;
 
         return result;
     }

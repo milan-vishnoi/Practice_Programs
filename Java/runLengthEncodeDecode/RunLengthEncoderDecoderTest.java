@@ -8,17 +8,19 @@ public class RunLengthEncoderDecoderTest {
     
     RunLengthEncoderDecoder encoderDecoder = new RunLengthEncoderDecoder();
 
-    @Before
-    public void initialize()
-    {
-        
-    }
-
     @Test
-    public void encoderTest()
+    public void simpleEncoder()
     {
         char mode = 'E';
         String str = "WWWMMMKKK";
-        Assert.assertEquals(encoderDecoder.encoder(str),"W3M3K3");
+        Assert.assertEquals("W3M3K3",encoderDecoder.encode(str));
+    }
+
+    @Test
+    public void encodeStringWithUniqueCharacters()
+    {
+        char mode = 'E';
+        String str = "WMK";
+        Assert.assertEquals("W1M1K1", encoderDecoder.encode(str));
     }
 }

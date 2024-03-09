@@ -24,8 +24,6 @@ public class RunLengthEncoderDecoder
 
     public String encode(String str)
     {
-       // char alphabet[] = new char[str.length()];
-        //int count[] = new int [str.length()];
         String result="";
         result+= str.charAt(0);
         int k = 1;

@@ -1,7 +1,5 @@
 package runLengthEncodeDecode;
 
-import static org.junit.Assert.assertArrayEquals;
-
 public class RunLengthEncoderDecoder
 {
    
@@ -45,9 +43,36 @@ public class RunLengthEncoderDecoder
         return result;
     }
 
-    public String decoder(String str)
+    public String decode(String str)
     {
-        return "";
+        String result = "";
+        char alphabet = 0;
+        int size =0 ;
+        for(int i= 0; i<str.length();i++)
+        {   
+           
+           if(Character.isAlphabetic(str.charAt(i)))
+           {
+            alphabet = str.charAt(i);
+            size = 0;
+           }
+           else if(Character.isDigit(str.charAt(i)))
+           {
+            size = size*10 + Character.getNumericValue(str.charAt(i));
+            if(i == str.length()-1 || Character.isAlphabetic(str.charAt(i+1)))
+            {
+                for(int j=1;j <= size;j++)
+                {
+                  result+=alphabet;
+                }
+            }
+            
+           }
+            
+        }
+        
+        return result;
+        
     }
 
 }

@@ -71,6 +71,15 @@ public class RunLengthEncoderDecoderTest {
         Assert.assertEquals("W26M23K20W3", encoderDecoder.encoderDecoder(mode, str));
     }
 
+    @Test
+    public void testDecoding()
+    {
+        char mode = 'D';
+        String str = "W101M12N3";
+        Assert.assertEquals("WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW"+
+        "MMMMMMMMMMMMNNN", encoderDecoder.encoderDecoder(mode,str));
+    }
+
 
     
 }

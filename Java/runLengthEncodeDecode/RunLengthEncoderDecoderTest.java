@@ -63,6 +63,14 @@ public class RunLengthEncoderDecoderTest {
         "MMMMMMMMMMMMNNN", encoderDecoder.decode(str));
     }
 
+    @Test
+    public void testEncoding()
+    {
+        char mode = 'E';
+        String str = "WWWWWWWWWWWWWWWWWWWWWWWWWWMMMMMMMMMMMMMMMMMMMMMMMKKKKKKKKKKKKKKKKKKKKWWW";
+        Assert.assertEquals("W26M23K20W3", encoderDecoder.encoderDecoder(mode, str));
+    }
+
 
     
 }

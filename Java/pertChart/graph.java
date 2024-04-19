@@ -67,15 +67,55 @@ class Node {
          this.dependsOn.forEach((parent) -> updateParent(parent)); 
     }
 
-    private void updateParent(Node node)
-    {   
-        node.setChild(this);
+    public int getWorkId()
+    {
+       return this.workId;
+    }
+
+    public void setWorkId(int workId)
+    {
+       this.workId =  workId;
+    }
+
+    public int getTime()
+    {
+        return this.time;
+    }
+
+    public void setTime(int time)
+    {
+        this.time = time;
+    }
+
+
+    public ArrayList<Node> getChild()
+    {
+        return this.child;
     }
 
     public void setChild(Node node)
     {
         this.child.add(node);
     }
+
+    public ArrayList<Node> getDependsOn()
+    {
+        return this.dependsOn;
+    }
+
+    public void setDependsOn(ArrayList<Node> dependsOn)
+    {
+        this.dependsOn = dependsOn;
+    }
+
+
+
+    private void updateParent(Node node)
+    {   
+        node.setChild(this);
+    }
+
+
 
     public String toString()
     {   
@@ -100,10 +140,7 @@ class Node {
         return("WorkId:"+workId+" time:"+time + " Depends on:"+dependStr+" Child:"+childStr);
     }
 
-    public int getWorkId()
-    {
-       return this.workId;
-    }
+
 
 
 }

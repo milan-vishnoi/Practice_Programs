@@ -1,3 +1,4 @@
 \.vscode/.*
 .*/.*/hamcrest.*
 .*/.*/junit.*
+lib/.*

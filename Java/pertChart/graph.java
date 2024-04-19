@@ -17,19 +17,37 @@ public class graph {
 
        Node[] works = {work1,work2,work3,work4,work5,work6,work7,work8,work9};
 
-       findStartAndEnd(works);
+       findPath(findStart(works), findEnd(works));
 
     }
 
-    public static void findStartAndEnd(Node[] works)
+    public static Node findStart(Node[] works)
     {
         for(Node work : works)
         {
             if(work.dependsOn.isEmpty())
-            System.out.println("Start Node is:\n"+work.toString());
-            if(work.child.isEmpty())
-            System.out.println("\nEnd Node is:\n"+work.toString());
+            return work;
         }
+
+        return null;
+    }
+
+    public static Node findEnd(Node[] works)
+    {
+        for(Node work : works)
+        {
+            if(work.child.isEmpty())
+            return work;
+        }
+
+        return null;
+    }
+
+    public static void findPath(Node start, Node end)
+    {
+        System.out.println("Start:"+start.toString());
+        System.out.println("End:"+end.toString());
+
     }
 }
 

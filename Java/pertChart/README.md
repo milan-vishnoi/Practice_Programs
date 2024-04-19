@@ -22,8 +22,9 @@ Enter workId & time for work6's:6 10
 Enter works on which work6 depends:2,3,4
 Enter workId & time for work7's:7 10
 Enter works on which work7 depends:4
-Enter workId & time for work8's:8 10 5,6
-Enter works on which work8 depends:Enter workId & time for work9's:9 10
+Enter workId & time for work8's:8 10
+Enter works on which work8 depends:5,6
+Enter workId & time for work9's:9 10
 Enter works on which work9 depends:6,7,8
 
 ### Output

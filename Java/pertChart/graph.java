@@ -3,6 +3,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class graph {
+
+    static int pathNumber = 0;
     public static void main(String args[])
     {
        Node work1 = new Node(1,5,new ArrayList<Node>());
@@ -17,7 +19,12 @@ public class graph {
 
        Node[] works = {work1,work2,work3,work4,work5,work6,work7,work8,work9};
 
-       findPath(findStart(works), findEnd(works));
+       for(Node work : works)
+       {
+        System.out.println(work.toString());
+       }
+
+       findPath(findStart(works), findEnd(works), findStart(works).getWorkId()+"");
 
     }
 
@@ -25,7 +32,7 @@ public class graph {
     {
         for(Node work : works)
         {
-            if(work.dependsOn.isEmpty())
+            if(work.getDependsOn().isEmpty())
             return work;
         }
 
@@ -36,33 +43,52 @@ public class graph {
     {
         for(Node work : works)
         {
-            if(work.child.isEmpty())
+            if(work.getChildren().isEmpty())
             return work;
         }
 
         return null;
     }
 
-    public static void findPath(Node start, Node end)
+    public static void findPath(Node start, Node end, String path)
     {
-        System.out.println("Start:"+start.toString());
-        System.out.println("End:"+end.toString());
+        // System.out.println("Start:"+start.toString());
+        // System.out.println("End:"+end.toString());
+
+        if(start.equals(end))
+        {
+            System.out.println("Path"+(++pathNumber)+": "+path);
+            return;
+        }
+        
+        // start.getChildren().forEach((child) -> {
+        //     String p = path+"->"+child.getWorkId();
+        //     findPath(child,end,p);
+
+        // });
+        for(Node child : start.getChildren())
+        {
+            //  System.out.println(child.toString());
+             String p = path +"->"+child.getWorkId();
+             findPath(child,end,p);
+
+        }
 
     }
 }
 
 
 class Node {
-    int workId;
-    int time;
-    ArrayList<Node> child;
-    ArrayList<Node> dependsOn;
+    private int workId;
+    private int time;
+    private ArrayList<Node> children;
+    private ArrayList<Node> dependsOn;
 
     public Node(int workId,int time,ArrayList<Node> dependsOn)
     {
          this.workId = workId;
          this.time = time;
-         this.child = new ArrayList<Node>();
+         this.children = new ArrayList<Node>();
          this.dependsOn = new ArrayList<Node>(dependsOn);
          this.dependsOn.forEach((parent) -> updateParent(parent)); 
     }
@@ -88,14 +114,14 @@ class Node {
     }
 
 
-    public ArrayList<Node> getChild()
+    public ArrayList<Node> getChildren()
     {
-        return this.child;
+        return this.children;
     }
 
     public void setChild(Node node)
     {
-        this.child.add(node);
+        this.children.add(node);
     }
 
     public ArrayList<Node> getDependsOn()
@@ -115,6 +141,13 @@ class Node {
         node.setChild(this);
     }
 
+    public boolean equals(Node node)
+    {
+         if(this.workId == node.getWorkId())
+         return true;
+         else
+         return false;
+    }
 
 
     public String toString()
@@ -129,8 +162,8 @@ class Node {
 
         dependStr+="]";
 
-        for(int i= 0;i<this.child.size() ;i++ )
-        childStr+=this.child.get(i).getWorkId()+",";
+        for(int i= 0;i<this.children.size() ;i++ )
+        childStr+=this.children.get(i).getWorkId()+",";
         
         if(childStr.length()>1)
         childStr = childStr.substring(0,childStr.length()-1);

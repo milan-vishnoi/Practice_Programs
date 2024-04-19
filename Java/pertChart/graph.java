@@ -18,12 +18,13 @@ public class graph {
        Node work9 = new Node(9,10,new ArrayList<Node>(Arrays.asList(work6,work7,work8)));
 
        Node[] works = {work1,work2,work3,work4,work5,work6,work7,work8,work9};
-
+    
+       System.out.println("Table:");
        for(Node work : works)
        {
         System.out.println(work.toString());
        }
-
+       System.out.println("\nPaths:");
        findPath(findStart(works), findEnd(works), findStart(works).getWorkId()+"");
 
     }
@@ -61,18 +62,18 @@ public class graph {
             return;
         }
         
-        // start.getChildren().forEach((child) -> {
-        //     String p = path+"->"+child.getWorkId();
-        //     findPath(child,end,p);
+        start.getChildren().forEach((child) -> {
+            String p = path+"->"+child.getWorkId();
+            findPath(child,end,p);
 
-        // });
-        for(Node child : start.getChildren())
-        {
-            //  System.out.println(child.toString());
-             String p = path +"->"+child.getWorkId();
-             findPath(child,end,p);
-
-        }
+        });
+        //Either of the two for loops will work
+        // for(Node child : start.getChildren())
+        // {
+        //  
+        //      String p = path +"->"+child.getWorkId();
+        //      findPath(child,end,p);
+        // }
 
     }
 }

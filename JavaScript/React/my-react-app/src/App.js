@@ -42,13 +42,20 @@ List.propTypes = {tasks: PropTypes.array.isRequired};
 class ToDo extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {status:"Work in Progress"};
+    this.state = {status:"Work in Progress",
+      note:""
+    };
     this.handleClick = this.handleClick.bind(this);
+    this.handleInput = this.handleInput.bind(this);
   }
 
 
   handleClick() {
     this.setState(state => ({status: state.status==="Done"?"Work In Progress":"Done"}));
+  }
+
+  handleInput(event) {
+    this.setState({note:event.target.value});
   }
   render() {
     return (
@@ -60,7 +67,11 @@ class ToDo extends React.Component {
         <List tasks={["Study", "Sing", "Dance"]} />
         <h2>State</h2>
         <p>Status : {this.state.status}</p>
-        <button onClick={this.handleClick}>Change Status</button>
+        <button onClick={this.handleClick}>Change Status</button><br/>
+        <h2>Write a note</h2>
+        <textarea rows={10} onChange={this.handleInput}></textarea>
+        <h2>Note</h2>
+        <p>{this.state.note}</p>
       </div>
     );
   }

@@ -57,7 +57,7 @@ public class pertChart {
 
     public static Node findStart(Node[] works) {
         for (Node work : works) {
-            if (work.getDependsOn().isEmpty())
+            if (work.getParents().isEmpty())
                 return work;
         }
 
@@ -102,14 +102,14 @@ class Node {
     private int workId;
     private int time;
     private ArrayList<Node> children;
-    private ArrayList<Node> dependsOn;
+    private ArrayList<Node> parents;
 
-    public Node(int workId, int time, ArrayList<Node> dependsOn) {
+    public Node(int workId, int time, ArrayList<Node> parents) {
         this.workId = workId;
         this.time = time;
         this.children = new ArrayList<Node>();
-        this.dependsOn = new ArrayList<Node>(dependsOn);
-        this.dependsOn.forEach((parent) -> updateParent(parent));
+        this.parents = new ArrayList<Node>(parents);
+        this.parents.forEach((parent) -> updateParent(parent));
     }
 
     public int getWorkId() {
@@ -136,12 +136,12 @@ class Node {
         this.children.add(node);
     }
 
-    public ArrayList<Node> getDependsOn() {
-        return this.dependsOn;
+    public ArrayList<Node> getParents() {
+        return this.parents;
     }
 
-    public void setDependsOn(ArrayList<Node> dependsOn) {
-        this.dependsOn = dependsOn;
+    public void setParents(ArrayList<Node> dependsOn) {
+        this.parents = dependsOn;
     }
 
     private void updateParent(Node node) {
@@ -158,8 +158,8 @@ class Node {
     public String toString() {
         String dependStr = "[";
         String childStr = "[";
-        for (int i = 0; i < this.dependsOn.size(); i++)
-            dependStr += this.dependsOn.get(i).getWorkId() + ",";
+        for (int i = 0; i < this.parents.size(); i++)
+            dependStr += this.parents.get(i).getWorkId() + ",";
 
         if (dependStr.length() > 1)
             dependStr = dependStr.substring(0, dependStr.length() - 1);

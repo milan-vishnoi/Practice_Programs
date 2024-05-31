@@ -43,10 +43,12 @@ class ToDo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {status:"Work in Progress",
-      note:""
+      note:"",
+      submit:""
     };
     this.handleClick = this.handleClick.bind(this);
     this.handleInput = this.handleInput.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
 
@@ -56,6 +58,12 @@ class ToDo extends React.Component {
 
   handleInput(event) {
     this.setState({note:event.target.value});
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    this.setState(state=>({submit:state.note}));
+
   }
   render() {
     return (
@@ -68,10 +76,14 @@ class ToDo extends React.Component {
         <h2>State</h2>
         <p>Status : {this.state.status}</p>
         <button onClick={this.handleClick}>Change Status</button><br/>
-        <h2>Write a note</h2>
-        <textarea rows={10} onChange={this.handleInput}></textarea>
+        <h2>Write an update</h2>
+        <form onSubmit={this.handleSubmit}>
+        <input onChange={this.handleInput}></input><br/>
+        <button type="Submit">Submit</button>
+        </form>
+        
         <h2>Note</h2>
-        <p>{this.state.note}</p>
+        <p>{this.state.submit}</p>
       </div>
     );
   }

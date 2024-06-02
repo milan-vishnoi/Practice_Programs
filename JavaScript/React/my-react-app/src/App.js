@@ -76,19 +76,58 @@ class ToDo extends React.Component {
         <h2>State</h2>
         <p>Status : {this.state.status}</p>
         <button onClick={this.handleClick}>Change Status</button><br/>
-        <h2>Write an update</h2>
-        <form onSubmit={this.handleSubmit}>
-        <input onChange={this.handleInput}></input><br/>
-        <button type="Submit">Submit</button>
-        </form>
-        
-        <h2>Note</h2>
-        <p>{this.state.submit}</p>
+
+        <GetNote input={this.state.note} handleInput={this.handleInput}/>
+        <RenderNote note={this.state.note}/>
+
       </div>
     );
   }
 }
 
+class GetNote extends React.Component {
+  constructor(props){
+    super(props);
+  }
 
+  render() {
+     return (
+     <div>
+     <h2>Write the Note</h2> 
+     <input onChange={this.props.handleInput}></input>
+     </div>);
+  }
+}
+
+class RenderNote extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (  
+      <div>
+        <h2>Note:</h2>
+      <p>{this.props.note}</p>
+      </div>
+   );
+  }
+}
+
+class FormComponent extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (  
+      <div>
+        <h2>Form Input</h2>
+        <form onSubmit={this.handleSubmit}>
+          <input/>
+       <button type="Submit">Submit</button>
+       </form>
+      </div>
+   );
+  }
+}
 
 export default App;

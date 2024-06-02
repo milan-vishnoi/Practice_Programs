@@ -63,7 +63,15 @@ class ToDo extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     this.setState(state=>({submit:state.note}));
-
+  }
+  componentWillMount() {
+  
+      this.setState({status:"Loading Status"});
+  }
+  componentDidMount() {
+    setTimeout(()=>{
+      this.setState({status:"Work In Progress"});
+    },2000);
   }
   render() {
     return (

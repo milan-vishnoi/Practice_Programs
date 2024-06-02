@@ -65,7 +65,6 @@ class ToDo extends React.Component {
     this.setState(state=>({submit:state.note}));
   }
   componentWillMount() {
-  
       this.setState({status:"Loading Status"});
   }
   componentDidMount() {
@@ -73,6 +72,11 @@ class ToDo extends React.Component {
       this.setState({status:"Work In Progress"});
     },2000);
   }
+componentWillUnmount() {
+  setTimeout(()=>{
+    this.setState({status:"Done"})
+  },5000);
+}
   render() {
     return (
       <div>

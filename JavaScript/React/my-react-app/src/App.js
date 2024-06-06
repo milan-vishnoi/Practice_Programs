@@ -111,17 +111,33 @@ class GetNote extends React.Component {
   }
 }
 
+const styles = {color:"yellow",fontSize:24,border:"2px solid white",padding:"20px"};
+
 class RenderNote extends React.Component {
   constructor(props) {
     super(props);
   }
+
+  shouldComponentUpdate(nextProps,nextState) {
+    if(nextProps.note === "")
+      {
+        return false;
+      }
+      else {
+        return true;
+      }
+  }
+
+  componentDidUpdate() {
+  }
+
   render() {
-    return (  
-      <div>
-        <h2>Note:</h2>
-      <p>{this.props.note}</p>
-      </div>
-   );
+        return (  
+          <div>
+            <h2>Note:</h2>
+         {this.props.note===""?<h2>There is no note yet!!</h2> : <p style={styles}>{this.props.note}</p>} 
+          </div>
+       );
   }
 }
 

@@ -111,7 +111,7 @@ class GetNote extends React.Component {
   }
 }
 
-const styles = {color:"yellow",fontSize:24,border:"2px solid white",padding:"20px"};
+let styles = {color:"yellow",fontSize:24,border:"2px solid white",padding:"20px"};
 
 class RenderNote extends React.Component {
   constructor(props) {
@@ -132,6 +132,22 @@ class RenderNote extends React.Component {
   }
 
   render() {
+    if(this.props.note.length >15) {
+      styles = {
+        color:"red",
+        fontSize:24,
+        border:"2px solid white",
+        padding:"20px"
+      };
+    } else {
+      styles = {
+        color:"yellow",
+        fontSize:24,
+        border:"2px solid white",
+        padding:"20px"
+      };
+    }
+    
         return (  
           <div>
             <h2>Note:</h2>

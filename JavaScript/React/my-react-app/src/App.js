@@ -30,14 +30,14 @@ class List extends React.Component {
   }
 
   render() {
-    return <p>{this.props.tasks.join(", ")}</p>;
+    return <ol>{this.props.tasks.split(",").map(task=><li key={task}>{task}</li>)}</ol>;
   }
 }
 
 
-List.defaultProps = { tasks: ["Reading, Eating"] };
+List.defaultProps = { tasks: "Reading,Eating" };
 
-List.propTypes = {tasks: PropTypes.array.isRequired};
+List.propTypes = {tasks: PropTypes.string.isRequired};
 
 class ToDo extends React.Component {
   constructor(props) {
@@ -84,7 +84,7 @@ componentWillUnmount() {
         <h2>Today</h2>
         <List />
         <h2>Tomorrow</h2>
-        <List tasks={["Study", "Sing", "Dance"]} />
+        <List tasks={"Study,Sing,Dance"} />
         <h2>State</h2>
         <p>Status : {this.state.status}</p>
         <button onClick={this.handleClick}>Change Status</button><br/>

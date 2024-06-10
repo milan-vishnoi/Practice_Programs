@@ -30,7 +30,7 @@ class List extends React.Component {
   }
 
   render() {
-    return <ol>{this.props.tasks.split(",").map(task=><li key={task}>{task}</li>)}</ol>;
+    return <ol>{this.props.tasks.split(",").filter(task=>task.length>4).map(task=><li key={task}>{task}</li>)}</ol>;
   }
 }
 

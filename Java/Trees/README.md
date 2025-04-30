@@ -1,4 +1,4 @@
-# Tree Traversal
+# > Tree Traversal
 There are three ways in which we cn traverse the binary tree.
 
 ## 1. Pre-order Traversal

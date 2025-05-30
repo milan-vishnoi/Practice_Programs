@@ -1,4 +1,4 @@
-package runLengthEncodeDecode;
+package runlengthencodedecode;
 
 public class RunLengthEncoderDecoder
 {

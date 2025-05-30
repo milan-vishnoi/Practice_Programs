@@ -1,4 +1,4 @@
-package runLengthEncodeDecode;
+package runlengthencodedecode;
 
 import org.junit.Test;
 import org.junit.Assert;

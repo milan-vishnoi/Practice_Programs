@@ -11,6 +11,9 @@ public class KadaneMaxSumSubArray {
         int currentStartIndex = 0;
         int endIndex = 0;
 
+        if(nums.length == 0)
+        return 0;
+
         for(int i=0; i<nums.length;i++)
         {   
             if(currentSum < 0 && currentSum < nums[i]) //Checking if sum is negative and less then current number.
@@ -51,6 +54,9 @@ public class KadaneMaxSumSubArray {
         int currentMinSum = Integer.MAX_VALUE;
         int totalSum = 0;
 
+        if(nums.length == 0)
+        return 0;
+
         for(int i=0; i< nums.length;i++)
         {  
             totalSum+=nums[i];
@@ -83,8 +89,7 @@ public class KadaneMaxSumSubArray {
         int[][] numsArray = {{-2, 1, -3, 4, -1, 2, 1, -5, 4},
                              {1, 2, 3, 4, 5},
                             {-1, -2, -3, -4, -5},
-                        {}, {5},{-5, -2, -10, 0, -1},{8, 7, -5, 1, 2, -10},{-10, 1, 2, -5, 8, 7},
-                    {8, 7, -5, 1, 2, -10},{-10, 1, 2, -5, 8, 7}
+                        {}, {5},{-5, -2, -10, 0, -1},{8, 7, -5, 1, 2, -10},{-10, 1, 2, -5, 8, 7},{-10, 1, 2, -5, 8, 7}
 };
 
         for(int[] nums:numsArray)

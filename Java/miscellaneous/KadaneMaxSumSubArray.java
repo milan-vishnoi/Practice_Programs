@@ -1,23 +1,40 @@
 package miscellaneous;
 
+import java.util.Arrays;
+
 // Problem : https://leetcode.com/problems/maximum-subarray/
 public class KadaneMaxSumSubArray {
     public static int maxSubArray(int[] nums) {
         int maxSum = Integer.MIN_VALUE;
         int currentSum = Integer.MIN_VALUE;
+        int startIndex = 0;
+        int currentStartIndex = 0;
+        int endIndex = 0;
 
         for(int i=0; i<nums.length;i++)
         {   
             if(currentSum < 0 && currentSum < nums[i]) //Checking if sum is negative and less then current number.
-              currentSum = nums[i]; // Reset the start of subarray if the sum is -ve, start from the current number it is larger than sum 
+            {
+                currentSum = nums[i]; // Reset the start of subarray if the sum is -ve, start from the current number it is larger than sum 
+                currentStartIndex = i;
+            }
+              
             else
                currentSum+= nums[i]; // Expand the subarray i.e. Add the value only if they are positive
     
             if(maxSum < currentSum)
+            { 
                 maxSum = currentSum; //Update maxSum only if its less than currentSum
-
-            
+                startIndex = currentStartIndex;
+                endIndex = i;
+            }
         }
+        
+        System.out.print("Subarray with Max Sum:");
+
+        for(int i=startIndex; i <= endIndex; i++)
+        System.out.print(nums[i]+" ");
+
 
         return maxSum;
         
@@ -63,10 +80,21 @@ public class KadaneMaxSumSubArray {
     }
 
     public static void main(String[] args) {
-        int[] nums = {5,-3,-3,1};
+        int[][] numsArray = {{-2, 1, -3, 4, -1, 2, 1, -5, 4},
+                             {1, 2, 3, 4, 5},
+                            {-1, -2, -3, -4, -5},
+                        {}, {5},{-5, -2, -10, 0, -1},{8, 7, -5, 1, 2, -10},{-10, 1, 2, -5, 8, 7},
+                    {8, 7, -5, 1, 2, -10},{-10, 1, 2, -5, 8, 7}
+};
 
-        System.out.println("Max subarray sum:"+maxSubArray(nums));
-        System.out.println("Max subarray sum for circular array:"+maxSubarraySumCircular(nums));
+        for(int[] nums:numsArray)
+        {
+        System.out.println("Array:"+Arrays.toString(nums));
+        System.out.println("\nMax subarray sum:"+maxSubArray(nums));
+        System.out.println("Max subarray sum for circular array:"+maxSubarraySumCircular(nums)+"\n");
+        }
+
+
     }
     
 }

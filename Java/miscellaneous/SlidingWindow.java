@@ -1,6 +1,8 @@
 package miscellaneous;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SlidingWindow {
 
@@ -58,6 +60,27 @@ public class SlidingWindow {
         minSize = 0;
 
         return minSize;
+        
+    }
+
+        public static int lengthOfLongestSubstring(String s) {
+        Map<Character,Integer> indexTracker = new HashMap<>();
+        int startIndex = 0;
+        int maxLength = 0;
+
+        for(int i=0;i<s.length();i++)
+        {   
+            char currentChar = s.charAt(i);
+            if(indexTracker.containsKey(currentChar))
+            {
+                  startIndex = Math.max(startIndex,indexTracker.get(currentChar)+1);
+            }
+
+            indexTracker.put(currentChar,i);
+            maxLength = Math.max(maxLength,i-startIndex+1);
+
+        }
+        return maxLength;
         
     }
 

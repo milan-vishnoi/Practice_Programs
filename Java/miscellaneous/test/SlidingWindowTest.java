@@ -172,4 +172,74 @@ public class SlidingWindowTest {
         int target = 7;
         assertEquals(1, SlidingWindow.minSubArrayLen(target, nums), "Test Case 12 Failed: Subarray ends at the end");
     }
+
+    // Tests for lengthOfLongestSubstring
+    @Test
+    void testLengthOfLongestSubstring_EmptyString() {
+        assertEquals(0, SlidingWindow.lengthOfLongestSubstring(""), "Test Case LLS 1 Failed: Empty string");
+    }
+
+    @Test
+    void testLengthOfLongestSubstring_AllUniqueCharacters() {
+        assertEquals(5, SlidingWindow.lengthOfLongestSubstring("abcde"), "Test Case LLS 2 Failed: All unique characters");
+    }
+
+    @Test
+    void testLengthOfLongestSubstring_AllSameCharacters() {
+        assertEquals(1, SlidingWindow.lengthOfLongestSubstring("aaaaa"), "Test Case LLS 3 Failed: All same characters");
+    }
+
+    @Test
+    void testLengthOfLongestSubstring_GeneralCase1() {
+        assertEquals(3, SlidingWindow.lengthOfLongestSubstring("abcabcbb"), "Test Case LLS 4 Failed: General case 'abcabcbb'");
+    }
+
+    @Test
+    void testLengthOfLongestSubstring_GeneralCase2() {
+        assertEquals(1, SlidingWindow.lengthOfLongestSubstring("bbbbb"), "Test Case LLS 5 Failed: General case 'bbbbb'");
+    }
+
+    @Test
+    void testLengthOfLongestSubstring_GeneralCase3() {
+        assertEquals(3, SlidingWindow.lengthOfLongestSubstring("pwwkew"), "Test Case LLS 6 Failed: General case 'pwwkew'");
+    }
+
+    @Test
+    void testLengthOfLongestSubstring_SingleCharacter() {
+        assertEquals(1, SlidingWindow.lengthOfLongestSubstring("a"), "Test Case LLS 7 Failed: Single character");
+    }
+
+    @Test
+    void testLengthOfLongestSubstring_TwoDifferentCharacters() {
+        assertEquals(2, SlidingWindow.lengthOfLongestSubstring("au"), "Test Case LLS 8 Failed: Two different characters");
+    }
+
+    @Test
+    void testLengthOfLongestSubstring_RepeatingCharacterUpdateStartIndex() {
+        assertEquals(2, SlidingWindow.lengthOfLongestSubstring("abba"), "Test Case LLS 9 Failed: Repeating char updates start index 'abba'");
+    }
+
+    @Test
+    void testLengthOfLongestSubstring_LongestAtEnd() {
+        assertEquals(3, SlidingWindow.lengthOfLongestSubstring("dvdf"), "Test Case LLS 10 Failed: Longest substring at the end 'dvdf'");
+    }
+
+    @Test
+    void testLengthOfLongestSubstring_WithSpaces() {
+        assertEquals(3, SlidingWindow.lengthOfLongestSubstring(" a b "), "Test Case LLS 11 Failed: String with spaces ' a b '");
+    }
+
+    @Test
+    void testLengthOfLongestSubstring_ComplexCase() {
+        assertEquals(7, SlidingWindow.lengthOfLongestSubstring("abcadcbaefg"), "Test Case LLS 12 Failed: Complex string 'abcadcbaefg'");
+    }
+
+    @Test
+    void testLengthOfLongestSubstring_NoRepeat() {
+        assertEquals(7, SlidingWindow.lengthOfLongestSubstring("abcdefg"), "Test Case LLS 13 Failed: No repeating characters");
+    }
+     @Test
+    void testLengthOfLongestSubstring_SubstringAtStart() {
+        assertEquals(3, SlidingWindow.lengthOfLongestSubstring("abccde"), "Test Case LLS 14 Failed: Longest substring at start 'abccde'");
+    }
 }

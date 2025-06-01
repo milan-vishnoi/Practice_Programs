@@ -16,7 +16,7 @@ public class KadaneMaxSumSubArray {
 
         for(int i=0; i<nums.length;i++)
         {   
-            if(currentSum < 0 && currentSum < nums[i]) //Checking if sum is negative and less then current number.
+            if(currentSum < 0) //Checking if sum is negative, if yes then start from there
             {
                 currentSum = nums[i]; // Reset the start of subarray if the sum is -ve, start from the current number it is larger than sum 
                 currentStartIndex = i;
@@ -61,12 +61,12 @@ public class KadaneMaxSumSubArray {
         {  
             totalSum+=nums[i];
 
-            if(currentMaxSum < 0 && currentMaxSum < nums[i])
+            if(currentMaxSum < 0 )
                 currentMaxSum = nums[i]; 
             else
                 currentMaxSum+= nums[i];
 
-            if(currentMinSum > 0 && currentMinSum > nums[i])
+            if(currentMinSum > 0)
                 currentMinSum = nums[i];
             else
                 currentMinSum+=nums[i];

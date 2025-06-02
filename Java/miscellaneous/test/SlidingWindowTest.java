@@ -321,13 +321,7 @@ public class SlidingWindowTest {
     void testLongestAtEnd() {
         String s = "abccbadef";
         int k = 2;
-        assertEquals(4, SlidingWindow.lengthOfLongestSubstringKDistinct(s, k), // "ccba" or "cbab" or "bade" (4 distinct a,b,d,e)
-                                                                       // "abcc" (a,b,c) len 4
-                                                                       // "bccb" (b,c) len 4
-                                                                       // "ccba" (c,b,a) len 4
-                                                                       // "cbab" (c,b,a) len 4
-                                                                       // "bade" (b,a,d,e) 4 distinct, k=2, so this window shrinks.
-                                                                       // Expected longest is 4 (e.g. "bccb")
+        assertEquals(4, SlidingWindow.lengthOfLongestSubstringKDistinct(s, k),
                 "Test Case 10 Failed: Longest at end. For 'abccbadef' and k=2, longest is 4 (e.g., 'bccb')"
         );
     }
@@ -387,6 +381,22 @@ public class SlidingWindowTest {
         int k = 5;
         assertEquals(1, SlidingWindow.lengthOfLongestSubstringKDistinct(s, k),
                 "Test Case 17 Failed: Single character string, k > 1");
+}
+
+@Test
+void testEvictionBug() {
+    String s = "aabbcc";
+    int k = 2;
+    assertEquals(4, SlidingWindow.lengthOfLongestSubstringKDistinct(s, k),
+        "Eviction Bug: 'aabbcc' and k=2, longest is 'aabb' or 'bbcc' (length 4)");
+}
+
+@Test
+void testSpaceCharIncluded() {
+    String s = "a b c d";
+    int k = 2;
+    assertEquals(3, SlidingWindow.lengthOfLongestSubstringKDistinct(s, k),
+        "Spaces are valid ASCII. Longest: 'a b' or 'b c'");
 }
 
 }

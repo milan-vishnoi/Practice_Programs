@@ -88,7 +88,7 @@ public class SlidingWindow {
     public static int lengthOfLongestSubstringKDistinct(String s, int k)
     {
         int maxLength = 0;
-        int startIndex = 0;
+        int startWindow = 0;
         int distinctChars = 0;
         Map<Character,Integer> distinctCharIdxTracker = new HashMap<>();
         char currentChar, firstDistinctChar;
@@ -96,23 +96,23 @@ public class SlidingWindow {
         if(s==null || k == 0)
         return 0;
 
-        for(int i=0; i<s.length(); i++)
+        for(int endWindow=0; endWindow<s.length(); endWindow++)
         {
-             currentChar = s.charAt(i);
+             currentChar = s.charAt(endWindow);
              if(!distinctCharIdxTracker.containsKey(currentChar))
              {
                 distinctChars++;
                 if(distinctChars>k)
                 {
-                    firstDistinctChar = s.charAt(startIndex);
-                    startIndex = distinctCharIdxTracker.get(firstDistinctChar) + 1;
+                    firstDistinctChar = s.charAt(startWindow);
+                    startWindow = distinctCharIdxTracker.get(firstDistinctChar) + 1;
                     distinctCharIdxTracker.remove(firstDistinctChar);
                     distinctChars--;
                 }
 
              }
-             distinctCharIdxTracker.put(currentChar,i);
-             maxLength = Math.max(maxLength,i-startIndex+1);
+             distinctCharIdxTracker.put(currentChar,endWindow);
+             maxLength = Math.max(maxLength,endWindow-startWindow+1);
         }
 
 

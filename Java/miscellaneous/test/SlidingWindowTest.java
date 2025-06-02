@@ -242,4 +242,151 @@ public class SlidingWindowTest {
     void testLengthOfLongestSubstring_SubstringAtStart() {
         assertEquals(3, SlidingWindow.lengthOfLongestSubstring("abccde"), "Test Case LLS 14 Failed: Longest substring at start 'abccde'");
     }
+
+    @Test
+    void testExample1() {
+        String s = "eceba";
+        int k = 2;
+        assertEquals(3, SlidingWindow.lengthOfLongestSubstringKDistinct(s, k),
+                "Test Case 1 Failed: eceba, k=2 should be 3 (ece)");
+    }
+
+    @Test
+    void testExample2() {
+        String s = "aa";
+        int k = 1;
+        assertEquals(2, SlidingWindow.lengthOfLongestSubstringKDistinct(s, k),
+                "Test Case 2 Failed: aa, k=1 should be 2 (aa)");
+    }
+
+    @Test
+    void testLenIsZero() {
+        String s = "abcabcabc";
+        int k = 0;
+        assertEquals(0, SlidingWindow.lengthOfLongestSubstringKDistinct(s, k),
+                "Test Case 3 Failed: k=0 should always return 0");
+    }
+
+    @Test
+    void testEmptyString() {
+        String s = "";
+        int k = 2;
+        assertEquals(0, SlidingWindow.lengthOfLongestSubstringKDistinct(s, k),
+                "Test Case 4 Failed: Empty string should return 0");
+    }
+
+    @Test
+    void testNullString() {
+        String s = null;
+        int k = 2;
+        assertEquals(0, SlidingWindow.lengthOfLongestSubstringKDistinct(s, k),
+                "Test Case 5 Failed: Null string should return 0");
+    }
+
+    @Test
+    void testLenEqualsOne() {
+        String s = "abaccc";
+        int k = 1;
+        assertEquals(3, SlidingWindow.lengthOfLongestSubstringKDistinct(s, k),
+                "Test Case 6 Failed: k=1, abaccc should be 3 (ccc)");
+    }
+
+    @Test
+    void testKGreaterThanDistinctChars() {
+        String s = "abc";
+        int k = 5; 
+        assertEquals(3, SlidingWindow.lengthOfLongestSubstringKDistinct(s, k),
+                "Test Case 7 Failed: k > distinct chars, should return full string length");
+    }
+
+    @Test
+    void testAllCharsSame() {
+        String s = "aaaaa";
+        int k = 1;
+        assertEquals(5, SlidingWindow.lengthOfLongestSubstringKDistinct(s, k),
+                "Test Case 8 Failed: All same chars, k=1 should return full length");
+    }
+
+    @Test
+    void testLongestAtBeginning() {
+        String s = "abcdeffg";
+        int k = 3;
+        assertEquals(4, SlidingWindow.lengthOfLongestSubstringKDistinct(s, k),
+                "Test Case 9 Failed: Longest at beginning/middle. For 'abcdeffg' and k=3, longest is 4 (e.g., 'deff')"
+        );
+    }
+
+
+    @Test
+    void testLongestAtEnd() {
+        String s = "abccbadef";
+        int k = 2;
+        assertEquals(4, SlidingWindow.lengthOfLongestSubstringKDistinct(s, k), // "ccba" or "cbab" or "bade" (4 distinct a,b,d,e)
+                                                                       // "abcc" (a,b,c) len 4
+                                                                       // "bccb" (b,c) len 4
+                                                                       // "ccba" (c,b,a) len 4
+                                                                       // "cbab" (c,b,a) len 4
+                                                                       // "bade" (b,a,d,e) 4 distinct, k=2, so this window shrinks.
+                                                                       // Expected longest is 4 (e.g. "bccb")
+                "Test Case 10 Failed: Longest at end. For 'abccbadef' and k=2, longest is 4 (e.g., 'bccb')"
+        );
+    }
+
+    @Test
+    void testAlternatingChars() {
+        String s = "abababa";
+        int k = 2;
+        assertEquals(7, SlidingWindow.lengthOfLongestSubstringKDistinct(s, k),
+                "Test Case 11 Failed: Alternating chars, k=2 should be full length");
+    }
+
+    @Test
+    void testLargeString() {
+        String s = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"; // 52 chars, 26 distinct
+        int k = 26;
+        assertEquals(52, SlidingWindow.lengthOfLongestSubstringKDistinct(s, k),
+                "Test Case 12 Failed: Large string with k covering all distinct chars");
+    }
+
+    @Test
+    void testLargeStringWithSmallK() {
+        String s = "abcdeffghijkllmnoppqrstuvwxxyzaabbccddeeffgghhiijjkkllmmnnooppqqrrssttuuvvwwxxyyzz";
+        int k = 3;
+        assertEquals(6, SlidingWindow.lengthOfLongestSubstringKDistinct(s, k),
+                "Test Case 13 Failed: Large string with small k"
+        );
+    }
+
+    @Test
+    void testExactDistinctMatch() {
+        String s = "abacaba";
+        int k = 3; // Distinct: a, b, c
+        assertEquals(7, SlidingWindow.lengthOfLongestSubstringKDistinct(s, k),
+                "Test Case 14 Failed: Exact distinct match, should be full length");
+    }
+
+    @Test
+    void testMixedDistinctChars() {
+        String s = "worldisgreat";
+        int k = 4;
+        assertEquals(4, SlidingWindow.lengthOfLongestSubstringKDistinct(s, k),
+                "Test Case 15 Failed: Mixed distinct characters");
+    }
+
+    @Test
+    void testSingleCharacterString() {
+        String s = "a";
+        int k = 1;
+        assertEquals(1, SlidingWindow.lengthOfLongestSubstringKDistinct(s, k),
+                "Test Case 16 Failed: Single character string, k=1");
+    }
+
+    @Test
+    void testSingleCharacterString_kGreaterThan1() {
+        String s = "a";
+        int k = 5;
+        assertEquals(1, SlidingWindow.lengthOfLongestSubstringKDistinct(s, k),
+                "Test Case 17 Failed: Single character string, k > 1");
+}
+
 }

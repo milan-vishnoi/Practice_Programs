@@ -83,6 +83,41 @@ public class SlidingWindow {
         return maxLength;
         
     }
+    
+    //Problem : https://leetcode.com/problems/longest-substring-with-at-most-k-distinct-characters
+    public static int lengthOfLongestSubstringKDistinct(String s, int k)
+    {
+        int maxLength = 0;
+        int startIndex = 0;
+        int distinctChars = 0;
+        Map<Character,Integer> distinctCharIdxTracker = new HashMap<>();
+        char currentChar, firstDistinctChar;
+
+        if(s==null || k == 0)
+        return 0;
+
+        for(int i=0; i<s.length(); i++)
+        {
+             currentChar = s.charAt(i);
+             if(!distinctCharIdxTracker.containsKey(currentChar))
+             {
+                distinctChars++;
+                if(distinctChars>k)
+                {
+                    firstDistinctChar = s.charAt(startIndex);
+                    startIndex = distinctCharIdxTracker.get(firstDistinctChar) + 1;
+                    distinctCharIdxTracker.remove(firstDistinctChar);
+                    distinctChars--;
+                }
+
+             }
+             distinctCharIdxTracker.put(currentChar,i);
+             maxLength = Math.max(maxLength,i-startIndex+1);
+        }
+
+
+        return maxLength;
+    }
 
 
     public static void main(String[] args) {

@@ -384,11 +384,10 @@ public class SlidingWindowTest {
 }
 
 @Test
-void testEvictionBug() {
-    String s = "aabbcc";
+void testEvictionBugs() {
     int k = 2;
-    assertEquals(4, SlidingWindow.lengthOfLongestSubstringKDistinct(s, k),
-        "Eviction Bug: 'aabbcc' and k=2, longest is 'aabb' or 'bbcc' (length 4)");
+    assertEquals(5, SlidingWindow.lengthOfLongestSubstringKDistinct("babebebcd", k));
+    assertEquals(5, SlidingWindow.lengthOfLongestSubstringKDistinct("dddbcbbcdde", k));
 }
 
 @Test

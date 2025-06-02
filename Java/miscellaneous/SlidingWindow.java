@@ -93,8 +93,10 @@ public class SlidingWindow {
         Map<Character,Integer> distinctCharIdxTracker = new HashMap<>();
         char currentChar, firstDistinctChar;
 
-        if(s==null || k == 0)
+        if(s== null ||s.isEmpty()|| k == 0)
         return 0;
+
+        firstDistinctChar=s.charAt(0);
 
         for(int endWindow=0; endWindow<s.length(); endWindow++)
         {
@@ -102,12 +104,16 @@ public class SlidingWindow {
              if(!distinctCharIdxTracker.containsKey(currentChar))
              {
                 distinctChars++;
-                if(distinctChars>k)
+                while(distinctChars>k)
                 {
                     firstDistinctChar = s.charAt(startWindow);
-                    startWindow = distinctCharIdxTracker.get(firstDistinctChar) + 1;
-                    distinctCharIdxTracker.remove(firstDistinctChar);
-                    distinctChars--;
+                    while(firstDistinctChar==s.charAt(startWindow))
+                    startWindow++;
+                    if(distinctCharIdxTracker.get(firstDistinctChar) < startWindow)
+                    {
+                        distinctCharIdxTracker.remove(firstDistinctChar);
+                        distinctChars--;
+                   }
                 }
 
              }

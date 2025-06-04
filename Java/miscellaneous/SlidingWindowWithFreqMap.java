@@ -70,7 +70,6 @@ public class SlidingWindowWithFreqMap {
 
         int[] freqMap = new int[26];
         int[] currentMap = new int[26];
-        int validCount = 0;
         int start = 0;
         int currentChar = 0;
         int startChar = 0;
@@ -84,26 +83,20 @@ public class SlidingWindowWithFreqMap {
             if(freqMap[currentChar] != 0)
             {
                 currentMap[currentChar]++;
-                if(currentMap[currentChar] <= freqMap[currentChar])
-                validCount++;
 
                 startChar = s2.charAt(start) - 97;
 
                 if(end-start+1 == s1.length())
                 {
-                    if(validCount == s1.length())
+                    if(Arrays.equals(currentMap,freqMap))
                     return true;
-
-                    if(currentMap[startChar] <= freqMap[startChar])
-                    validCount--;
                     
                     currentMap[startChar]--;
                     start++;
                 }
             } else {
-                validCount=0;
                 start = end+1;
-                Arrays.fill(currentMap,0);
+               Arrays.fill(currentMap,0);
             }
             
         }

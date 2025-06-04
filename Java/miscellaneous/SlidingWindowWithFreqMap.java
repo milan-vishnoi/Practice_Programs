@@ -1,9 +1,8 @@
 package miscellaneous;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 public class SlidingWindowWithFreqMap {
 
@@ -27,29 +26,31 @@ public class SlidingWindowWithFreqMap {
        for(int end=0; end<s.length(); end++)
        {
         currentChar = s.charAt(end)-97;
-        if(frequencyMap[currentChar]!=0){
-            currentFrequency[currentChar]++;
-            if(currentFrequency[currentChar] <= frequencyMap[currentChar]) {
-                validValue++;
-            }
-         sChar = s.charAt(start) -97;
-
-        if(end-start+1 == p.length())
+        if(frequencyMap[currentChar]!=0)
         {
+            currentFrequency[currentChar]++;
+            if(currentFrequency[currentChar] <= frequencyMap[currentChar])
+                validValue++;   //Valid value only if current freq is less than or equal to in anagram string
 
-        if(validValue == p.length())
-           anagrams.add(start);
+            sChar = s.charAt(start) - 97;
+
+            if(end-start+1 == p.length())
+            {
+
+               if(validValue == p.length())
+                anagrams.add(start);  // Add the index to array if we have valid values equal to anagram string length
             
-        if(currentFrequency[sChar] <= frequencyMap[sChar])
-            validValue--;
+               if(currentFrequency[sChar] <= frequencyMap[sChar])
+                validValue--;      //Reduce validValue count only if we are removing a valid entry.
+                                  // for "abc" if a has 2 then it was invalid value so we won't reduce in such case
 
-            currentFrequency[sChar]--;
-            start++;
-        } 
+               currentFrequency[sChar]--;
+               start++;
+            } 
     }
      else
         {
-            currentFrequency = new int[26];
+            Arrays.fill(currentFrequency,0); // Resetting the current freqeuncy map
             validValue=0;
             start=end+1;
         }

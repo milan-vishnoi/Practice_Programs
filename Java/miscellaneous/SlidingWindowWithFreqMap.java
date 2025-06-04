@@ -13,49 +13,46 @@ public class SlidingWindowWithFreqMap {
        List<Integer> anagrams = new ArrayList<>();
        if( s==null || p==null || s.isEmpty()||p.isEmpty()||s.length()<p.length())
         return anagrams;
-       Map<Character,Integer> frequencyMap = new HashMap<>();
-       Map<Character,Integer> currentFrequency = new HashMap<>();
+
+       int[] frequencyMap = new int[26];
+       int[] currentFrequency = new int[26];
        int start=0;
-       int count = 0;
-       char currentChar;
+       int validValue = 0;
+       int currentChar;
+       int sChar;
+
        for(Character ch:p.toCharArray())
-       frequencyMap.put(ch,frequencyMap.getOrDefault(ch,0)+1);
+        frequencyMap[ch-97]++;
 
        for(int end=0; end<s.length(); end++)
        {
-        currentChar = s.charAt(end);
-        if(frequencyMap.containsKey(currentChar)){
-            currentFrequency.put(currentChar,currentFrequency.getOrDefault(currentChar,0)+1);
-            if(currentFrequency.get(currentChar) <= frequencyMap.get(currentChar)) {
-                count++;
+        currentChar = s.charAt(end)-97;
+        if(frequencyMap[currentChar]!=0){
+            currentFrequency[currentChar]++;
+            if(currentFrequency[currentChar] <= frequencyMap[currentChar]) {
+                validValue++;
             }
-        char sChar = s.charAt(start);
+         sChar = s.charAt(start) -97;
 
         if(end-start+1 == p.length())
         {
-        if(count == p.length())
-        {
-            anagrams.add(start);
 
-        }
+        if(validValue == p.length())
+           anagrams.add(start);
             
-            if(currentFrequency.get(sChar).intValue() <= frequencyMap.get(sChar).intValue()) {
-                count--;
-            }
-         
-            currentFrequency.put(sChar,currentFrequency.get(sChar)-1);
-            if(currentFrequency.get(sChar)==0)
-            currentFrequency.remove(sChar);
+        if(currentFrequency[sChar] <= frequencyMap[sChar])
+            validValue--;
 
+            currentFrequency[sChar]--;
             start++;
-        }
-        } else
+        } 
+    }
+     else
         {
-            currentFrequency.clear();
-            count=0;
+            currentFrequency = new int[26];
+            validValue=0;
             start=end+1;
         }
-       // System.out.println(count);
 
        }
 
@@ -63,6 +60,9 @@ public class SlidingWindowWithFreqMap {
 }
 
     public static void main(String[] args) {
+           
+        SlidingWindowWithFreqMap.findAnagrams("abcbasc", "abc");
+
         
     }
     

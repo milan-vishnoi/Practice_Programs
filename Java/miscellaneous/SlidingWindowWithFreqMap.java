@@ -60,9 +60,59 @@ public class SlidingWindowWithFreqMap {
        return anagrams;
 }
 
+    // Problem https://leetcode.com/problems/permutation-in-string/
+    public static boolean checkInclusion(String s1, String s2) {
+
+        if(s1== null || s2== null || s1.length()>s2.length())
+        return false;
+        else if(s1.isEmpty())
+        return true;
+
+        int[] freqMap = new int[26];
+        int[] currentMap = new int[26];
+        int validCount = 0;
+        int start = 0;
+        int currentChar = 0;
+        int startChar = 0;
+
+        for(Character ch: s1.toCharArray())
+        freqMap[ch-97]++;
+
+        for(int end=0; end<s2.length(); end++)
+        {
+            currentChar = s2.charAt(end) - 97;
+            if(freqMap[currentChar] != 0)
+            {
+                currentMap[currentChar]++;
+                if(currentMap[currentChar] <= freqMap[currentChar])
+                validCount++;
+
+                startChar = s2.charAt(start) - 97;
+
+                if(end-start+1 == s1.length())
+                {
+                    if(validCount == s1.length())
+                    return true;
+
+                    if(currentMap[startChar] <= freqMap[startChar])
+                    validCount--;
+                    
+                    currentMap[startChar]--;
+                    start++;
+                }
+            } else {
+                validCount=0;
+                start = end+1;
+                Arrays.fill(currentMap,0);
+            }
+            
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
            
-        SlidingWindowWithFreqMap.findAnagrams("abcbasc", "abc");
+        System.out.println(SlidingWindowWithFreqMap.findAnagrams("abcbasc", "abc"));
 
         
     }

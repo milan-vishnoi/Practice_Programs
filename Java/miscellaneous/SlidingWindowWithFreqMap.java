@@ -88,7 +88,7 @@ public class SlidingWindowWithFreqMap {
 
                 if(end-start+1 == s1.length())
                 {
-                    if(Arrays.equals(currentMap,freqMap))
+                    if(Arrays.equals(currentMap,freqMap)) // We write our method also and only compare req indices
                     return true;
                     
                     currentMap[startChar]--;
@@ -96,7 +96,8 @@ public class SlidingWindowWithFreqMap {
                 }
             } else {
                 start = end+1;
-               Arrays.fill(currentMap,0);
+                for(Character ch: s1.toCharArray())
+                  currentMap[ch-97] = 0 ;
             }
             
         }

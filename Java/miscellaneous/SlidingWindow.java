@@ -41,8 +41,6 @@ public class SlidingWindow {
         for(int i=0; i<nums.length; i++)
         {
             currentSum+= nums[i];
-            if(currentSum >= target)
-            {
             while(currentSum >= target)
             {
                 // if(i-startIndex+1 < minSize)
@@ -50,9 +48,6 @@ public class SlidingWindow {
                 minSize = Math.min(minSize,i-startIndex+1); // The above logic is equal to this line
                 currentSum-=nums[startIndex];
                 startIndex++;
-            }
-
-
             }
         }
 

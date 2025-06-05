@@ -126,7 +126,6 @@ public class SlidingWindowWithFreqMap {
       for(int end=0; end<s.length(); end++)
       {
         currentChar = s.charAt(end) - 65;
-        System.out.println(end+":"+s.charAt(end));
         if(freqMap[currentChar] != 0)
         {
             currentFreqMap[currentChar]++;
@@ -139,12 +138,6 @@ public class SlidingWindowWithFreqMap {
          while(validCount == t.length())
          {
             startChar = s.charAt(start) -65;
-            while(start < end && freqMap[s.charAt(start)-65] == 0)
-            {
-                start++;
-                startChar = s.charAt(start) -65;
-            }
-
 
             if(minLength > end-start+1)
             {
@@ -154,7 +147,7 @@ public class SlidingWindowWithFreqMap {
             }
             
 
-            if(currentFreqMap[startChar] <= freqMap[startChar])
+            if(currentFreqMap[startChar] <= freqMap[startChar] &&  freqMap[startChar] != 0)
             validCount--;
            
             currentFreqMap[startChar]--;

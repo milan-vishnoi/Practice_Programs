@@ -166,9 +166,6 @@ public class SlidingWindowWithFreqMap {
 
       result = minLength==-1?"":s.substring(minStartIndex, minEndIndex+1);
 
-    //   for(int i=minStartIndex; i<=minEndIndex;i++)
-    //   result+=s.charAt(i);
-
       return result;
         
     }

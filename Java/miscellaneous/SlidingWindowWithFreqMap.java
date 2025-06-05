@@ -104,9 +104,75 @@ public class SlidingWindowWithFreqMap {
         return false;
     }
 
+    public static String minWindow(String s, String t) {
+      String result = "";
+      int[] freqMap = new int[58];
+      int[] currentFreqMap = new int[58];
+      int start=0;
+      int minLength = Integer.MAX_VALUE;
+      int currentChar = 0;
+      int validCount = 0;
+      int minStartIndex = 0;
+      int minEndIndex = -1;
+      int startChar = 0;
+
+      if(s==null|| t==null||t.length() > s.length() || t.isEmpty() || s.isEmpty())
+      return result;
+
+      for(Character ch:t.toCharArray())
+      freqMap[ch-65]++;
+
+      for(int end=0; end<s.length(); end++)
+      {
+        currentChar = s.charAt(end) - 65;
+        System.out.println(end+":"+s.charAt(end));
+        if(freqMap[currentChar] != 0)
+        {
+            currentFreqMap[currentChar]++;
+            if(currentFreqMap[currentChar] <= freqMap[currentChar])
+            validCount++;
+
+        }
+
+
+         while(validCount == t.length())
+         {
+            startChar = s.charAt(start) -65;
+            while(start < end && freqMap[s.charAt(start)-65] == 0)
+            {
+                start++;
+                startChar = s.charAt(start) -65;
+            }
+
+
+            if(minLength > end-start+1)
+            {
+                minLength = end-start+1;
+                minStartIndex = start;
+                minEndIndex = end;
+            }
+            
+
+            if(currentFreqMap[startChar] <= freqMap[startChar])
+            validCount--;
+           
+            currentFreqMap[startChar]--;
+            start++;
+         }
+
+
+      }
+
+      for(int i=minStartIndex; i<=minEndIndex;i++)
+      result+=s.charAt(i);
+
+      return result;
+        
+    }
+
     public static void main(String[] args) {
            
-        System.out.println(SlidingWindowWithFreqMap.findAnagrams("abcbasc", "abc"));
+        System.out.println(SlidingWindowWithFreqMap.minWindow("ADOBECODEBANC", "ABC"));
 
         
     }

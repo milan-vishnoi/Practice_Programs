@@ -104,6 +104,7 @@ public class SlidingWindowWithFreqMap {
         return false;
     }
 
+    //Problem https://leetcode.com/problems/minimum-window-substring/
     public static String minWindow(String s, String t) {
       String result = "";
       int[] freqMap = new int[58];
@@ -163,8 +164,10 @@ public class SlidingWindowWithFreqMap {
 
       }
 
-      for(int i=minStartIndex; i<=minEndIndex;i++)
-      result+=s.charAt(i);
+      result = minLength==-1?"":s.substring(minStartIndex, minEndIndex+1);
+
+    //   for(int i=minStartIndex; i<=minEndIndex;i++)
+    //   result+=s.charAt(i);
 
       return result;
         

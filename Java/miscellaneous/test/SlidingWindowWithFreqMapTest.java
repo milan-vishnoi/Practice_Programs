@@ -425,39 +425,12 @@ public class SlidingWindowWithFreqMapTest {
     void testMinWindow_LongStringComplex() {
         String s = "aaaaaaaaaaaabbbbbcdd";
         String t = "abcdd";
-        // 'a' (at index 11), 'b' (at 12), 'c' (at 17), 'd' (at 18), 'd' (at 19) => length 8
-        // or 'a' (at 7), 'b' (at 12), 'c' (at 17), 'd' (at 18), 'd' (at 19) => length 13
-        // This problem needs the *minimum* window.
-        // ADOBECODEBANC, ABC -> BANC (length 4)
-        // aaaaaaaaaaaabbbbbcdd, abcdd
-        // The characters needed are a:1, b:1, c:1, d:2
-        // Window "abbbbcdd" from index 11 to 19 (length 9)
-        // The first 'a' we need is the last 'a' at index 11.
         String expected = "abbbbbcdd"; // The substring starts from the last 'a'
         assertEquals(expected, SlidingWindowWithFreqMap.minWindow(s, t), "MinWindow Test Case 16 Failed: Long complex string");
     }
 
     @Test
     void testMinWindow_TIsSingleCharacterRepeated() {
-        String s = "abracadabra";
-        String t = "aaaaa";
-        String expected = "abracada"; // The first 'a' and enough 'a's from the rest.
-        // Expected substring from "a" at index 0 to "a" at index 7: "abracada" (length 8)
-        // Count: a:5, b:1, r:1, c:1, d:1
-        // Smallest window containing 5 'a's is "abracadabra" itself if we take all 'a's
-        // Or consider "abracadabra" has 5 'a's.
-        // It should be 'abracada'.
-        // a at 0, a at 3, a at 5, a at 7, a at 10 (total 5 'a's)
-        // From 0: "abracadabra" (length 11) - contains all 5 'a's
-        // From 3: "acadabra" (length 8) - contains 4 'a's. No.
-        // It depends on the algorithm's greedy approach.
-        // Let's trace it: a:1, b:1, r:1, a:2, c:1, a:3, d:1, a:4, b:1, r:1, a:5
-        // "abracadabra" contains 5 'a's.
-        // The first 5 'a's are at indices 0, 3, 5, 7, 10.
-        // To get 5 'a's, the minimum window ending at index 10 would be from index 0 ("abracadabra"). Length 11.
-        // What about "aaaaa"? If `t` is "aaaaa", and `s` is "aaabbbaaa", minimum is "aaabbbaaa" (length 9).
-        // My expected for `abracadabra` and `aaaaa` would be the whole string.
-        // Let's change this test to something simpler:
         String s2 = "aaabbbaacde";
         String t2 = "aaa";
         String expected2 = "aaa";
@@ -492,19 +465,7 @@ public class SlidingWindowWithFreqMapTest {
     void testMinWindow_TIsSubsetOfSButScattered() {
         String s = "acbdbe";
         String t = "abe";
-        String expected = "acbdbe"; // Or maybe "cbdbe" or "cbe"?
-        // a,b,e
-        // "acbdbe" contains all. Length 6.
-        // Let's manually trace for "acbdbe", "abe"
-        // a (0): Map:{a:1}
-        // c (1): Map:{a:1, c:1}
-        // b (2): Map:{a:1, b:1, c:1} -> Found 'a','b'. Need 'e'.
-        // d (3): Map:{a:1, b:1, c:1, d:1}
-        // b (4): Map:{a:1, b:2, c:1, d:1}
-        // e (5): Map:{a:1, b:2, c:1, d:1, e:1} -> Found 'a','b','e'. Valid window: "acbdbe" (len 6). minLen=6.
-        // Shrink: remove 'a'. Window: "cbdbe". Map:{b:2, c:1, d:1, e:1}. 'a' not in window. Need one 'a'.
-        // Remove 'c'. Window: "bdbe". Map:{b:2, d:1, e:1}. Need 'a'.
-        // MinWindow should be "acbdbe"
+        String expected = "acbdbe"; 
         assertEquals(expected, SlidingWindowWithFreqMap.minWindow(s, t), "MinWindow Test Case 21 Failed: t is subset of s but scattered");
     }
 

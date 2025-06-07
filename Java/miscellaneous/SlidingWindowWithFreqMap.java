@@ -162,10 +162,47 @@ public class SlidingWindowWithFreqMap {
       return result;
         
     }
+     
+    // Problem https://leetcode.com/problems/longest-repeating-character-replacement/
+     public static int characterReplacement(String s, int k) {
+
+        if(s==null || s.isEmpty())
+        return 0;
+        
+        int result=0;
+        int[] freqMap = new int[26];
+        int maxFreq = 0;
+        int currentChar;
+        int start=0;
+        int windowLength;
+
+        for(int end=0; end<s.length(); end++)
+        {
+            currentChar = s.charAt(end) - 65;
+            freqMap[currentChar]++;
+            windowLength = end-start+1;
+
+            if(freqMap[currentChar] > maxFreq)
+             maxFreq = freqMap[currentChar];
+             
+            while(windowLength - maxFreq > k) // Loop while window invalid i.e. has more than k other chars
+            {
+                freqMap[s.charAt(start)-65]--;
+                start++;
+                windowLength = end - start + 1;
+            }
+
+            result = Math.max(result,windowLength);
+
+        }
+
+        return result;
+    }
 
     public static void main(String[] args) {
            
-        System.out.println(SlidingWindowWithFreqMap.minWindow("ADOBECODEBANC", "ABC"));
+        //System.out.println(SlidingWindowWithFreqMap.minWindow("ADOBECODEBANC", "ABC"));
+        System.out.println(characterReplacement("ABAA", 0));
 
         
     }

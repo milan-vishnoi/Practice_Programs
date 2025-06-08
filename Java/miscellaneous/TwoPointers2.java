@@ -39,7 +39,24 @@ public class TwoPointers2 {
         }
         for(int i = start;i<nums.length;i++)
         nums[i]=0;
-    }    
+    }
+    
+    public static int removeElement(int[] nums, int val) {
+        int start=0;
+        if(nums==null)
+        throw new NullPointerException("You have given a null array!!");
+
+        for(int end=0; end<nums.length;end++)
+        {
+            if(nums[end]!=val)
+            {
+                nums[start] = nums[end];
+                start++;
+            }
+        }
+        
+        return start;
+    }   
 
     public static void main(String[] args) {
         

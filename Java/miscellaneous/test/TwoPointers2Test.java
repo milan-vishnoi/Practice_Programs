@@ -18,6 +18,24 @@ public class TwoPointers2Test {
         return Arrays.copyOfRange(array, 0, length);
     }
 
+    private void assertArrayContentEqualsRegardlessOrder(int[] actualArray, int actualLength, int[] expectedContent, String message) {
+        // Handle cases where actualLength is 0 (empty result)
+        if (actualLength == 0) {
+            assertEquals(0, expectedContent.length, message + ": Expected empty array content.");
+            return;
+        }
+
+        // Extract the relevant part of the actual array
+        int[] actualSubArray = Arrays.copyOf(actualArray, actualLength);
+        
+        // Sort both for comparison
+        Arrays.sort(actualSubArray);
+        Arrays.sort(expectedContent);
+
+        assertArrayEquals(expectedContent, actualSubArray, message + ": Array content mismatch.");
+    }
+
+
     // --- Test Cases for removeDuplicates (LeetCode 80: Remove Duplicates from Sorted Array II) ---
 
     @Test
@@ -280,5 +298,171 @@ public class TwoPointers2Test {
         int[] nums = null;
         assertThrows(NullPointerException.class, () -> TwoPointers2.moveZeroes(nums),
                 "MoveZeroes Test Case 12 Failed: Should throw NullPointerException for null array");
+    }
+
+    // --- Test Cases for removeElement (LeetCode 27) ---
+
+    @Test
+    void testRemoveElement_Example1() {
+        int[] nums = {3, 2, 2, 3};
+        int val = 3;
+        int expectedLength = 2;
+        int[] expectedContent = {2, 2}; // Elements that should remain
+
+        int actualLength = TwoPointers2.removeElement(nums, val);
+
+        assertEquals(expectedLength, actualLength, "RemoveElement Test Case 1 Failed: Returned length incorrect");
+        assertArrayContentEqualsRegardlessOrder(nums, actualLength, expectedContent, "RemoveElement Test Case 1 Failed");
+    }
+
+    @Test
+    void testRemoveElement_Example2() {
+        int[] nums = {0, 1, 2, 2, 3, 0, 4, 2};
+        int val = 2;
+        int expectedLength = 5;
+        int[] expectedContent = {0, 1, 3, 0, 4}; // Elements that should remain (order doesn't matter)
+
+        int actualLength = TwoPointers2.removeElement(nums, val);
+
+        assertEquals(expectedLength, actualLength, "RemoveElement Test Case 2 Failed: Returned length incorrect");
+        assertArrayContentEqualsRegardlessOrder(nums, actualLength, expectedContent, "RemoveElement Test Case 2 Failed");
+    }
+
+    @Test
+    void testRemoveElement_ValNotPresent() {
+        int[] nums = {1, 2, 3, 4, 5};
+        int val = 6; // Value not in array
+        int expectedLength = 5;
+        int[] expectedContent = {1, 2, 3, 4, 5};
+
+        int actualLength = TwoPointers2.removeElement(nums, val);
+
+        assertEquals(expectedLength, actualLength, "RemoveElement Test Case 3 Failed: Val not present - length incorrect");
+        assertArrayContentEqualsRegardlessOrder(nums, actualLength, expectedContent, "RemoveElement Test Case 3 Failed: Val not present - content incorrect");
+    }
+
+    @Test
+    void testRemoveElement_AllElementsAreVal() {
+        int[] nums = {7, 7, 7, 7, 7};
+        int val = 7;
+        int expectedLength = 0;
+        int[] expectedContent = {}; // No elements should remain
+
+        int actualLength = TwoPointers2.removeElement(nums, val);
+
+        assertEquals(expectedLength, actualLength, "RemoveElement Test Case 4 Failed: All elements are val - length incorrect");
+        assertArrayContentEqualsRegardlessOrder(nums, actualLength, expectedContent, "RemoveElement Test Case 4 Failed: All elements are val - content incorrect");
+    }
+
+    @Test
+    void testRemoveElement_EmptyArray() {
+        int[] nums = {};
+        int val = 0;
+        int expectedLength = 0;
+        int[] expectedContent = {};
+
+        int actualLength = TwoPointers2.removeElement(nums, val);
+
+        assertEquals(expectedLength, actualLength, "RemoveElement Test Case 5 Failed: Empty array - length incorrect");
+        assertArrayContentEqualsRegardlessOrder(nums, actualLength, expectedContent, "RemoveElement Test Case 5 Failed: Empty array - content incorrect");
+    }
+
+    @Test
+    void testRemoveElement_SingleElement_IsVal() {
+        int[] nums = {5};
+        int val = 5;
+        int expectedLength = 0;
+        int[] expectedContent = {};
+
+        int actualLength = TwoPointers2.removeElement(nums, val);
+
+        assertEquals(expectedLength, actualLength, "RemoveElement Test Case 6 Failed: Single element is val - length incorrect");
+        assertArrayContentEqualsRegardlessOrder(nums, actualLength, expectedContent, "RemoveElement Test Case 6 Failed: Single element is val - content incorrect");
+    }
+
+    @Test
+    void testRemoveElement_SingleElement_IsNotVal() {
+        int[] nums = {5};
+        int val = 3;
+        int expectedLength = 1;
+        int[] expectedContent = {5};
+
+        int actualLength = TwoPointers2.removeElement(nums, val);
+
+        assertEquals(expectedLength, actualLength, "RemoveElement Test Case 7 Failed: Single element is not val - length incorrect");
+        assertArrayContentEqualsRegardlessOrder(nums, actualLength, expectedContent, "RemoveElement Test Case 7 Failed: Single element is not val - content incorrect");
+    }
+
+    @Test
+    void testRemoveElement_ValAtBeginning() {
+        int[] nums = {1, 2, 3, 4, 5};
+        int val = 1;
+        int expectedLength = 4;
+        int[] expectedContent = {2, 3, 4, 5};
+
+        int actualLength = TwoPointers2.removeElement(nums, val);
+
+        assertEquals(expectedLength, actualLength, "RemoveElement Test Case 8 Failed: Val at beginning - length incorrect");
+        assertArrayContentEqualsRegardlessOrder(nums, actualLength, expectedContent, "RemoveElement Test Case 8 Failed: Val at beginning - content incorrect");
+    }
+
+    @Test
+    void testRemoveElement_ValAtEnd() {
+        int[] nums = {1, 2, 3, 4, 5};
+        int val = 5;
+        int expectedLength = 4;
+        int[] expectedContent = {1, 2, 3, 4};
+
+        int actualLength = TwoPointers2.removeElement(nums, val);
+
+        assertEquals(expectedLength, actualLength, "RemoveElement Test Case 9 Failed: Val at end - length incorrect");
+        assertArrayContentEqualsRegardlessOrder(nums, actualLength, expectedContent, "RemoveElement Test Case 9 Failed: Val at end - content incorrect");
+    }
+
+    @Test
+    void testRemoveElement_MixedElements() {
+        int[] nums = {4, 2, 0, 0, 1, 0, 3, 4};
+        int val = 0;
+        int expectedLength = 5;
+        int[] expectedContent = {4, 2, 1, 3, 4};
+
+        int actualLength = TwoPointers2.removeElement(nums, val);
+
+        assertEquals(expectedLength, actualLength, "RemoveElement Test Case 10 Failed: Mixed elements - length incorrect");
+        assertArrayContentEqualsRegardlessOrder(nums, actualLength, expectedContent, "RemoveElement Test Case 10 Failed: Mixed elements - content incorrect");
+    }
+
+    @Test
+    void testRemoveElement_LongArray() {
+        int[] nums = {1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3};
+        int val = 2;
+        int expectedLength = 8;
+        int[] expectedContent = {1, 3, 1, 3, 1, 3, 1, 3};
+
+        int actualLength = TwoPointers2.removeElement(nums, val);
+
+        assertEquals(expectedLength, actualLength, "RemoveElement Test Case 11 Failed: Long array - length incorrect");
+        assertArrayContentEqualsRegardlessOrder(nums, actualLength, expectedContent, "RemoveElement Test Case 11 Failed: Long array - content incorrect");
+    }
+
+    @Test
+    void testRemoveElement_NegativeNumbers() {
+        int[] nums = {-1, -2, 0, -2, -1, 0, 5};
+        int val = -2;
+        int expectedLength = 5;
+        int[] expectedContent = {-1, 0, -1, 0, 5};
+
+        int actualLength = TwoPointers2.removeElement(nums, val);
+
+        assertEquals(expectedLength, actualLength, "RemoveElement Test Case 12 Failed: Negative numbers - length incorrect");
+        assertArrayContentEqualsRegardlessOrder(nums, actualLength, expectedContent, "RemoveElement Test Case 12 Failed: Negative numbers - content incorrect");
+    }
+
+    @Test
+    void testRemoveElement_NullArray() {
+        int[] nums = null;
+        int val = 0;
+        assertThrows(NullPointerException.class, () -> TwoPointers2.removeElement(nums, val),
+                "RemoveElement Test Case 13 Failed: Should throw NullPointerException for null array");
     }
 }

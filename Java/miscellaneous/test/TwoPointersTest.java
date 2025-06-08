@@ -274,5 +274,125 @@ public class TwoPointersTest {
         assertListsAreEqualIgnoringOrder(expected, TwoPointers.threeSum(nums), "ThreeSum Test Case 15 Failed: No solution with scattered values");
     }
 
+     // --- Test Cases for maxArea (LeetCode 11) ---
+
+    @Test
+    void testMaxArea_Example1() {
+        int[] height = {1, 8, 6, 2, 5, 4, 8, 3, 7};
+        int expected = 49;
+        assertEquals(expected, TwoPointers.maxArea(height), "MaxArea Test Case 1 Failed: Example 1 from LeetCode");
+    }
+
+    @Test
+    void testMaxArea_Example2() {
+        int[] height = {1, 1};
+        int expected = 1;
+        assertEquals(expected, TwoPointers.maxArea(height), "MaxArea Test Case 2 Failed: Example 2 from LeetCode - Two identical heights");
+    }
+
+    @Test
+    void testMaxArea_IncreasingHeights() {
+        int[] height = {1, 2, 3, 4, 5, 6, 7, 8};
+        int expected = 7 * 7; // min(1,8) * (7-0) = 1 * 7 = 7. No, min(8,1) * (7-0) = 1*7. Max area is 7*4=28
+        // For increasing heights: maxArea(i, j) = min(height[i], height[j]) * (j-i).
+        // (1,8) distance 7, min 1 -> area 7
+        // (8,7) distance 1, min 7 -> area 7
+        // (1,7) distance 6, min 1 -> area 6
+        // The optimal pair will always be at the ends (height[0], height[n-1]) or close to it,
+        // often the second largest with the largest distance.
+        // For {1,2,3,4,5,6,7,8}, the max area is formed by (1,8) => 1*7=7.
+        // But if you consider (4,5) at distance 1, it's 4.
+        // The two pointers move inward.
+        // L=1, R=8, Area=min(1,8)*7 = 7. Move L.
+        // L=2, R=8, Area=min(2,8)*6 = 12. Move L.
+        // L=3, R=8, Area=min(3,8)*5 = 15. Move L.
+        // L=4, R=8, Area=min(4,8)*4 = 16. Move L.
+        // L=5, R=8, Area=min(5,8)*3 = 15. Move L.
+        // L=6, R=8, Area=min(6,8)*2 = 12. Move L.
+        // L=7, R=8, Area=min(7,8)*1 = 7. Move L.
+        expected = 16;
+        assertEquals(expected, TwoPointers.maxArea(height), "MaxArea Test Case 3 Failed: Increasing heights");
+    }
+
+    @Test
+    void testMaxArea_DecreasingHeights() {
+        int[] height = {8, 7, 6, 5, 4, 3, 2, 1};
+        int expected = 16; // Same logic as increasing, symmetric
+        assertEquals(expected, TwoPointers.maxArea(height), "MaxArea Test Case 4 Failed: Decreasing heights");
+    }
+
+    @Test
+    void testMaxArea_AllSameHeights() {
+        int[] height = {5, 5, 5, 5, 5};
+        int expected = 5 * (5 - 1); // min(5,5) * (4) = 20
+        assertEquals(expected, TwoPointers.maxArea(height), "MaxArea Test Case 5 Failed: All same heights");
+    }
+
+    @Test
+    void testMaxArea_ContainsZeros() {
+        int[] height = {0, 2, 0, 4, 0, 6, 0, 8, 0};
+        int expected = 8; // min(2,8) * (7-1) = 2 * 6 = 12. No.
+        // (0,8) dist 7, min 0 -> area 0
+        // (2,8) dist 6, min 2 -> area 12
+        // (4,8) dist 4, min 4 -> area 16
+        // (6,8) dist 2, min 6 -> area 12
+        expected = 16; // from heights 4 and 8
+        assertEquals(expected, TwoPointers.maxArea(height), "MaxArea Test Case 6 Failed: Contains zeros");
+    }
+
+    @Test
+    void testMaxArea_TwoElementsOnly() {
+        int[] height = {7, 8};
+        int expected = 7; // min(7,8) * (1-0) = 7 * 1 = 7
+        assertEquals(expected, TwoPointers.maxArea(height), "MaxArea Test Case 7 Failed: Only two elements");
+    }
+
+    @Test
+    void testMaxArea_FluctuatingHeights() {
+        int[] height = {4, 3, 2, 1, 4};
+        int expected = 16;
+        assertEquals(expected, TwoPointers.maxArea(height), "MaxArea Test Case 8 Failed: Fluctuating heights");
+        int[] height2 = {2,3,4,5,18,17,6};
+        assertEquals(17, TwoPointers.maxArea(height2), "MaxArea Test Case 8 Failed: Fluctuating heights");
+    }
+
+
+    @Test
+    void testMaxArea_VeryLargeHeights() {
+        int[] height = {10000, 1, 2, 3, 4, 5, 6, 10000};
+        int expected = 10000 * 7; // min(10000, 10000) * (7-0) = 70000
+        assertEquals(expected, TwoPointers.maxArea(height), "MaxArea Test Case 9 Failed: Very large heights");
+    }
+
+    @Test
+    void testMaxArea_SkewedHeights() {
+        int[] height = {1, 2, 100, 3, 4, 5, 99};
+        int expected = 396;
+        assertEquals(expected, TwoPointers.maxArea(height), "MaxArea Test Case 10 Failed: Skewed heights");
+    }
+
+    @Test
+    void testMaxArea_NullArray() {
+        int[] height = null;
+        int expected = 0;
+        assertEquals(expected, TwoPointers.maxArea(height), "MaxArea Test Case 11 Failed: Null array input");
+    }
+
+    @Test
+    void testMaxArea_SingleElementArray() {
+        // Problem constraints usually state n >= 2, but for robustness
+        int[] height = {5};
+        // If n < 2, the area is 0 because no container can be formed.
+        int expected = 0;
+        assertEquals(expected, TwoPointers.maxArea(height), "MaxArea Test Case 12 Failed: Single element array");
+    }
+
+    @Test
+    void testMaxArea_ZeroHeightBars() {
+        int[] height = {0, 0, 0, 0, 0};
+        int expected = 0;
+        assertEquals(expected, TwoPointers.maxArea(height), "MaxArea Test Case 13 Failed: All zero height bars");
+    }
+
     
 }

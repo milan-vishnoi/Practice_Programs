@@ -70,10 +70,35 @@ public class TwoPointers {
         
     }
 
+    public static int maxArea(int[] height) {
+        int maxArea = 0;
+        if(height == null || height.length < 2)
+        return maxArea;
+        int start=0;
+        int end = height.length - 1;
+
+        while(start<end)
+        {
+            if(height[start]<height[end])
+            {
+              maxArea = Math.max(maxArea,(end-start)*height[start]);
+              start++;
+            }
+            else
+            {
+             maxArea = Math.max(maxArea,(end-start)* height[end]);
+             end--;            
+            }
+        }
+
+        return maxArea;
+        
+    }    
+
     
     public static void main(String[] args) {
-        int[] arr = {0,0,0,0};
-        System.out.println(threeSum(arr));
+        int[] arr = {1,8,6,2,5,4,8,3,7};
+        System.out.println(maxArea(arr));
     }
     
 }

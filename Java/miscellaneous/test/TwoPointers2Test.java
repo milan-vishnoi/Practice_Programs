@@ -162,4 +162,123 @@ public class TwoPointers2Test {
         assertEquals(expectedLength, actualLength, "Test Case 12 Failed: Length mismatch for null array");
         // No array content assertion needed as nums is null.
     }
+
+        // --- Test Cases for moveZeroes (LeetCode 283) ---
+
+    @Test
+    void testMoveZeroes_Example1() {
+        int[] nums = {0, 1, 0, 3, 12};
+        int[] expected = {1, 3, 12, 0, 0};
+        
+        TwoPointers2.moveZeroes(nums); // Call the method to modify in-place
+        
+        assertArrayEquals(expected, nums, "MoveZeroes Test Case 1 Failed: Basic example");
+    }
+
+    @Test
+    void testMoveZeroes_Example2() {
+        int[] nums = {0};
+        int[] expected = {0};
+        
+        TwoPointers2.moveZeroes(nums);
+        
+        assertArrayEquals(expected, nums, "MoveZeroes Test Case 2 Failed: Single zero element");
+    }
+
+    @Test
+    void testMoveZeroes_NoZeroes() {
+        int[] nums = {1, 2, 3, 4, 5};
+        int[] expected = {1, 2, 3, 4, 5}; // Should remain unchanged
+        
+        TwoPointers2.moveZeroes(nums);
+        
+        assertArrayEquals(expected, nums, "MoveZeroes Test Case 3 Failed: No zeroes in array");
+    }
+
+    @Test
+    void testMoveZeroes_AllZeroes() {
+        int[] nums = {0, 0, 0, 0, 0};
+        int[] expected = {0, 0, 0, 0, 0}; // Should remain unchanged
+        
+        TwoPointers2.moveZeroes(nums);
+        
+        assertArrayEquals(expected, nums, "MoveZeroes Test Case 4 Failed: All zeroes in array");
+    }
+
+    @Test
+    void testMoveZeroes_SingleNonZeroElement() {
+        int[] nums = {7};
+        int[] expected = {7};
+        
+        TwoPointers2.moveZeroes(nums);
+        
+        assertArrayEquals(expected, nums, "MoveZeroes Test Case 5 Failed: Single non-zero element");
+    }
+
+    @Test
+    void testMoveZeroes_ZeroesAtBeginning() {
+        int[] nums = {0, 0, 1, 2, 3};
+        int[] expected = {1, 2, 3, 0, 0};
+        
+        TwoPointers2.moveZeroes(nums);
+        
+        assertArrayEquals(expected, nums, "MoveZeroes Test Case 6 Failed: Zeroes at the beginning");
+    }
+
+    @Test
+    void testMoveZeroes_ZeroesAtEnd() {
+        int[] nums = {1, 2, 3, 0, 0};
+        int[] expected = {1, 2, 3, 0, 0}; // Should remain unchanged
+        
+        TwoPointers2.moveZeroes(nums);
+        
+        assertArrayEquals(expected, nums, "MoveZeroes Test Case 7 Failed: Zeroes already at the end");
+    }
+
+    @Test
+    void testMoveZeroes_AlternatingZeroes() {
+        int[] nums = {1, 0, 2, 0, 3, 0, 4};
+        int[] expected = {1, 2, 3, 4, 0, 0, 0};
+        
+        TwoPointers2.moveZeroes(nums);
+        
+        assertArrayEquals(expected, nums, "MoveZeroes Test Case 8 Failed: Alternating zeroes and non-zeroes");
+    }
+
+    @Test
+    void testMoveZeroes_LargeArray() {
+        int[] nums = {0, 1, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6, 0, 7, 0, 8, 0, 9, 0, 10, 0};
+        int[] expected = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        
+        TwoPointers2.moveZeroes(nums);
+        
+        assertArrayEquals(expected, nums, "MoveZeroes Test Case 9 Failed: Large array with many zeroes");
+    }
+
+    @Test
+    void testMoveZeroes_NegativeNumbers() {
+        int[] nums = {-1, 0, -2, 0, -3};
+        int[] expected = {-1, -2, -3, 0, 0};
+        
+        TwoPointers2.moveZeroes(nums);
+        
+        assertArrayEquals(expected, nums, "MoveZeroes Test Case 10 Failed: Array with negative numbers");
+    }
+
+    @Test
+    void testMoveZeroes_EmptyArray() {
+        int[] nums = {};
+        int[] expected = {};
+        
+        TwoPointers2.moveZeroes(nums);
+        
+        assertArrayEquals(expected, nums, "MoveZeroes Test Case 11 Failed: Empty array");
+    }
+
+    @Test
+    void testMoveZeroes_NullArray() {
+        int[] nums = null;
+        assertThrows(NullPointerException.class, () -> TwoPointers2.moveZeroes(nums),
+                "MoveZeroes Test Case 12 Failed: Should throw NullPointerException for null array");
+    }
 }

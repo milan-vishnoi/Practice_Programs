@@ -56,7 +56,65 @@ public class TwoPointers2 {
         }
         
         return start;
-    }   
+    }
+    
+   public static boolean backspaceCompare(String s, String t) {
+
+    if(s==null || t==null)
+    throw new NullPointerException();
+        int bs1 = 0;
+        int bs2 = 0;
+        int i = s.length()-1;
+        int j = t.length()-1;
+
+        while(i>=0 || j>=0)
+        {
+            while(i>=0)
+            {
+            if(s.charAt(i)=='#') 
+            {
+               bs1++;
+               i--;
+            }   
+            else if(bs1>0)
+            {
+                i--;
+                bs1--;
+            }
+            else
+            break;
+            }
+
+
+            while(j>=0)
+            {
+            if(t.charAt(j)=='#')
+            {
+               bs2++;
+               j--;
+            }
+            else if( bs2>0)
+               {
+                bs2--;
+                j--;
+               }
+               else
+               break;
+            }
+
+            if(i>=0 && j>=0 && s.charAt(i)!=t.charAt(j))
+            return false;
+
+            if((i>=0) != (j>=0))
+            return false;
+
+            i--;
+            j--;
+        }
+        
+        return true;
+        
+    }
 
     public static void main(String[] args) {
         

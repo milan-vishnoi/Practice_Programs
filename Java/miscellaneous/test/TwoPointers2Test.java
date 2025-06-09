@@ -465,4 +465,150 @@ public class TwoPointers2Test {
         assertThrows(NullPointerException.class, () -> TwoPointers2.removeElement(nums, val),
                 "RemoveElement Test Case 13 Failed: Should throw NullPointerException for null array");
     }
+
+    // --- Test Cases for backspaceCompare (LeetCode 844) ---
+
+    @Test
+    void testBackspaceCompare_Example1() {
+        String s = "ab#c";
+        String t = "ad#c";
+        // "ac" vs "ac" -> true
+        assertTrue(TwoPointers2.backspaceCompare(s, t), "Test Case 1 Failed: 'ab#c' vs 'ad#c'");
+    }
+
+    @Test
+    void testBackspaceCompare_Example2() {
+        String s = "ab##";
+        String t = "c#d#";
+        assertTrue(TwoPointers2.backspaceCompare(s, t), "Test Case 2 Failed: 'ab##' vs 'c#d#'");
+    }
+
+    @Test
+    void testBackspaceCompare_Example3() {
+        String s = "a#c";
+        String t = "b";
+        assertFalse(TwoPointers2.backspaceCompare(s, t), "Test Case 3 Failed: 'a#c' vs 'b'");
+    }
+
+    @Test
+    void testBackspaceCompare_EmptyStrings() {
+        String s = "";
+        String t = "";
+        assertTrue(TwoPointers2.backspaceCompare(s, t), "Test Case 4 Failed: Empty strings");
+    }
+
+    @Test
+    void testBackspaceCompare_StringsBecomeEmpty() {
+        String s = "a#";
+        String t = "";
+        // "" vs "" -> true
+        assertTrue(TwoPointers2.backspaceCompare(s, t), "Test Case 5 Failed: One string becomes empty");
+    }
+
+    @Test
+    void testBackspaceCompare_AllBackspaces() {
+        String s = "###";
+        String t = "##";
+        // "" vs "" -> true
+        assertTrue(TwoPointers2.backspaceCompare(s, t), "Test Case 6 Failed: All backspaces");
+    }
+
+    @Test
+    void testBackspaceCompare_MoreBackspacesThanChars() {
+        String s = "abc###";
+        String t = "xyz####";
+        // "" vs "" -> true
+        assertTrue(TwoPointers2.backspaceCompare(s, t), "Test Case 7 Failed: More backspaces than characters");
+    }
+
+    @Test
+    void testBackspaceCompare_NoBackspaces() {
+        String s = "abc";
+        String t = "abc";
+        // "abc" vs "abc" -> true
+        assertTrue(TwoPointers2.backspaceCompare(s, t), "Test Case 8 Failed: No backspaces, equal");
+    }
+
+    @Test
+    void testBackspaceCompare_NoBackspaces_Unequal() {
+        String s = "abc";
+        String t = "ab";
+        // "abc" vs "ab" -> false
+        assertFalse(TwoPointers2.backspaceCompare(s, t), "Test Case 9 Failed: No backspaces, unequal");
+    }
+
+    @Test
+    void testBackspaceCompare_BackspaceAtBeginning() {
+        String s = "###a";
+        String t = "a";
+        // "a" vs "a" -> true
+        assertTrue(TwoPointers2.backspaceCompare(s, t), "Test Case 10 Failed: Backspace at beginning");
+    }
+
+    @Test
+    void testBackspaceCompare_MultipleConsecutiveBackspaces() {
+        String s = "a##b";
+        String t = "b";
+        // "b" vs "b" -> true (a -> "" -> b)
+        assertTrue(TwoPointers2.backspaceCompare(s, t), "Test Case 11 Failed: Multiple consecutive backspaces");
+    }
+
+    @Test
+    void testBackspaceCompare_DifferentLengthsBeforeProcessing() {
+        String s = "bxj##tw"; // "btw"
+        String t = "bxo#j##tw"; // "btw"
+        assertTrue(TwoPointers2.backspaceCompare(s, t), "Test Case 12 Failed: Different lengths before processing");
+    }
+
+    @Test
+    void testBackspaceCompare_ComplexCase1() {
+        String s = "y#fo##f"; // "f"
+        String t = "y#f#o##f"; // "f"
+        assertTrue(TwoPointers2.backspaceCompare(s, t), "Test Case 13 Failed: Complex case 1");
+    }
+
+    @Test
+    void testBackspaceCompare_ComplexCase2() {
+        String s = "#####abcde"; // "abcde"
+        String t = "abcde"; // "abcde"
+        assertTrue(TwoPointers2.backspaceCompare(s, t), "Test Case 14 Failed: Complex case 2");
+    }
+
+    @Test
+    void testBackspaceCompare_MismatchAfterBackspace() {
+        String s = "abc#d"; // "abd"
+        String t = "ab#e"; // "abe"
+        assertFalse(TwoPointers2.backspaceCompare(s, t), "Test Case 15 Failed: Mismatch after backspace");
+    }
+
+    @Test
+    void testBackspaceCompare_CaseSensitivity() {
+        String s = "A#b"; // "b"
+        String t = "a#b"; // "b"
+        assertTrue(TwoPointers2.backspaceCompare(s, t), "Test Case 16 Failed: Case sensitivity (different first char)");
+    }
+
+    @Test
+    void testBackspaceCompare_NullString_S() {
+        String s = null;
+        String t = "a";
+        assertThrows(NullPointerException.class, () -> TwoPointers2.backspaceCompare(s, t),
+                "Test Case 17 Failed: Null string s should throw NPE (or be handled)");
+    }
+
+    @Test
+    void testBackspaceCompare_NullString_T() {
+        String s = "a";
+        String t = null;
+        assertThrows(NullPointerException.class, () -> TwoPointers2.backspaceCompare(s, t),
+                "Test Case 18 Failed: Null string t should throw NPE (or be handled)");
+    }
+
+    @Test
+    void testBackspaceCompare_BothNullStrings() {
+        String s = null;
+        String t = null;
+        assertThrows(NullPointerException.class, () -> TwoPointers2.backspaceCompare(s, t),
+                "Test Case 19 Failed: Both null strings should throw NPE (or be handled)");
+    }
 }

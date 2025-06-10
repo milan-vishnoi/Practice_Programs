@@ -611,4 +611,128 @@ public class TwoPointers2Test {
         assertThrows(NullPointerException.class, () -> TwoPointers2.backspaceCompare(s, t),
                 "Test Case 19 Failed: Both null strings should throw NPE (or be handled)");
     }
+
+    // --- Test Cases for validPalindrome (LeetCode 680) ---
+
+    @Test
+    void testValidPalindrome_Example1() {
+        String s = "aba";
+        // Already a palindrome, 0 deletions needed
+        assertTrue(TwoPointers2.validPalindrome(s), "Test Case 1 Failed: 'aba' - Already palindrome");
+    }
+
+    @Test
+    void testValidPalindrome_Example2() {
+        String s = "abca";
+        // Delete 'b' -> "aca" OR Delete 'c' -> "aba". Both are palindromes.
+        assertTrue(TwoPointers2.validPalindrome(s), "Test Case 2 Failed: 'abca' - One deletion ('b' or 'c')");
+    }
+
+    @Test
+    void testValidPalindrome_Example3() {
+        String s = "abc";
+        // No single deletion makes it a palindrome. e.g., "ab", "ac", "bc"
+        assertFalse(TwoPointers2.validPalindrome(s), "Test Case 3 Failed: 'abc' - Cannot form palindrome");
+    }
+
+    @Test
+    void testValidPalindrome_AlreadyPalindromeLong() {
+        String s = "racecar";
+        assertTrue(TwoPointers2.validPalindrome(s), "Test Case 4 Failed: 'racecar' - Already palindrome");
+    }
+
+    @Test
+    void testValidPalindrome_NeedsOneDeletionAtBeginning() {
+        String s = "cbbac"; 
+        s = "aguokepatgbnvfqmgmlcupuufxoohdfpgjdmysgvhmvffcnqxjjxqncffvmhvgsymdjgpfdhooxfuupuculmgmqfvnbgtapekouga";
+        assertTrue(TwoPointers2.validPalindrome(s), "Test Case 5 Failed: Long complex string, should be true");
+    }
+
+    @Test
+    void testValidPalindrome_NeedsOneDeletionAtEnd() {
+        String s = "abac"; // Delete 'c' -> "aba"
+        assertTrue(TwoPointers2.validPalindrome(s), "Test Case 6 Failed: 'abac' - One deletion at end");
+    }
+
+    @Test
+    void testValidPalindrome_NeedsOneDeletionInMiddle() {
+        String s = "abccba"; // Already palindrome
+        s = "ebcbbe"; // Delete 'c' -> "ebbbe"
+        assertTrue(TwoPointers2.validPalindrome(s), "Test Case 7 Failed: 'ebcbbe' - One deletion in middle");
+    }
+
+    @Test
+    void testValidPalindrome_TwoDifferentChars() {
+        String s = "abccba"; // Already palindrome
+        s = "eeccccbebaeeabebccceea"; // A known tricky one, should be false
+        assertFalse(TwoPointers2.validPalindrome(s), "Test Case 8 Failed: 'eeccccbebaeeabebccceea' - Cannot form palindrome");
+    }
+
+    @Test
+    void testValidPalindrome_SingleChar() {
+        String s = "a";
+        assertTrue(TwoPointers2.validPalindrome(s), "Test Case 9 Failed: Single character string");
+    }
+
+    @Test
+    void testValidPalindrome_TwoChars_Palindrome() {
+        String s = "aa";
+        assertTrue(TwoPointers2.validPalindrome(s), "Test Case 10 Failed: Two identical characters");
+    }
+
+    @Test
+    void testValidPalindrome_TwoChars_NotPalindrome() {
+        String s = "ab";
+        assertTrue(TwoPointers2.validPalindrome(s), "Test Case 11 Failed: Two different characters (delete one -> one char, which is palindrome)");
+    }
+
+    @Test
+    void testValidPalindrome_LongStringCannotBePalindrome() {
+        String s = "abcdefghijklmnopqrstuvwxyzzyxwuvtsrqponmlkjihgfedcba"; // "abcdefghijklmnopqrstuvwxyzzyxwuvtsrqponmlkjihgfedcba"
+        // This is a palindrome. Let's make it not.
+        s = "abcdefghijklmnopqrstuvwxyzzyxwuvtsrqponmlkjihgfedcax"; // 'x' makes it not
+        assertFalse(TwoPointers2.validPalindrome(s), "Test Case 12 Failed: Long string, cannot form palindrome");
+    }
+
+    @Test
+    void testValidPalindrome_LongStringBecomesPalindrome() {
+        String s = "abacaba"; // Palindrome
+        s = "abacabax"; // delete 'x' -> "abacaba"
+        assertTrue(TwoPointers2.validPalindrome(s), "Test Case 13 Failed: Long string, becomes palindrome by deleting last char");
+    }
+
+    @Test
+    void testValidPalindrome_CaseSensitivity() {
+        String s = "Aba"; // Not a palindrome if case-sensitive
+        assertFalse(TwoPointers2.validPalindrome(s), "Test Case 14 Failed: 'Aba' - Case sensitivity");
+    }
+
+    @Test
+    void testValidPalindrome_WithSpecialChars() {
+        String s = "race a car";
+        assertTrue(TwoPointers2.validPalindrome(s), "Test Case 15 Failed: 'race a car' - With spaces");
+
+        s = "madam."; // Delete '.' -> "madam"
+        assertTrue(TwoPointers2.validPalindrome(s), "Test Case 16 Failed: 'madam.' - With punctuation");
+    }
+
+    @Test
+    void testValidPalindrome_NullString() {
+        String s = null;
+        assertThrows(NullPointerException.class, () -> TwoPointers2.validPalindrome(s),
+                "Test Case 17 Failed: Null string should throw NPE");
+    }
+
+    @Test
+    void testValidPalindrome_LongStringMiddleDeletion() {
+        String s = "a" + "b".repeat(50000) + "c" + "b".repeat(50000) + "a"; // Length ~100000
+        // Expected: a + b*50000 + c + b*50000 + a -> delete 'c' should make it a palindrome.
+        assertTrue(TwoPointers2.validPalindrome(s), "Test Case 18 Failed: Very long string, middle char deletion");
+    }
+
+    @Test
+    void testValidPalindrome_LongStringEdgeDeletion() {
+        String s = "x" + "a".repeat(99999) + "xy"; // Delete y
+        assertTrue(TwoPointers2.validPalindrome(s), "Test Case 19 Failed: Very long string, edge char deletion");
+    }
 }

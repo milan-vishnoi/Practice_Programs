@@ -116,6 +116,43 @@ public class TwoPointers2 {
         
     }
 
+    public static boolean validPalindrome(String s) {
+
+        if(s==null || s.isEmpty())
+        throw  new NullPointerException();
+        else if(s.length()==1)
+        return true;
+
+        int i = 0;
+        int j = s.length()-1;
+
+        while(i<j)
+        {
+           if(s.charAt(i)!=s.charAt(j))
+           return isPalindrome(s,i+1,j) || isPalindrome(s,i,j-1);
+
+           i++;
+           j--;
+        }
+
+        return true;
+        
+    }
+
+    private static boolean isPalindrome(String s, int start, int end)
+    {
+        while(start<end)
+        {
+            if(s.charAt(start)!=s.charAt(end))
+            return false;
+
+            start++;
+            end--;
+        }
+
+        return true;
+    }   
+
     public static void main(String[] args) {
         
     }

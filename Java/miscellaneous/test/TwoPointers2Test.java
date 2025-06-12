@@ -735,4 +735,111 @@ public class TwoPointers2Test {
         String s = "x" + "a".repeat(99999) + "xy"; // Delete y
         assertTrue(TwoPointers2.validPalindrome(s), "Test Case 19 Failed: Very long string, edge char deletion");
     }
+
+    // --- Test Cases for sortedSquares (LeetCode 977) ---
+
+    @Test
+    void testSortedSquares_Example1() {
+        int[] nums = {-4, -1, 0, 3, 10};
+        int[] expected = {0, 1, 9, 16, 100}; // Squares: 16, 1, 0, 9, 100. Sorted: 0, 1, 9, 16, 100
+        assertArrayEquals(expected, TwoPointers2.sortedSquares(nums), "Test Case 1 Failed: Example 1");
+    }
+
+    @Test
+    void testSortedSquares_Example2() {
+        int[] nums = {-7, -3, 2, 3, 11};
+        int[] expected = {4, 9, 9, 49, 121}; // Squares: 49, 9, 4, 9, 121. Sorted: 4, 9, 9, 49, 121
+        assertArrayEquals(expected, TwoPointers2.sortedSquares(nums), "Test Case 2 Failed: Example 2");
+    }
+
+    @Test
+    void testSortedSquares_AllPositive() {
+        int[] nums = {1, 2, 3, 4, 5};
+        int[] expected = {1, 4, 9, 16, 25};
+        assertArrayEquals(expected, TwoPointers2.sortedSquares(nums), "Test Case 3 Failed: All positive numbers");
+    }
+
+    @Test
+    void testSortedSquares_AllNegative() {
+        int[] nums = {-5, -4, -3, -2, -1};
+        int[] expected = {1, 4, 9, 16, 25}; // Squares: 25, 16, 9, 4, 1. Sorted: 1, 4, 9, 16, 25
+        assertArrayEquals(expected, TwoPointers2.sortedSquares(nums), "Test Case 4 Failed: All negative numbers");
+    }
+
+    @Test
+    void testSortedSquares_ContainsZero() {
+        int[] nums = {-2, -1, 0, 1, 2};
+        int[] expected = {0, 1, 1, 4, 4};
+        assertArrayEquals(expected, TwoPointers2.sortedSquares(nums), "Test Case 5 Failed: Contains zero");
+    }
+
+    @Test
+    void testSortedSquares_EmptyArray() {
+        int[] nums = {};
+        int[] expected = {};
+        assertArrayEquals(expected, TwoPointers2.sortedSquares(nums), "Test Case 6 Failed: Empty array");
+    }
+
+    @Test
+    void testSortedSquares_SingleElementPositive() {
+        int[] nums = {7};
+        int[] expected = {49};
+        assertArrayEquals(expected, TwoPointers2.sortedSquares(nums), "Test Case 7 Failed: Single positive element");
+    }
+
+    @Test
+    void testSortedSquares_SingleElementNegative() {
+        int[] nums = {-3};
+        int[] expected = {9};
+        assertArrayEquals(expected, TwoPointers2.sortedSquares(nums), "Test Case 8 Failed: Single negative element");
+    }
+
+    @Test
+    void testSortedSquares_SingleElementZero() {
+        int[] nums = {0};
+        int[] expected = {0};
+        assertArrayEquals(expected, TwoPointers2.sortedSquares(nums), "Test Case 9 Failed: Single zero element");
+    }
+
+    @Test
+    void testSortedSquares_Mixed_AbsNegativeLarger() {
+        int[] nums = {-10, -5, 0, 1, 2};
+        int[] expected = {0, 1, 4, 25, 100}; // Squares: 100, 25, 0, 1, 4. Sorted: 0, 1, 4, 25, 100
+        assertArrayEquals(expected, TwoPointers2.sortedSquares(nums), "Test Case 10 Failed: Mixed, absolute negative larger");
+    }
+
+    @Test
+    void testSortedSquares_Mixed_AbsPositiveLarger() {
+        int[] nums = {-2, -1, 0, 5, 10};
+        int[] expected = {0, 1, 4, 25, 100}; // Squares: 4, 1, 0, 25, 100. Sorted: 0, 1, 4, 25, 100
+        assertArrayEquals(expected, TwoPointers2.sortedSquares(nums), "Test Case 11 Failed: Mixed, absolute positive larger");
+    }
+
+    @Test
+    void testSortedSquares_AllSamePositive() {
+        int[] nums = {5, 5, 5, 5};
+        int[] expected = {25, 25, 25, 25};
+        assertArrayEquals(expected, TwoPointers2.sortedSquares(nums), "Test Case 12 Failed: All same positive elements");
+    }
+
+    @Test
+    void testSortedSquares_AllSameNegative() {
+        int[] nums = {-5, -5, -5, -5};
+        int[] expected = {25, 25, 25, 25};
+        assertArrayEquals(expected, TwoPointers2.sortedSquares(nums), "Test Case 13 Failed: All same negative elements");
+    }
+
+    @Test
+    void testSortedSquares_LargeNumbers() {
+        int[] nums = {-10000, -100, 0, 100, 10000};
+        int[] expected = {0, 10000, 10000, 100000000, 100000000};
+        assertArrayEquals(expected, TwoPointers2.sortedSquares(nums), "Test Case 14 Failed: Large numbers");
+    }
+
+    @Test
+    void testSortedSquares_NullArray() {
+        int[] nums = null;
+        assertThrows(NullPointerException.class, () -> TwoPointers2.sortedSquares(nums),
+                "Test Case 15 Failed: Null array should throw NPE");
+    }
 }

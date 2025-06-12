@@ -40,7 +40,8 @@ public class TwoPointers2 {
         for(int i = start;i<nums.length;i++)
         nums[i]=0;
     }
-    
+
+    // Leetcode Problem https://leetcode.com/problems/remove-element/
     public static int removeElement(int[] nums, int val) {
         int start=0;
         if(nums==null)
@@ -58,6 +59,7 @@ public class TwoPointers2 {
         return start;
     }
     
+   // Leetcode Problem https://leetcode.com/problems/backspace-string-compare/
    public static boolean backspaceCompare(String s, String t) {
 
     if(s==null || t==null)
@@ -116,6 +118,7 @@ public class TwoPointers2 {
         
     }
 
+    // Leetcode Problem https://leetcode.com/problems/valid-palindrome-ii/
     public static boolean validPalindrome(String s) {
 
         if(s==null || s.isEmpty())
@@ -151,7 +154,34 @@ public class TwoPointers2 {
         }
 
         return true;
-    }   
+    }
+    
+    // Leetcode Problem https://leetcode.com/problems/squares-of-a-sorted-array/
+    public static int[] sortedSquares(int[] nums) {
+        
+        if(nums == null)
+        throw new NullPointerException();
+
+        int[] result = new int[nums.length];
+        int i = 0;
+        int j = nums.length - 1;
+        int k = nums.length - 1;
+        int startSquare, endSquare;
+
+        while (i <= j) {
+            startSquare = nums[i] * nums[i];
+            endSquare = nums[j] * nums[j];
+
+            if (startSquare > endSquare) {
+                result[k--] = startSquare;
+                i++;
+            } else {
+                result[k--] = endSquare;
+                j--;
+            }
+        }
+        return result;
+    }
 
     public static void main(String[] args) {
         

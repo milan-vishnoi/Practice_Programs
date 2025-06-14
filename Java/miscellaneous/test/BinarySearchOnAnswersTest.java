@@ -132,4 +132,111 @@ public class BinarySearchOnAnswersTest {
         int expected = 5;
         assertEquals(expected, BinarySearchOnAnswers.minEatingSpeed(piles, h), "Test Case 15 Failed: Mixed pile sizes, h is intermediate");
     }
+
+  // --- Test Cases for splitArray (LeetCode 410) ---
+
+    @Test
+    void testSplitArray_Example1() {
+        int[] nums = {7, 2, 5, 10, 8};
+        int k = 2;
+        int expected = 18;
+        assertEquals(expected, BinarySearchOnAnswers.splitArray(nums, k), "Test Case 1 Failed: Example 1");
+    }
+
+    @Test
+    void testSplitArray_Example2() {
+        int[] nums = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+        int k = 3;
+        int expected = 17;
+        assertEquals(expected, BinarySearchOnAnswers.splitArray(nums, k), "Test Case 2 Failed: Example 2");
+    }
+
+    @Test
+    void testSplitArray_Example3() {
+        int[] nums = {1, 4, 4};
+        int k = 3;
+        int expected = 4;
+        assertEquals(expected, BinarySearchOnAnswers.splitArray(nums, k), "Test Case 3 Failed: Example 3");
+    }
+
+    @Test
+    void testSplitArray_KEqualsOne() {
+        int[] nums = {10, 20, 30, 40};
+        int k = 1;
+        int expected = 100;
+        assertEquals(expected, BinarySearchOnAnswers.splitArray(nums, k), "Test Case 4 Failed: k = 1");
+    }
+
+    @Test
+    void testSplitArray_KEqualsNumLength() {
+        int[] nums = {10, 2, 8, 15, 5};
+        int k = 5;
+        int expected = 15;
+        assertEquals(expected, BinarySearchOnAnswers.splitArray(nums, k), "Test Case 5 Failed: k = nums.length");
+    }
+
+    @Test
+    void testSplitArray_AllSameElements() {
+        int[] nums = {5, 5, 5, 5, 5};
+        int k = 3;
+        int expected = 10;
+        assertEquals(expected, BinarySearchOnAnswers.splitArray(nums, k), "Test Case 6 Failed: All same elements");
+    }
+
+    @Test
+    void testSplitArray_ContainsZeros() {
+        int[] nums = {0, 0, 0, 100, 0, 0};
+        int k = 3;
+        int expected = 100;
+        assertEquals(expected, BinarySearchOnAnswers.splitArray(nums, k), "Test Case 7 Failed: Contains zeros");
+    }
+
+    @Test
+    void testSplitArray_SingleElementArray() {
+        int[] nums = {42};
+        int k = 1;
+        int expected = 42;
+        assertEquals(expected, BinarySearchOnAnswers.splitArray(nums, k), "Test Case 8 Failed: Single element array");
+    }
+
+    @Test
+    void testSplitArray_LargeNumbers() {
+        int[] nums = {1000000, 1000000, 1000000};
+        int k = 2;
+        int expected = 2000000;
+        assertEquals(expected, BinarySearchOnAnswers.splitArray(nums, k), "Test Case 9 Failed: Large numbers");
+    }
+
+    @Test
+    void testSplitArray_LongArray() {
+        int[] nums = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}; // 20 ones
+        int k = 5;
+        // Each sub-array will have sum 4. 20/5 = 4 elements per sub-array.
+        int expected = 4;
+        assertEquals(expected, BinarySearchOnAnswers.splitArray(nums, k), "Test Case 10 Failed: Long array, even split");
+    }
+
+    @Test
+    void testSplitArray_LongArrayUnevenSplit() {
+        int[] nums = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20}; // Sum = 210
+        int k = 7;
+        int expected = 37;
+        assertEquals(expected, BinarySearchOnAnswers.splitArray(nums, k), "Test Case 11 Failed: Long array, uneven split");
+    }
+
+    @Test
+    void testSplitArray_NullArray() {
+        int[] nums = null;
+        int k = 2;
+        assertThrows(NullPointerException.class, () -> BinarySearchOnAnswers.splitArray(nums, k),
+                "Test Case 12 Failed: Null array should throw NPE");
+    }
+
+    @Test
+    void testSplitArray_KGreaterThanNumsLength() {
+        int[] nums = {1, 2, 3};
+        int k = 5;
+        int expected = 3;
+        assertEquals(expected, BinarySearchOnAnswers.splitArray(nums, k), "Test Case 13 Failed: k > nums.length (if allowed)");
+    }
 }

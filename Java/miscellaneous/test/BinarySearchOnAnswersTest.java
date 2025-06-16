@@ -10,6 +10,8 @@ import miscellaneous.BinarySearchOnAnswers;
 
 public class BinarySearchOnAnswersTest {
 
+     private static final double DELTA = 1e-9;
+
     // --- Test Cases for minEatingSpeed (LeetCode 875) ---
 
     @Test
@@ -238,5 +240,164 @@ public class BinarySearchOnAnswersTest {
         int k = 5;
         int expected = 3;
         assertEquals(expected, BinarySearchOnAnswers.splitArray(nums, k), "Test Case 13 Failed: k > nums.length (if allowed)");
+    }
+
+// --- Test Cases for findMedianSortedArrays ---
+
+    @Test
+    void testFindMedianSortedArrays_Example1() {
+        int[] nums1 = {1, 3};
+        int[] nums2 = {2};
+        double expected = 2.0; // Merged: [1, 2, 3]. Median is 2.
+        assertEquals(expected, BinarySearchOnAnswers.findMedianSortedArrays(nums1, nums2), DELTA, "Test Case 1 Failed: Example 1 (Odd total length)");
+    }
+
+    @Test
+    void testFindMedianSortedArrays_Example2() {
+        int[] nums1 = {1, 2};
+        int[] nums2 = {3, 4};
+        double expected = 2.5; 
+        assertEquals(expected, BinarySearchOnAnswers.findMedianSortedArrays(nums1, nums2), DELTA, "Test Case 2 Failed: Example 2 (Even total length)");
+    }
+
+    @Test
+    void testFindMedianSortedArrays_OneArrayEmpty_Nums1Empty() {
+        int[] nums1 = {};
+        int[] nums2 = {1, 2, 3, 4, 5};
+        double expected = 3.0;
+        assertEquals(expected, BinarySearchOnAnswers.findMedianSortedArrays(nums1, nums2), DELTA, "Test Case 3 Failed: nums1 is empty");
+    }
+
+    @Test
+    void testFindMedianSortedArrays_OneArrayEmpty_Nums2Empty() {
+        int[] nums1 = {1, 2, 3, 4, 5, 6};
+        int[] nums2 = {};
+        double expected = 3.5; 
+        assertEquals(expected, BinarySearchOnAnswers.findMedianSortedArrays(nums1, nums2), DELTA, "Test Case 4 Failed: nums2 is empty");
+    }
+
+    @Test
+    void testFindMedianSortedArrays_SingleElements() {
+        int[] nums1 = {1};
+        int[] nums2 = {2};
+        double expected = 1.5;
+        assertEquals(expected, BinarySearchOnAnswers.findMedianSortedArrays(nums1, nums2), DELTA, "Test Case 5 Failed: Single elements");
+    }
+
+    @Test
+    void testFindMedianSortedArrays_AllElementsInOneArraySmaller() {
+        int[] nums1 = {1, 2, 3};
+        int[] nums2 = {10, 20, 30};
+        double expected = 6.5;
+        assertEquals(expected, BinarySearchOnAnswers.findMedianSortedArrays(nums1, nums2), DELTA, "Test Case 6 Failed: All elements in nums1 smaller");
+    }
+
+    @Test
+    void testFindMedianSortedArrays_AllElementsInOneArrayLarger() {
+        int[] nums1 = {10, 20, 30};
+        int[] nums2 = {1, 2, 3};
+        double expected = 6.5; 
+        assertEquals(expected, BinarySearchOnAnswers.findMedianSortedArrays(nums1, nums2), DELTA, "Test Case 7 Failed: All elements in nums2 smaller");
+    }
+
+    @Test
+    void testFindMedianSortedArrays_OverlappingRanges() {
+        int[] nums1 = {1, 5, 8, 10, 15};
+        int[] nums2 = {2, 3, 9, 12, 18};
+        double expected = 8.5;
+        assertEquals(expected, BinarySearchOnAnswers.findMedianSortedArrays(nums1, nums2), DELTA, "Test Case 8 Failed: Overlapping ranges");
+    }
+
+    @Test
+    void testFindMedianSortedArrays_ArraysWithDuplicates() {
+        int[] nums1 = {1, 2, 2, 3};
+        int[] nums2 = {2, 3, 4, 4};
+
+        double expected = 2.5;
+        assertEquals(expected, BinarySearchOnAnswers.findMedianSortedArrays(nums1, nums2), DELTA, "Test Case 9 Failed: Arrays with duplicates");
+    }
+
+    @Test
+    void testFindMedianSortedArrays_ComplexMixedOddLength() {
+        int[] nums1 = {1, 2, 4, 6};
+        int[] nums2 = {3, 5, 7};
+
+        double expected = 4.0;
+        assertEquals(expected, BinarySearchOnAnswers.findMedianSortedArrays(nums1, nums2), DELTA, "Test Case 10 Failed: Complex mixed odd length");
+    }
+
+    @Test
+    void testFindMedianSortedArrays_ComplexMixedEvenLength() {
+        int[] nums1 = {1, 2, 3, 4};
+        int[] nums2 = {5, 6, 7, 8};
+
+        double expected = 4.5;
+        assertEquals(expected, BinarySearchOnAnswers.findMedianSortedArrays(nums1, nums2), DELTA, "Test Case 11 Failed: Complex mixed even length");
+    }
+
+    @Test
+    void testFindMedianSortedArrays_LargeNumbers() {
+        int[] nums1 = {1_000_000, 2_000_000};
+        int[] nums2 = {1_500_000, 2_500_000};
+
+        double expected = 1_750_000.0;
+        assertEquals(expected, BinarySearchOnAnswers.findMedianSortedArrays(nums1, nums2), DELTA, "Test Case 12 Failed: Large numbers");
+    }
+
+    @Test
+    void testFindMedianSortedArrays_MixedLengths_Odd() {
+        int[] nums1 = {1, 2, 3, 4, 5};
+        int[] nums2 = {6, 7};         
+        double expected = 4.0;
+        assertEquals(expected, BinarySearchOnAnswers.findMedianSortedArrays(nums1, nums2), DELTA, "Test Case 13 Failed: Mixed lengths (odd total)");
+    }
+
+    @Test
+    void testFindMedianSortedArrays_MixedLengths_Even() {
+        int[] nums1 = {1, 2, 3};  
+        int[] nums2 = {4, 5, 6, 7}; 
+
+        double expected = 4.0;
+        assertEquals(expected, BinarySearchOnAnswers.findMedianSortedArrays(nums1, nums2), DELTA, "Test Case 14 Failed: Mixed lengths (even total)");
+    }
+
+    @Test
+    void testFindMedianSortedArrays_EdgeCase_EmptyNums1() {
+        int[] nums1 = {};
+        int[] nums2 = {2, 3};
+        double expected = 2.5;
+        assertEquals(expected, BinarySearchOnAnswers.findMedianSortedArrays(nums1, nums2), DELTA, "Test Case 15 Failed: Empty nums1, two elements in nums2");
+    }
+
+    @Test
+    void testFindMedianSortedArrays_EdgeCase_EmptyNums2() {
+        int[] nums1 = {1, 2};
+        int[] nums2 = {};
+        double expected = 1.5;
+        assertEquals(expected, BinarySearchOnAnswers.findMedianSortedArrays(nums1, nums2), DELTA, "Test Case 16 Failed: Empty nums2, two elements in nums1");
+    }
+
+    @Test
+    void testFindMedianSortedArrays_NullNums1() {
+        int[] nums1 = null;
+        int[] nums2 = {1, 2};
+        assertThrows(NullPointerException.class, () -> BinarySearchOnAnswers.findMedianSortedArrays(nums1, nums2),
+                "Test Case 17 Failed: Null nums1 should throw NPE");
+    }
+
+    @Test
+    void testFindMedianSortedArrays_NullNums2() {
+        int[] nums1 = {1, 2};
+        int[] nums2 = null;
+        assertThrows(NullPointerException.class, () -> BinarySearchOnAnswers.findMedianSortedArrays(nums1, nums2),
+                "Test Case 18 Failed: Null nums2 should throw NPE");
+    }
+
+    @Test
+    void testFindMedianSortedArrays_BothNullArrays() {
+        int[] nums1 = null;
+        int[] nums2 = null;
+        assertThrows(NullPointerException.class, () -> BinarySearchOnAnswers.findMedianSortedArrays(nums1, nums2),
+                "Test Case 19 Failed: Both null arrays should throw NPE");
     }
 }

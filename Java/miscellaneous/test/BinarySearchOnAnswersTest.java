@@ -3,6 +3,8 @@ package miscellaneous.test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.Arrays;
+
 import org.junit.jupiter.api.Test;
 
 import miscellaneous.BinarySearchOnAnswers;
@@ -399,5 +401,115 @@ public class BinarySearchOnAnswersTest {
         int[] nums2 = null;
         assertThrows(NullPointerException.class, () -> BinarySearchOnAnswers.findMedianSortedArrays(nums1, nums2),
                 "Test Case 19 Failed: Both null arrays should throw NPE");
+    }
+
+    // --- Test Cases for shipWithinDays (LeetCode 1011) ---
+
+    @Test
+    void testShipWithinDays_Example1() {
+        int[] weights = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        int days = 5;
+        int expected = 15;
+        assertEquals(expected, BinarySearchOnAnswers.shipWithinDays(weights, days), "Test Case 1 Failed: Example 1");
+    }
+
+    @Test
+    void testShipWithinDays_Example2() {
+        int[] weights = {3, 2, 2, 4, 1, 4};
+        int days = 3;
+        int expected = 6;
+        assertEquals(expected, BinarySearchOnAnswers.shipWithinDays(weights, days), "Test Case 2 Failed: Example 2");
+    }
+
+    @Test
+    void testShipWithinDays_Example3() {
+        int[] weights = {1, 2, 3, 1, 1};
+        int days = 4;
+        int expected = 3;
+        assertEquals(expected, BinarySearchOnAnswers.shipWithinDays(weights, days), "Test Case 3 Failed: Example 3");
+    }
+
+    @Test
+    void testShipWithinDays_DaysEqualsWeightsLength() {
+        int[] weights = {10, 5, 8, 20};
+        int days = 4;
+        int expected = 20;
+        assertEquals(expected, BinarySearchOnAnswers.shipWithinDays(weights, days), "Test Case 4 Failed: days = weights.length");
+    }
+
+    @Test
+    void testShipWithinDays_DaysEqualsOne() {
+        int[] weights = {10, 5, 8, 20};
+        int days = 1;
+        int expected = 43;
+        assertEquals(expected, BinarySearchOnAnswers.shipWithinDays(weights, days), "Test Case 5 Failed: days = 1");
+    }
+
+    @Test
+    void testShipWithinDays_SinglePackage() {
+        int[] weights = {42};
+        int days = 1;
+        int expected = 42;
+        assertEquals(expected, BinarySearchOnAnswers.shipWithinDays(weights, days), "Test Case 6 Failed: Single package, 1 day");
+
+        weights = new int[]{42};
+        days = 10;
+        expected = 42;
+        assertEquals(expected, BinarySearchOnAnswers.shipWithinDays(weights, days), "Test Case 7 Failed: Single package, many days");
+    }
+
+    @Test
+    void testShipWithinDays_AllPackagesSameWeight() {
+        int[] weights = {5, 5, 5, 5, 5};
+        int days = 3;
+        int expected = 10;
+        assertEquals(expected, BinarySearchOnAnswers.shipWithinDays(weights, days), "Test Case 8 Failed: All packages same weight");
+    }
+
+    @Test
+    void testShipWithinDays_WeightsExactlyFit() {
+        int[] weights = {4, 5, 6, 7, 8};
+        int days = 3;
+        int expected = 13;
+        assertEquals(expected, BinarySearchOnAnswers.shipWithinDays(weights, days), "Test Case 9 Failed: Weights exactly fit a capacity");
+    }
+
+    @Test
+    void testShipWithinDays_LongArray() {
+        int[] weights = new int[50000];
+        Arrays.fill(weights, 1);
+        int days = 1000;
+
+        int expected = 50;
+        assertEquals(expected, BinarySearchOnAnswers.shipWithinDays(weights, days), "Test Case 10 Failed: Long array, even distribution");
+    }
+
+    @Test
+    void testShipWithinDays_LongArrayMixedWeights() {
+        int[] weights = new int[200];
+        for (int i = 0; i < 100; i++) weights[i] = 1;
+        for (int i = 100; i < 200; i++) weights[i] = 500; // Mix small and large weights
+        int days = 50;
+
+        int expected = 1100;
+        assertEquals(expected, BinarySearchOnAnswers.shipWithinDays(weights, days), "Test Case 11 Failed: Long array, mixed weights");
+    }
+
+    @Test
+    void testShipWithinDays_NullWeights() {
+        int[] weights = null;
+        int days = 5;
+
+        assertThrows(NullPointerException.class, () -> BinarySearchOnAnswers.shipWithinDays(weights, days),
+                "Test Case 12 Failed: Null weights array should throw NPE");
+    }
+
+    @Test
+    void testShipWithinDays_MinCapacityIsMaxWeight() {
+        int[] weights = {1, 2, 100, 3, 4};
+        int days = 2;
+
+        int expected = 103;
+        assertEquals(expected, BinarySearchOnAnswers.shipWithinDays(weights, days), "Test Case 13 Failed: Minimum capacity is max weight");
     }
 }

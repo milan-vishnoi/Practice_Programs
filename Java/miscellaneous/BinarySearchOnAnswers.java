@@ -128,5 +128,50 @@ public class BinarySearchOnAnswers {
         return 0.0;
         
     }
+
+    public static int shipWithinDays(int[] weights, int days) {
+
+        if(weights == null)
+        throw new NullPointerException();
+
+        int maxWeight = weights[0];
+        int sum = 0;
+        for(Integer weight:weights)
+        {
+            maxWeight = Math.max(maxWeight,weight);
+            sum+=weight;
+        }
+
+        int low = maxWeight;
+        int high = sum;
+        int mid,d;
+        int currentSum;
+
+        while(low<=high)
+        {
+            mid = (low+high)/2;
+            d = 1;
+            currentSum = 0;
+
+            for(int i = 0 ;i<weights.length;i++)
+            {
+                currentSum+= weights[i];
+                if(currentSum > mid)
+                {
+                    d++;
+                    currentSum = weights[i];
+                }
+            }
+            if(d<=days)
+            {
+                high = mid - 1;
+            }
+            else 
+            low = mid + 1 ;
+        }
+
+        return low;
+        
+    }
     
 }

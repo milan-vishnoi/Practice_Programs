@@ -512,4 +512,88 @@ public class BinarySearchOnAnswersTest {
         int expected = 103;
         assertEquals(expected, BinarySearchOnAnswers.shipWithinDays(weights, days), "Test Case 13 Failed: Minimum capacity is max weight");
     }
+
+// --- Test Cases for smallestDivisor (LeetCode 1283) ---
+
+    @Test
+    void testSmallestDivisor_Example1() {
+        int[] nums = {1, 2, 5, 9};
+        int threshold = 6;
+        int expected = 5;
+        assertEquals(expected, new BinarySearchOnAnswers().smallestDivisor(nums, threshold), "Test Case 1 Failed: Example 1");
+    }
+
+    @Test
+    void testSmallestDivisor_Example2() {
+        int[] nums = {44, 22, 33, 11, 1};
+        int threshold = 5;
+        int expected = 44;
+        assertEquals(expected, new BinarySearchOnAnswers().smallestDivisor(nums, threshold), "Test Case 2 Failed: Example 2");
+    }
+
+    @Test
+    void testSmallestDivisor_Example3() {
+        int[] nums = {21212, 10101, 12121};
+        int threshold = 1000;
+        int expected = 44;
+        assertEquals(expected, new BinarySearchOnAnswers().smallestDivisor(nums, threshold), "Test Case 3 Failed: Example 3 (Large numbers)");
+    }
+
+    @Test
+    void testSmallestDivisor_ThresholdEqualsNumsLength() {
+        int[] nums = {10, 2, 8, 15, 5};
+        int threshold = 5;
+        int expected = 15;
+        assertEquals(expected, new BinarySearchOnAnswers().smallestDivisor(nums, threshold), "Test Case 4 Failed: threshold = nums.length");
+    }
+
+    @Test
+    void testSmallestDivisor_ThresholdVeryLarge() {
+        int[] nums = {1, 2, 3, 4, 5};
+        int threshold = 100;
+        int expected = 1;
+        assertEquals(expected, new BinarySearchOnAnswers().smallestDivisor(nums, threshold), "Test Case 5 Failed: threshold is very large");
+    }
+
+    @Test
+    void testSmallestDivisor_SingleElement() {
+        int[] nums = {100};
+        int threshold = 5;
+        int expected = 20;
+        assertEquals(expected, new BinarySearchOnAnswers().smallestDivisor(nums, threshold), "Test Case 6 Failed: Single element");
+    }
+
+    @Test
+    void testSmallestDivisor_AllOnes() {
+        int[] nums = {1, 1, 1, 1, 1};
+        int threshold = 5;
+        int expected = 1;
+        assertEquals(expected, new BinarySearchOnAnswers().smallestDivisor(nums, threshold), "Test Case 7 Failed: All ones, threshold=length");
+    }
+
+    @Test
+    void testSmallestDivisor_AllSameNonOne() {
+        int[] nums = {10, 10, 10, 10};
+        int threshold = 4;
+        int expected = 10;
+        assertEquals(expected, new BinarySearchOnAnswers().smallestDivisor(nums, threshold), "Test Case 8 Failed: All same non-one, threshold=length");
+    }
+
+    @Test
+    void testSmallestDivisor_LongArrayMixedValues() {
+        int[] nums = new int[50000];
+        for (int i = 0; i < 25000; i++) nums[i] = 1;
+        for (int i = 25000; i < 50000; i++) nums[i] = 100;
+        int threshold = 50000;
+        int expected = 100;
+        assertEquals(expected, new BinarySearchOnAnswers().smallestDivisor(nums, threshold), "Test Case 9 Failed: Long array, mixed values, threshold=nums.length");
+    }
+
+    @Test
+    void testSmallestDivisor_NullNums() {
+        int[] nums = null;
+        int threshold = 5;
+        assertThrows(NullPointerException.class, () -> new BinarySearchOnAnswers().smallestDivisor(nums, threshold),
+                "Test Case 10 Failed: Null nums array should throw NPE");
+    }
 }

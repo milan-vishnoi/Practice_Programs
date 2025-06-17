@@ -40,6 +40,7 @@ public class BinarySearchOnAnswers {
         
     }
 
+    //Leetcode Problem https://leetcode.com/problems/split-array-largest-sum/
     public static int splitArray(int[] nums, int k) {
 
         if(nums == null)
@@ -85,6 +86,7 @@ public class BinarySearchOnAnswers {
         
     }
 
+    //Leetcode problem https://leetcode.com/problems/median-of-two-sorted-arrays/
     public static double findMedianSortedArrays(int[] nums1, int[] nums2) {
 
         if(nums1 == null || nums2 == null)
@@ -129,6 +131,7 @@ public class BinarySearchOnAnswers {
         
     }
 
+    //Leetcode Problem https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/
     public static int shipWithinDays(int[] weights, int days) {
 
         if(weights == null)
@@ -172,6 +175,37 @@ public class BinarySearchOnAnswers {
 
         return low;
         
+    }
+
+    // Leetcode problem https://leetcode.com/problems/find-the-smallest-divisor-given-a-threshold/
+    public int smallestDivisor(int[] nums, int threshold) {
+
+        int low = 1;
+        int high = nums[0];
+        int mid, sum;
+
+        for(Integer num:nums)
+        {
+            high = Math.max(high,num); 
+        }
+
+        while(low<=high)
+        {
+            mid = (low+high)/2;
+            sum = 0;
+            for(int i = 0;i<nums.length;i++)
+            {
+               sum+= (nums[i]+mid-1)/mid;
+            }
+            if(sum<=threshold)
+            {
+                high = mid-1;
+            }
+            else
+            low = mid+1;
+        }
+
+        return low;
     }
     
 }

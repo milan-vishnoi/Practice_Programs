@@ -207,5 +207,57 @@ public class BinarySearchOnAnswers {
 
         return low;
     }
+
+    // Leetcode problem https://leetcode.com/problems/minimum-number-of-days-to-make-m-bouquets/
+    public static int minDays(int[] bloomDay, int m, int k) {
+
+        if(m>bloomDay.length/k)
+        return -1;
+
+        int low = Integer.MAX_VALUE;
+        int high= bloomDay[0];
+        for(int day:bloomDay)
+        {
+            high = Math.max(high,day);
+            low = Math.min(low,day);
+        }
+
+        int mid,adjacent;
+        int bouquet;
+
+        while(low<=high)
+        {
+            mid = (low+high)/2;
+            adjacent = 0;
+            bouquet = 0;
+            for(int i=0;i<bloomDay.length;i++)
+            {
+                if(mid>=bloomDay[i])
+                {
+                    adjacent++;
+                    if(adjacent==k)
+                    {
+                        bouquet++;
+                        if(bouquet==m)
+                        break;
+                        adjacent = 0;
+                    }
+
+                } else {
+                    adjacent= 0;
+                }
+
+            }
+            if(bouquet==m)
+            {
+                high = mid-1;
+            }
+            else {
+                low = mid+1;
+            }
+
+        }
+        return low;
+    }
     
 }

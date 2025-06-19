@@ -596,4 +596,122 @@ public class BinarySearchOnAnswersTest {
         assertThrows(NullPointerException.class, () -> new BinarySearchOnAnswers().smallestDivisor(nums, threshold),
                 "Test Case 10 Failed: Null nums array should throw NPE");
     }
+
+    // --- Test Cases for minDays (LeetCode 1482) ---
+
+    @Test
+    void testMinDays_Example1() {
+        int[] bloomDay = {1, 10, 3, 10, 2};
+        int m = 3;
+        int k = 1;
+        int expected = 3;
+        assertEquals(expected, BinarySearchOnAnswers.minDays(bloomDay, m, k));
+    }
+
+    @Test
+    void testMinDays_Example2() {
+        int[] bloomDay = {1, 10, 3, 10, 2};
+        int m = 3;
+        int k = 2;
+        int expected = -1;
+        assertEquals(expected, BinarySearchOnAnswers.minDays(bloomDay, m, k));
+    }
+
+    @Test
+    void testMinDays_Example3() {
+        int[] bloomDay = {7, 7, 7, 7, 12, 7, 7};
+        int m = 2;
+        int k = 3;
+        int expected = 12;
+        assertEquals(expected, BinarySearchOnAnswers.minDays(bloomDay, m, k));
+    }
+
+    @Test
+    void testMinDays_NotEnoughTotalFlowers() {
+        int[] bloomDay = {1, 2, 3, 4, 5};
+        int m = 2;
+        int k = 3;
+        int expected = -1;
+        assertEquals(expected, BinarySearchOnAnswers.minDays(bloomDay, m, k));
+    }
+
+    @Test
+    void testMinDays_AllFlowersBloomSameDay() {
+        int[] bloomDay = {5, 5, 5, 5, 5, 5, 5, 5, 5, 5};
+        int m = 2;
+        int k = 5;
+        int expected = 5;
+        assertEquals(expected, BinarySearchOnAnswers.minDays(bloomDay, m, k));
+    }
+
+    @Test
+    void testMinDays_KEqualsOne() {
+        int[] bloomDay = {10, 1, 8, 3, 5};
+        int m = 5;
+        int k = 1;
+        int expected = 10;
+        assertEquals(expected, BinarySearchOnAnswers.minDays(bloomDay, m, k));
+    }
+
+    @Test
+    void testMinDays_KIsLarge() {
+        int[] bloomDay = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        int m = 1;
+        int k = 10;
+        int expected = 10;
+        assertEquals(expected, BinarySearchOnAnswers.minDays(bloomDay, m, k));
+    }
+
+    @Test
+    void testMinDays_SingleFlowerArray() {
+        int[] bloomDay = {5};
+        int m = 1;
+        int k = 1;
+        int expected = 5;
+        assertEquals(expected, BinarySearchOnAnswers.minDays(bloomDay, m, k));
+    }
+
+    @Test
+    void testMinDays_EmptyBloomDay() {
+        int[] bloomDay = {};
+        int m = 1;
+        int k = 1;
+        int expected = -1;
+        assertEquals(expected, BinarySearchOnAnswers.minDays(bloomDay, m, k));
+    }
+
+    @Test
+    void testMinDays_NullBloomDay() {
+        int[] bloomDay = null;
+        int m = 1;
+        int k = 1;
+        assertThrows(NullPointerException.class, () -> BinarySearchOnAnswers.minDays(bloomDay, m, k));
+    }
+
+    @Test
+    void testMinDays_TotalFlowersNeededEqualsTotalAvailable() {
+        int[] bloomDay = {1, 2, 3, 4, 5, 6};
+        int m = 2;
+        int k = 3;
+        int expected = 6;
+        assertEquals(expected, BinarySearchOnAnswers.minDays(bloomDay, m, k));
+    }
+
+    @Test
+    void testMinDays_EdgeCase_NoContiguousFlowers() {
+        int[] bloomDay = {10, 1, 10, 1, 10, 1};
+        int m = 2;
+        int k = 2;
+        int expected = 10;
+        assertEquals(expected, BinarySearchOnAnswers.minDays(bloomDay, m, k));
+    }
+
+    @Test
+    void testMinDays_LargeNumbers() {
+        int[] bloomDay = {1_000_000_000, 1, 1_000_000_000, 1, 1_000_000_000, 1};
+        int m = 3;
+        int k = 2;
+        int expected = 1_000_000_000;
+        assertEquals(expected, BinarySearchOnAnswers.minDays(bloomDay, m, k));
+    }
 }

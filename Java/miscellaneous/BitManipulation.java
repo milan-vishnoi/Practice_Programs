@@ -27,5 +27,33 @@ public class BitManipulation {
         return result;
         
     }
+
+    // Leetcode Problem https://leetcode.com/problems/counting-bits/
+    public static int[] countBits(int n) {
+
+        int result[] = new int[n+1];
+        result[0] = 0;
+        if(n<1)
+        return result;
+
+        result[1]=1;
+        int lastSet=1;
+
+
+        for(int i=2; i<=n;i++)
+        {
+            if(lastSet*2==i)
+            {
+                lastSet = i;
+                result[i] = 1;
+            }
+            else {
+                result[i] = 1 + result[i-lastSet];
+            }
+        }
+
+        return result;
+        
+    }
     
 }

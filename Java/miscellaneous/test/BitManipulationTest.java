@@ -1,5 +1,6 @@
 package miscellaneous.test;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -163,6 +164,59 @@ public class BitManipulationTest {
         n = 1073741824;
         expected = 1;
         assertEquals(expected, BitManipulation.hammingWeight(n));
+    }
+
+    // --- Test Cases for countBits (LeetCode 338) ---
+
+    @Test
+    void testCountBits_Example1() {
+        int n = 2;
+        int[] expected = {0, 1, 1};
+        assertArrayEquals(expected, BitManipulation.countBits(n));
+    }
+
+    @Test
+    void testCountBits_Example2() {
+        int n = 5;
+        int[] expected = {0, 1, 1, 2, 1, 2};
+        assertArrayEquals(expected, BitManipulation.countBits(n));
+    }
+
+    @Test
+    void testCountBits_Zero() {
+        int n = 0;
+        int[] expected = {0};
+        assertArrayEquals(expected, BitManipulation.countBits(n));
+    }
+
+    @Test
+    void testCountBits_One() {
+        int n = 1;
+        int[] expected = {0, 1};
+        assertArrayEquals(expected, BitManipulation.countBits(n));
+    }
+
+    @Test
+    void testCountBits_PowersOfTwo() {
+        int n = 4;
+        int[] expected = {0, 1, 1, 2, 1};
+        assertArrayEquals(expected, BitManipulation.countBits(n));
+
+        n = 8;
+        int[] expected2 = {0, 1, 1, 2, 1, 2, 2, 3, 1};
+        assertArrayEquals(expected2, BitManipulation.countBits(n));
+    }
+
+    @Test
+    void testCountBits_MaxNValue() {
+        int n = 100000;
+        int[] result = BitManipulation.countBits(n);
+        assertEquals(n + 1, result.length);
+        assertEquals(0, result[0]);
+        assertEquals(1, result[1]);
+        assertEquals(1, result[2]);
+        assertEquals(2, result[3]);
+        assertEquals(1, result[4]);
     }
     
 }

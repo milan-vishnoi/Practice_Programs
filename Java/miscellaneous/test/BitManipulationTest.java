@@ -83,5 +83,86 @@ public class BitManipulationTest {
         int[] nums = {};
         assertThrows(IllegalArgumentException.class, () -> BitManipulation.singleNumber(nums));
     }
+
+    // --- Test Cases for hammingWeight (LeetCode 191) ---
+
+    @Test
+    void testHammingWeight_Example1() {
+        int n = 0b00000000000000000000000000001011;
+        int expected = 3;
+        assertEquals(expected, BitManipulation.hammingWeight(n));
+    }
+
+    @Test
+    void testHammingWeight_Example2() {
+        int n = 0b00000000000000000000000010000000;
+        int expected = 1;
+        assertEquals(expected, BitManipulation.hammingWeight(n));
+    }
+
+    @Test
+    void testHammingWeight_Example3() {
+        int n = 0b11111111111111111111111111111101;
+        int expected = 31;
+        assertEquals(expected, BitManipulation.hammingWeight(n));
+    }
+
+    @Test
+    void testHammingWeight_Zero() {
+        int n = 0;
+        int expected = 0;
+        assertEquals(expected, BitManipulation.hammingWeight(n));
+    }
+
+    @Test
+    void testHammingWeight_AllOnes() {
+        int n = -1;
+        int expected = 32;
+        assertEquals(expected, BitManipulation.hammingWeight(n));
+    }
+
+    @Test
+    void testHammingWeight_SingleOneAtLeftmost() {
+        int n = 0b10000000000000000000000000000000;
+        int expected = 1;
+        assertEquals(expected, BitManipulation.hammingWeight(n));
+    }
+
+    @Test
+    void testHammingWeight_SingleOneAtRightmost() {
+        int n = 1;
+        int expected = 1;
+        assertEquals(expected, BitManipulation.hammingWeight(n));
+    }
+
+    @Test
+    void testHammingWeight_AlternatingBits() {
+        int n = 0xAAAAAAAA;
+        int expected = 16;
+        assertEquals(expected, BitManipulation.hammingWeight(n));
+
+        n = 0x55555555;
+        expected = 16;
+        assertEquals(expected, BitManipulation.hammingWeight(n));
+    }
+
+    @Test
+    void testHammingWeight_PowersOfTwo() {
+        int n = 2;
+        int expected = 1;
+        assertEquals(expected, BitManipulation.hammingWeight(n));
+
+        n = 4;
+        expected = 1;
+        assertEquals(expected, BitManipulation.hammingWeight(n));
+
+        n = 16;
+        expected = 1;
+        assertEquals(expected, BitManipulation.hammingWeight(n));
+
+        n = 1073741824;
+        expected = 1;
+        assertEquals(expected, BitManipulation.hammingWeight(n));
+    }
     
 }

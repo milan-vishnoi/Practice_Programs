@@ -55,5 +55,19 @@ public class BitManipulation {
         return result;
         
     }
+
+    // Leetcode Problem https://leetcode.com/problems/sum-of-two-integers/
+    public static int getSum(int a, int b) {
+
+        int carry;
+        while(b!=0)
+        {
+          carry = a&b;
+           a = a^b;
+           b = carry<<1;
+        }
+        return a;
+        
+    }
     
 }

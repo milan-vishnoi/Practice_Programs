@@ -218,5 +218,92 @@ public class BitManipulationTest {
         assertEquals(2, result[3]);
         assertEquals(1, result[4]);
     }
+
+    // --- Test Cases for getSum (LeetCode 371) ---
+
+    @Test
+    void testGetSum_Example1() {
+        int a = 1;
+        int b = 2;
+        int expected = 3;
+        assertEquals(expected, BitManipulation.getSum(a, b));
+    }
+
+    @Test
+    void testGetSum_Example2() {
+        int a = 2;
+        int b = 3;
+        int expected = 5;
+        assertEquals(expected, BitManipulation.getSum(a, b));
+    }
+
+    @Test
+    void testGetSum_PositiveAndNegative() {
+        int a = 5;
+        int b = -3;
+        int expected = 2;
+        assertEquals(expected, BitManipulation.getSum(a, b));
+    }
+
+    @Test
+    void testGetSum_NegativeAndPositive() {
+        int a = -5;
+        int b = 3;
+        int expected = -2;
+        assertEquals(expected, BitManipulation.getSum(a, b));
+    }
+
+    @Test
+    void testGetSum_BothNegative() {
+        int a = -5;
+        int b = -3;
+        int expected = -8;
+        assertEquals(expected, BitManipulation.getSum(a, b));
+    }
+
+    @Test
+    void testGetSum_ZeroAndNumber() {
+        int a = 0;
+        int b = 10;
+        int expected = 10;
+        assertEquals(expected, BitManipulation.getSum(a, b));
+
+        a = -7;
+        b = 0;
+        expected = -7;
+        assertEquals(expected, BitManipulation.getSum(a, b));
+    }
+
+    @Test
+    void testGetSum_BothZero() {
+        int a = 0;
+        int b = 0;
+        int expected = 0;
+        assertEquals(expected, BitManipulation.getSum(a, b));
+    }
+
+    @Test
+    void testGetSum_MaxIntAndOne() {
+        int a = Integer.MAX_VALUE; // 2147483647
+        int b = 1;
+        int expected = Integer.MIN_VALUE; // -2147483648
+        assertEquals(expected, BitManipulation.getSum(a, b));
+    }
+
+    @Test
+    void testGetSum_MinIntAndNegativeOne() {
+        int a = Integer.MIN_VALUE; // -2147483648
+        int b = -1;
+        int expected = Integer.MAX_VALUE; // 2147483647
+        assertEquals(expected, BitManipulation.getSum(a, b));
+    }
+
+    @Test
+    void testGetSum_LargeNegativeNumbers() {
+        int a = -1_000_000_000;
+        int b = -1_500_000_000;
+        int expected = a + b;
+        assertEquals(expected, BitManipulation.getSum(a, b));
+    }
     
 }

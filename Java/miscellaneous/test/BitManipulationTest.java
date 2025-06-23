@@ -305,5 +305,95 @@ public class BitManipulationTest {
         int expected = a + b;
         assertEquals(expected, BitManipulation.getSum(a, b));
     }
+
+    // --- Test Cases for singleNumberTriple (LeetCode 137) ---
+
+    @Test
+    void testSingleNumberTriple_Example1() {
+        int[] nums = {2, 2, 3, 2};
+        int expected = 3;
+        assertEquals(expected, BitManipulation.singleNumberTriple(nums));
+    }
+
+    @Test
+    void testSingleNumberTriple_Example2() {
+        int[] nums = {0, 1, 0, 1, 0, 1, 99};
+        int expected = 99;
+        assertEquals(expected, BitManipulation.singleNumberTriple(nums));
+    }
+
+    @Test
+    void testSingleNumberTriple_SingleElement() {
+        int[] nums = {7};
+        int expected = 7;
+        assertEquals(expected, BitManipulation.singleNumberTriple(nums));
+    }
+
+    @Test
+    void testSingleNumberTriple_NegativeNumbers() {
+        int[] nums = {-2, -2, -3, -2};
+        int expected = -3;
+        assertEquals(expected, BitManipulation.singleNumberTriple(nums));
+    }
+
+    @Test
+    void testSingleNumberTriple_MixedNumbersWithZero() {
+        int[] nums = {1, 1, 1, 0, 2, 2, 2};
+        int expected = 0;
+        assertEquals(expected, BitManipulation.singleNumberTriple(nums));
+    }
+
+    @Test
+    void testSingleNumberTriple_LargeNumbers() {
+        int[] nums = {Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, 123456789};
+        int expected = 123456789;
+        assertEquals(expected, BitManipulation.singleNumberTriple(nums));
+    }
+
+    @Test
+    void testSingleNumberTriple_MinInt() {
+        int[] nums = {-1, -1, -1, Integer.MIN_VALUE};
+        int expected = Integer.MIN_VALUE;
+        assertEquals(expected, BitManipulation.singleNumberTriple(nums));
+    }
+
+    @Test
+    void testSingleNumberTriple_LongArray() {
+        int[] nums = new int[3 * 100 + 1]; // 301 elements
+        for (int i = 0; i < 100; i++) {
+            nums[3 * i] = i + 1;
+            nums[3 * i + 1] = i + 1;
+            nums[3 * i + 2] = i + 1;
+        }
+        nums[300] = 500; // The single number
+        int expected = 500;
+        assertEquals(expected, BitManipulation.singleNumberTriple(nums));
+    }
+
+    @Test
+    void testSingleNumberTriple_SingleNumberAtStart() {
+        int[] nums = {10, 20, 30, 20, 30, 20, 30};
+        int expected = 10;
+        assertEquals(expected, BitManipulation.singleNumberTriple(nums));
+    }
+
+    @Test
+    void testSingleNumberTriple_SingleNumberAtEnd() {
+        int[] nums = {1, 2, 1, 2, 1, 2, 5};
+        int expected = 5;
+        assertEquals(expected, BitManipulation.singleNumberTriple(nums));
+    }
+
+    @Test
+    void testSingleNumberTriple_NullArray() {
+        int[] nums = null;
+        assertThrows(NullPointerException.class, () -> BitManipulation.singleNumberTriple(nums));
+    }
+
+    @Test
+    void testSingleNumberTriple_EmptyArray() {
+        int[] nums = {};
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> BitManipulation.singleNumberTriple(nums));
+    }
     
 }

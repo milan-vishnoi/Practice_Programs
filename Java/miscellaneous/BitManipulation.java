@@ -69,5 +69,33 @@ public class BitManipulation {
         return a;
         
     }
+
+    // Leetcode problem https://leetcode.com/problems/single-number-ii/
+    public static int singleNumberTriple(int[] nums) {
+
+        if(nums.length==0)
+        throw new ArrayIndexOutOfBoundsException();
+
+        int[] bitCount = new int[32];
+        int result=0;
+
+        for(int i = 0; i<32;i++)
+        {
+            for(int num:nums)
+            {
+               if(((num>>i)&1)==1)
+               {
+                bitCount[i]++;
+               }
+            }
+
+            if(bitCount[i]%3==1)
+            {
+               result = result^(1<<i);
+            }
+        }
+
+        return result;
+    }
     
 }

@@ -78,21 +78,21 @@ public class BitManipulation {
 
         int[] bitCount = new int[32];
         int result=0;
-
-        for(int i = 0; i<32;i++)
+        for(int num:nums)          //Made this as outer loop for better caching
         {
-            for(int num:nums)
-            {
-               if(((num>>i)&1)==1)
-               {
-                bitCount[i]++;
-               }
-            }
+            for(int i = 0; i<32;i++)
+              {
+               //if(((num>>i)&1)==1)   This can be replaced by below logic as we are adding 1 otherwise it will be 0
+                bitCount[i]+= (num>>i)&1;
+             }
+        }
 
+        for(int i =0;i<32;i++)
+        {
             if(bitCount[i]%3==1)
-            {
-               result = result^(1<<i);
-            }
+                 {
+                    result |= (1<<i); // Used | instead of ^ because the unset bit will remain unset and required unset will get set 
+                 }
         }
 
         return result;

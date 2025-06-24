@@ -97,5 +97,20 @@ public class BitManipulation {
 
         return result;
     }
+
+    public static int rangeBitwiseAnd(int left, int right) {
+
+        int shift=0;
+
+        while(left<right)
+        {
+            // Right shifting left and right until we find the common number in which case we retun that number
+            left>>=1;
+            right>>=1;
+            shift++;
+        }
+        // left shift the left in order to return the number
+        return left<<shift;
+    }
     
 }

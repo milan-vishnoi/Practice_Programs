@@ -395,5 +395,96 @@ public class BitManipulationTest {
         int[] nums = {};
         assertThrows(ArrayIndexOutOfBoundsException.class, () -> BitManipulation.singleNumberTriple(nums));
     }
+
+    // --- Test Cases for rangeBitwiseAnd (LeetCode 201) ---
+
+    @Test
+    void testRangeBitwiseAnd_Example1() {
+        int left = 5;
+        int right = 7;
+        int expected = 4; // (101 & 110 & 111) = 100
+        assertEquals(expected, BitManipulation.rangeBitwiseAnd(left, right));
+    }
+
+    @Test
+    void testRangeBitwiseAnd_Example2() {
+        int left = 0;
+        int right = 0;
+        int expected = 0;
+        assertEquals(expected, BitManipulation.rangeBitwiseAnd(left, right));
+    }
+
+    @Test
+    void testRangeBitwiseAnd_Example3() {
+        int left = 1;
+        int right = 2147483647; // Integer.MAX_VALUE
+        int expected = 0;
+        assertEquals(expected, BitManipulation.rangeBitwiseAnd(left, right));
+    }
+
+    @Test
+    void testRangeBitwiseAnd_SameNumber() {
+        int left = 10;
+        int right = 10;
+        int expected = 10;
+        assertEquals(expected, BitManipulation.rangeBitwiseAnd(left, right));
+    }
+
+    @Test
+    void testRangeBitwiseAnd_ConsecutiveNumbers() {
+        int left = 8; // 1000
+        int right = 9; // 1001
+        int expected = 8; // 1000 & 1001 = 1000
+        assertEquals(expected, BitManipulation.rangeBitwiseAnd(left, right));
+    }
+
+    @Test
+    void testRangeBitwiseAnd_PowerOfTwoRange() {
+        int left = 8; // 1000
+        int right = 15; // 1111
+        int expected = 8; // (1000 & 1001 & ... & 1111) = 1000
+        assertEquals(expected, BitManipulation.rangeBitwiseAnd(left, right));
+    }
+
+    @Test
+    void testRangeBitwiseAnd_RangeCrossingPowerOfTwo() {
+        int left = 7; // 0111
+        int right = 8; // 1000
+        int expected = 0; // (0111 & 1000) = 0000
+        assertEquals(expected, BitManipulation.rangeBitwiseAnd(left, right));
+    }
+
+    @Test
+    void testRangeBitwiseAnd_LargeRange() {
+        int left = 100;
+        int right = 120;
+        int expected = 96;
+        assertEquals(expected, BitManipulation.rangeBitwiseAnd(left, right));
+    }
+
+    @Test
+    void testRangeBitwiseAnd_MaxIntValues() {
+        int left = Integer.MAX_VALUE - 1; // 2147483646
+        int right = Integer.MAX_VALUE;   // 2147483647
+        // ...1111110 & ...1111111 = ...1111110
+        int expected = Integer.MAX_VALUE - 1;
+        assertEquals(expected, BitManipulation.rangeBitwiseAnd(left, right));
+    }
+
+    @Test
+    void testRangeBitwiseAnd_LargeGapSamePrefix() {
+        int left = 16; // 10000
+        int right = 31; // 11111
+        int expected = 16;
+        assertEquals(expected, BitManipulation.rangeBitwiseAnd(left, right));
+    }
+
+    @Test
+    void testRangeBitwiseAnd_LargeGapDifferentPrefix() {
+        int left = 15; // 01111
+        int right = 16; // 10000
+        int expected = 0;
+        assertEquals(expected, BitManipulation.rangeBitwiseAnd(left, right));
+    }
     
 }

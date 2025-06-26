@@ -486,5 +486,70 @@ public class BitManipulationTest {
         int expected = 0;
         assertEquals(expected, BitManipulation.rangeBitwiseAnd(left, right));
     }
+
+    // --- Test Cases for reverseBits (LeetCode 190) ---
+
+    @Test
+    void testReverseBits_Example1() {
+        int n = 0b00000010100101000001111010011100;
+        int expected = 0b00111001011110000010100101000000;
+        assertEquals(expected, BitManipulation.reverseBits(n));
+    }
+
+    @Test
+    void testReverseBits_Zero() {
+        int n = 0;
+        int expected = 0;
+        assertEquals(expected, BitManipulation.reverseBits(n));
+    }
+
+    @Test
+    void testReverseBits_One() {
+        int n = 1;
+        int expected = Integer.MIN_VALUE;
+        assertEquals(expected, BitManipulation.reverseBits(n));
+    }
+
+    @Test
+    void testReverseBits_MaxInt() {
+        int n = Integer.MAX_VALUE;
+        int expected = -2;
+        assertEquals(expected, BitManipulation.reverseBits(n));
+    }
+
+    @Test
+    void testReverseBits_MinInt() {
+        int n = Integer.MIN_VALUE;
+        int expected = 1;
+        assertEquals(expected, BitManipulation.reverseBits(n));
+    }
+
+    @Test
+    void testReverseBits_AllOnes() {
+        int n = -1;
+        int expected = -1;
+        assertEquals(expected, BitManipulation.reverseBits(n));
+    }
+
+    @Test
+    void testReverseBits_SimplePattern() {
+        int n = 0b00000000000000000000000000001111;
+        int expected = 0b11110000000000000000000000000000;
+        assertEquals(expected, BitManipulation.reverseBits(n));
+    }
+
+    @Test
+    void testReverseBits_AnotherSimplePattern() {
+        int n = 0b10000000000000000000000000000001;
+        int expected = 0b10000000000000000000000000000001;
+        assertEquals(expected, BitManipulation.reverseBits(n));
+    }
+
+    @Test
+    void testReverseBits_PalindromicPattern() {
+        int n = 0b10011001100110011001100110011001;
+        int expected = 0b10011001100110011001100110011001;
+        assertEquals(expected, BitManipulation.reverseBits(n));
+    }
     
 }

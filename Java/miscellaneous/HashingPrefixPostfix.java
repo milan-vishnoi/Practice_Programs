@@ -87,10 +87,12 @@ public class HashingPrefixPostfix {
         if(nums == null)
         throw new NullPointerException();
 
-        Map<Integer, Integer> count = new HashMap<>();
+        // Map<Integer, Integer> count = new HashMap<>();
+        int count[] = new int[10000];
         int currentSum =0;
         int result=0;
-        count.put(0,1);
+        // count.put(0,1);
+        count[0] = 1;
         int rem;
 
         for(int i=0;i<nums.length;i++)
@@ -98,9 +100,11 @@ public class HashingPrefixPostfix {
             currentSum+=nums[i];
             // To handle -ve modulo. Eg if currentSum is -1 then if we have 4 in prefix, we can get div by 5 after removing it 
             rem = (currentSum%k + k)%k;
-            result+= count.getOrDefault(rem,0);
+            //result+= count.getOrDefault(rem,0);
+            result+= count[rem];
 
-            count.put(rem,count.getOrDefault(rem,0)+1);
+            //count.put(rem,count.getOrDefault(rem,0)+1);
+            count[rem]++;
         }
 
         return result;

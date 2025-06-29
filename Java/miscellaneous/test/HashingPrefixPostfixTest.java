@@ -133,4 +133,105 @@ public class HashingPrefixPostfixTest {
         assertEquals(expected, HashingPrefixPostfix.subarraySum(nums, k));
     }
 
+    // --- Test Cases for findMaxLength (LeetCode 525) ---
+
+    @Test
+    void testFindMaxLength_Example1() {
+        int[] nums = {0, 1};
+        int expected = 2;
+        assertEquals(expected, HashingPrefixPostfix.findMaxLength(nums));
+    }
+
+    @Test
+    void testFindMaxLength_Example2() {
+        int[] nums = {0, 1, 0};
+        int expected = 2;
+        assertEquals(expected, HashingPrefixPostfix.findMaxLength(nums));
+    }
+
+    @Test
+    void testFindMaxLength_AllZeros() {
+        int[] nums = {0, 0, 0, 0};
+        int expected = 0;
+        assertEquals(expected, HashingPrefixPostfix.findMaxLength(nums));
+    }
+
+    @Test
+    void testFindMaxLength_AllOnes() {
+        int[] nums = {1, 1, 1, 1};
+        int expected = 0;
+        assertEquals(expected, HashingPrefixPostfix.findMaxLength(nums));
+    }
+
+    @Test
+    void testFindMaxLength_Alternating() {
+        int[] nums = {0, 1, 0, 1};
+        int expected = 4;
+        assertEquals(expected, HashingPrefixPostfix.findMaxLength(nums));
+    }
+
+    @Test
+    void testFindMaxLength_ComplexMixed() {
+        int[] nums = {0, 0, 1, 0, 0, 0, 1, 1};
+        int expected = 6;
+        assertEquals(expected, HashingPrefixPostfix.findMaxLength(nums));
+    }
+
+    @Test
+    void testFindMaxLength_SingleElementZero() {
+        int[] nums = {0};
+        int expected = 0;
+        assertEquals(expected, HashingPrefixPostfix.findMaxLength(nums));
+    }
+
+    @Test
+    void testFindMaxLength_SingleElementOne() {
+        int[] nums = {1};
+        int expected = 0;
+        assertEquals(expected, HashingPrefixPostfix.findMaxLength(nums));
+    }
+
+    @Test
+    void testFindMaxLength_NoEqualSubarray() {
+        int[] nums = {0, 0, 1, 0, 0};
+        int expected = 2;
+        assertEquals(expected, HashingPrefixPostfix.findMaxLength(nums));
+    }
+
+    @Test
+    void testFindMaxLength_LongArray() {
+        int[] nums = new int[100000];
+        for (int i = 0; i < 50000; i++) {
+            nums[2 * i] = 0;
+            nums[2 * i + 1] = 1;
+        }
+        int expected = 100000;
+        assertEquals(expected, HashingPrefixPostfix.findMaxLength(nums));
+    }
+
+    @Test
+    void testFindMaxLength_LongArrayWithShift() {
+        int[] nums = new int[100000];
+        nums[0] = 0; // Extra zero at start
+        for (int i = 0; i < 49999; i++) {
+            nums[2 * i + 1] = 0;
+            nums[2 * i + 2] = 1;
+        }
+        int expected = 99998; // From index 1 to end
+        assertEquals(expected, HashingPrefixPostfix.findMaxLength(nums));
+    }
+
+    @Test
+    void testFindMaxLength_NullArray() {
+        int[] nums = null;
+        assertThrows(NullPointerException.class, () -> HashingPrefixPostfix.findMaxLength(nums));
+    }
+
+    @Test
+    void testFindMaxLength_EmptyArray() {
+        int[] nums = {};
+        int expected = 0;
+        assertEquals(expected, HashingPrefixPostfix.findMaxLength(nums));
+    }
+
 }

@@ -51,6 +51,33 @@ public class HashingPrefixPostfix {
         }
 
         return maxCount;
-        
+    }
+
+    // Variant of above problem (not present on Leetcode)
+    public static int longestSubarrayWithEqual012(int[] nums) {
+    int maxLen = 0;
+    int count0 = 0, count1 = 0, count2 = 0;
+
+    // Map to store the first index where (count1 - count0, count2 - count1) occurred
+    Map<String, Integer> map = new HashMap<>();
+    map.put("0#0", -1); // base case: diff0 and diff1 both 0 at index -1
+
+    for (int i = 0; i < nums.length; i++) {
+        if (nums[i] == 0) count0++;
+        else if (nums[i] == 1) count1++;
+        else count2++;
+
+        int diff1 = count1 - count0;
+        int diff2 = count2 - count1;
+        String key = diff1 + "#" + diff2;
+
+        if (map.containsKey(key)) {
+            maxLen = Math.max(maxLen, i - map.get(key));
+        } else {
+            map.put(key, i);
+        }
+    }
+
+    return maxLen;
     }
 }

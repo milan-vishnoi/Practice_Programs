@@ -5,3 +5,4 @@
 3. Two Pointers
 4. Binary Search on Answers
 5. Bit Manipulation
+6. Hashing, Prefix and Postfix

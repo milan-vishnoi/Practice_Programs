@@ -80,4 +80,29 @@ public class HashingPrefixPostfix {
 
     return maxLen;
     }
+
+    // Leetcode problem https://leetcode.com/problems/subarray-sums-divisible-by-k/
+    public static int subarraysDivByK(int[] nums, int k) {
+
+        if(nums == null)
+        throw new NullPointerException();
+
+        Map<Integer, Integer> count = new HashMap<>();
+        int currentSum =0;
+        int result=0;
+        count.put(0,1);
+        int rem;
+
+        for(int i=0;i<nums.length;i++)
+        {
+            currentSum+=nums[i];
+            // To handle -ve modulo. Eg if currentSum is -1 then if we have 4 in prefix, we can get div by 5 after removing it 
+            rem = (currentSum%k + k)%k;
+            result+= count.getOrDefault(rem,0);
+
+            count.put(rem,count.getOrDefault(rem,0)+1);
+        }
+
+        return result;
+    }
 }

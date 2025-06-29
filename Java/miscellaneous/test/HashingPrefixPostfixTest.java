@@ -234,4 +234,85 @@ public class HashingPrefixPostfixTest {
         assertEquals(expected, HashingPrefixPostfix.findMaxLength(nums));
     }
 
+   // --- Test Cases for subarraysDivByK (LeetCode 974) ---
+
+    @Test
+    void testSubarraysDivByK_Example1() {
+        int[] nums = {4, 5, 0, -2, -3, 1};
+        int k = 5;
+        int expected = 7;
+        assertEquals(expected, HashingPrefixPostfix.subarraysDivByK(nums, k));
+    }
+
+    @Test
+    void testSubarraysDivByK_Example2() {
+        int[] nums = {5};
+        int k = 9;
+        int expected = 0;
+        assertEquals(expected, HashingPrefixPostfix.subarraysDivByK(nums, k));
+    }
+
+    @Test
+    void testSubarraysDivByK_AllPositive() {
+        int[] nums = {1, 2, 3, 4, 5};
+        int k = 3;
+        int expected = 7;
+        assertEquals(expected, HashingPrefixPostfix.subarraysDivByK(nums, k));
+    }
+
+    @Test
+    void testSubarraysDivByK_AllNegative() {
+        int[] nums = {-1, -2, -3, -4, -5};
+        int k = 3;
+        int expected = 7;
+        assertEquals(expected, HashingPrefixPostfix.subarraysDivByK(nums, k));
+    }
+
+    @Test
+    void testSubarraysDivByK_ContainsZero() {
+        int[] nums = {0, 0, 0, 0};
+        int k = 2;
+        int expected = 10;
+        assertEquals(expected, HashingPrefixPostfix.subarraysDivByK(nums, k));
+    }
+
+    @Test
+    void testSubarraysDivByK_NoDivisible() {
+        int[] nums = {1, 2, 3, 4};
+        int k = 50;
+        int expected = 0;
+        assertEquals(expected, HashingPrefixPostfix.subarraysDivByK(nums, k));
+    }
+
+    @Test
+    void testSubarraysDivByK_KIsLarge() {
+        int[] nums = {10, 20, 30};
+        int k = 5;
+        int expected = 6;
+        assertEquals(expected, HashingPrefixPostfix.subarraysDivByK(nums, k));
+    }
+
+    @Test
+    void testSubarraysDivByK_ComplexNegativeRemainder() {
+        int[] nums = {-1, 2, 9};
+        int k = 2;
+        int expected = 2;
+        assertEquals(expected, HashingPrefixPostfix.subarraysDivByK(nums, k));
+    }
+
+    @Test
+    void testSubarraysDivByK_NullArray() {
+        int[] nums = null;
+        int k = 5;
+        assertThrows(NullPointerException.class, () -> HashingPrefixPostfix.subarraysDivByK(nums, k));
+    }
+
+    @Test
+    void testSubarraysDivByK_EmptyArray() {
+        int[] nums = {};
+        int k = 5;
+        int expected = 0;
+        assertEquals(expected, HashingPrefixPostfix.subarraysDivByK(nums, k));
+    }
+
 }

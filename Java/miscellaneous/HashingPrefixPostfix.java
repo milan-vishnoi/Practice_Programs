@@ -109,4 +109,29 @@ public class HashingPrefixPostfix {
 
         return result;
     }
+
+    // Leetcode Problem https://leetcode.com/problems/binary-subarrays-with-sum/
+    public static int numSubarraysWithSum(int[] nums, int goal) {
+
+    int count[] = new int[30000];
+    //Map<Integer, Integer> count = new HashMap<>(); 
+    int currentSum = 0;
+    int result = 0;
+    //count.put(0,1);
+    count[0]=1;
+
+    for(int i=0;i<nums.length;i++)
+    {
+        currentSum+=nums[i];
+        if(currentSum>=goal)
+        result+=count[currentSum-goal];
+        //result+= count.getOrDefault(currentSum-goal,0);
+        //count.put(currentSum,count.getOrDefault(currentSum,0)+1);
+
+        count[currentSum]++;
+    }
+
+    return result;
+        
+    }
 }

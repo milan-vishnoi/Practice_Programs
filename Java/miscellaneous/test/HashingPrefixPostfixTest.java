@@ -315,4 +315,104 @@ public class HashingPrefixPostfixTest {
         assertEquals(expected, HashingPrefixPostfix.subarraysDivByK(nums, k));
     }
 
+    // --- Test Cases for numSubarraysWithSum (LeetCode 930) ---
+
+    @Test
+    void testNumSubarraysWithSum_Example1() {
+        int[] nums = {1, 0, 1, 0, 1};
+        int goal = 2;
+        int expected = 4;
+        assertEquals(expected, HashingPrefixPostfix.numSubarraysWithSum(nums, goal));
+    }
+
+    @Test
+    void testNumSubarraysWithSum_Example2() {
+        int[] nums = {0, 0, 0, 0, 0};
+        int goal = 0;
+        int expected = 15;
+        assertEquals(expected, HashingPrefixPostfix.numSubarraysWithSum(nums, goal));
+    }
+
+    @Test
+    void testNumSubarraysWithSum_SingleElement_Match() {
+        int[] nums = {1};
+        int goal = 1;
+        int expected = 1;
+        assertEquals(expected, HashingPrefixPostfix.numSubarraysWithSum(nums, goal));
+    }
+
+    @Test
+    void testNumSubarraysWithSum_SingleElement_NoMatch() {
+        int[] nums = {0};
+        int goal = 1;
+        int expected = 0;
+        assertEquals(expected, HashingPrefixPostfix.numSubarraysWithSum(nums, goal));
+    }
+
+    @Test
+    void testNumSubarraysWithSum_AllOnes() {
+        int[] nums = {1, 1, 1, 1, 1};
+        int goal = 3;
+        int expected = 3;
+        assertEquals(expected, HashingPrefixPostfix.numSubarraysWithSum(nums, goal));
+    }
+
+    @Test
+    void testNumSubarraysWithSum_AllZeros_GoalOne() {
+        int[] nums = {0, 0, 0, 0};
+        int goal = 1;
+        int expected = 0;
+        assertEquals(expected, HashingPrefixPostfix.numSubarraysWithSum(nums, goal));
+    }
+
+    @Test
+    void testNumSubarraysWithSum_ComplexMixed() {
+        int[] nums = {0, 1, 1, 0, 1, 1, 0};
+        int goal = 2;
+        int expected = 9;
+        assertEquals(expected, HashingPrefixPostfix.numSubarraysWithSum(nums, goal));
+    }
+
+    @Test
+    void testNumSubarraysWithSum_GoalIsMaxSum() {
+        int[] nums = {1, 1, 1, 1, 1};
+        int goal = 5;
+        int expected = 1;
+        assertEquals(expected, HashingPrefixPostfix.numSubarraysWithSum(nums, goal));
+    }
+
+    @Test
+    void testNumSubarraysWithSum_GoalTooHigh() {
+        int[] nums = {0, 1, 0, 1};
+        int goal = 3;
+        int expected = 0;
+        assertEquals(expected, HashingPrefixPostfix.numSubarraysWithSum(nums, goal));
+    }
+
+    @Test
+    void testNumSubarraysWithSum_LongArray() {
+        int[] nums = new int[30000];
+        for (int i = 0; i < 30000; i++) {
+            nums[i] = i % 2;
+        }
+        int goal = 15000; 
+        int expected = 2; 
+        assertEquals(expected, HashingPrefixPostfix.numSubarraysWithSum(nums, goal));
+    }
+
+    @Test
+    void testNumSubarraysWithSum_NullArray() {
+        int[] nums = null;
+        int goal = 0;
+        assertThrows(NullPointerException.class, () -> HashingPrefixPostfix.numSubarraysWithSum(nums, goal));
+    }
+
+    @Test
+    void testNumSubarraysWithSum_EmptyArray() {
+        int[] nums = {};
+        int goal = 0;
+        int expected = 0;
+        assertEquals(expected, HashingPrefixPostfix.numSubarraysWithSum(nums, goal));
+    }
+
 }

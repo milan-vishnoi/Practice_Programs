@@ -415,4 +415,93 @@ public class HashingPrefixPostfixTest {
         assertEquals(expected, HashingPrefixPostfix.numSubarraysWithSum(nums, goal));
     }
 
+    // --- Test Cases for numberOfSubarrays (LeetCode 1248) ---
+
+    @Test
+    void testNumberOfSubarrays_Example1() {
+        int[] nums = {1, 1, 2, 1, 1};
+        int k = 3;
+        int expected = 2;
+        assertEquals(expected, HashingPrefixPostfix.numberOfSubarrays(nums, k));
+    }
+
+    @Test
+    void testNumberOfSubarrays_Example2() {
+        int[] nums = {2, 4, 6};
+        int k = 1;
+        int expected = 0;
+        assertEquals(expected, HashingPrefixPostfix.numberOfSubarrays(nums, k));
+    }
+
+    @Test
+    void testNumberOfSubarrays_Example3() {
+        int[] nums = {1, 2, 3, 4, 5, 6};
+        int k = 2;
+        int expected = 6;
+        assertEquals(expected, HashingPrefixPostfix.numberOfSubarrays(nums, k));
+    }
+
+    @Test
+    void testNumberOfSubarrays_SingleElement_Odd_K1() {
+        int[] nums = {7};
+        int k = 1;
+        int expected = 1;
+        assertEquals(expected, HashingPrefixPostfix.numberOfSubarrays(nums, k));
+    }
+
+    @Test
+    void testNumberOfSubarrays_SingleElement_Even_K1() {
+        int[] nums = {8};
+        int k = 1;
+        int expected = 0;
+        assertEquals(expected, HashingPrefixPostfix.numberOfSubarrays(nums, k));
+    }
+
+    @Test
+    void testNumberOfSubarrays_AllOdd() {
+        int[] nums = {1, 3, 5, 7};
+        int k = 2;
+        int expected = 3;
+        assertEquals(expected, HashingPrefixPostfix.numberOfSubarrays(nums, k));
+    }
+
+    @Test
+    void testNumberOfSubarrays_AllEven() {
+        int[] nums = {2, 4, 6, 8};
+        int k = 1;
+        int expected = 0;
+        assertEquals(expected, HashingPrefixPostfix.numberOfSubarrays(nums, k));
+    }
+
+    @Test
+    void testNumberOfSubarrays_KTooLarge() {
+        int[] nums = {1, 2, 1, 4};
+        int k = 3;
+        int expected = 0;
+        assertEquals(expected, HashingPrefixPostfix.numberOfSubarrays(nums, k));
+    }
+
+    @Test
+    void testNumberOfSubarrays_MixedWithZeros() {
+        int[] nums = {1, 0, 1, 0, 1, 0};
+        int k = 2;
+        int expected = 6;
+        assertEquals(expected, HashingPrefixPostfix.numberOfSubarrays(nums, k));
+    }
+
+    @Test
+    void testNumberOfSubarrays_NullArray() {
+        int[] nums = null;
+        int k = 1;
+        assertThrows(NullPointerException.class, () -> HashingPrefixPostfix.numberOfSubarrays(nums, k));
+    }
+
+    @Test
+    void testNumberOfSubarrays_EmptyArray() {
+        int[] nums = {};
+        int k = 1;
+        int expected = 0;
+        assertEquals(expected, HashingPrefixPostfix.numberOfSubarrays(nums, k));
+    }
+
 }

@@ -134,4 +134,29 @@ public class HashingPrefixPostfix {
     return result;
         
     }
+
+    // Leetcode Problems https://leetcode.com/problems/count-number-of-nice-subarrays/
+    public static int numberOfSubarrays(int[] nums, int k) {
+
+        int result =0;
+        int currentSum=0;
+        //Map<Integer,Integer> count = new HashMap<>();
+        int count[] = new int[50000];
+        //count.put(0,1);
+        count[0] = 1;
+        // for(int i=0;i<nums.length;i++)
+        //  nums[i] = nums[i]%2;
+
+         for(int i =0;i<nums.length;i++)
+         {
+            currentSum+=nums[i]%2;
+            //result+=count.getOrDefault(currentSum-k,0);
+            //count.put(currentSum,count.getOrDefault(currentSum,0)+1);
+            if(currentSum>=k)
+            result+=count[currentSum-k];
+            count[currentSum]++;
+         }
+
+         return result;
+    }
 }

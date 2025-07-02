@@ -1,31 +1,29 @@
 package miscellaneous;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class StackMonotonicStack {
 
     public static boolean isValid(String s) {
        char[] stack = new char[s.length()];
-       Map<Character,Character> pair = new HashMap<>();
-       pair.put(')','(');
-       pair.put('}','{');
-       pair.put(']','[');
         int top=-1;
         for(char ch:s.toCharArray())
         {
-            if(ch=='('||ch=='{'||ch=='[')
+            if(ch=='(')
             {
-                stack[++top]=ch;
+               stack[++top] = ')';
+            }
+            else if(ch=='{')
+            {
+               stack[++top] = '}';
+            }
+            else if(ch=='[')
+            {
+                 stack[++top] = ']';
             }
             else
             {
-                if(top==-1)
+                if(top==-1 || ch!=stack[top])
                 return false;
-                if(pair.get(ch)==stack[top])
                 top--;
-                else
-                return false;
             }
         }
         if(top==-1)

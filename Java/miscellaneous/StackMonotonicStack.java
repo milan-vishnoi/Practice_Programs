@@ -2,6 +2,7 @@ package miscellaneous;
 
 public class StackMonotonicStack {
 
+    // Leetcode Problem https://leetcode.com/problems/valid-parentheses/
     public static boolean isValid(String s) {
        char[] stack = new char[s.length()];
         int top=-1;
@@ -31,6 +32,34 @@ public class StackMonotonicStack {
         else
         return false;
         
+    }
+
+    //Leetcode Problem https://leetcode.com/problems/next-greater-element-i/
+    public static int[] nextGreaterElement(int[] nums1, int[] nums2) {
+
+        int mapping[] = new int[10001];
+        int[] stack = new int[nums2.length];
+        int result[] = new int[nums1.length]; 
+
+        int top=0;
+        stack[top] = nums2[0];
+        for(int i=1;i<nums2.length;i++)
+        {
+            while(top>=0&&nums2[i]>stack[top])
+            mapping[stack[top--]]=nums2[i];
+
+            stack[++top] = nums2[i];
+        }
+        for(int i=0;i<nums1.length;i++)
+        {
+            if(mapping[nums1[i]]>0)
+            result[i] = mapping[nums1[i]];
+            else
+            result[i] = -1;
+
+        }
+
+        return result;
     }
 
     public static void main(String[] args) {

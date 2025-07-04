@@ -219,4 +219,95 @@ public class StackMonotonicStackTest {
         int[] nums2 = {};
         assertThrows(ArrayIndexOutOfBoundsException.class, () -> StackMonotonicStack.nextGreaterElement(nums1, nums2));
     }
+
+    // --- Test Cases for nextGreaterElementsCircularArray (LeetCode 503) ---
+
+    @Test
+    void testNextGreaterElementsCircularArray_Example1() {
+        int[] nums = {1, 2, 1};
+        int[] expected = {2, -1, 2};
+        assertArrayEquals(expected, StackMonotonicStack.nextGreaterElementsCircularArray(nums));
+    }
+
+    @Test
+    void testNextGreaterElementsCircularArray_Example2() {
+        int[] nums = {1, 2, 3, 4, 3};
+        int[] expected = {2, 3, 4, -1, 4};
+        assertArrayEquals(expected, StackMonotonicStack.nextGreaterElementsCircularArray(nums));
+    }
+
+    @Test
+    void testNextGreaterElementsCircularArray_AllSameElements() {
+        int[] nums = {5, 5, 5, 5};
+        int[] expected = {-1, -1, -1, -1};
+        assertArrayEquals(expected, StackMonotonicStack.nextGreaterElementsCircularArray(nums));
+    }
+
+    @Test
+    void testNextGreaterElementsCircularArray_SingleElement() {
+        int[] nums = {10};
+        int[] expected = {-1};
+        assertArrayEquals(expected, StackMonotonicStack.nextGreaterElementsCircularArray(nums));
+    }
+
+    @Test
+    void testNextGreaterElementsCircularArray_AscendingOrder() {
+        int[] nums = {1, 2, 3, 4, 5};
+        int[] expected = {2, 3, 4, 5, -1};
+        assertArrayEquals(expected, StackMonotonicStack.nextGreaterElementsCircularArray(nums));
+    }
+
+    @Test
+    void testNextGreaterElementsCircularArray_DescendingOrder() {
+        int[] nums = {5, 4, 3, 2, 1};
+        int[] expected = {-1, 5, 5, 5, 5};
+        assertArrayEquals(expected, StackMonotonicStack.nextGreaterElementsCircularArray(nums));
+    }
+
+    @Test
+    void testNextGreaterElementsCircularArray_MixedValues() {
+        int[] nums = {100, 1, 11, 1, 120, 111, 123, 1};
+        int[] expected = {120, 11, 120, 120, 123, 123, -1, 100};
+        assertArrayEquals(expected, StackMonotonicStack.nextGreaterElementsCircularArray(nums));
+    }
+
+    @Test
+    void testNextGreaterElementsCircularArray_WithZeros() {
+        int[] nums = {0, 1, 0, 2, 0};
+        int[] expected = {1, 2, 2, -1, 1};
+        assertArrayEquals(expected, StackMonotonicStack.nextGreaterElementsCircularArray(nums));
+    }
+
+    @Test
+    void testNextGreaterElementsCircularArray_NegativeNumbers() {
+        int[] nums = {-3, -2, -1, -5, -4};
+        int[] expected = {-2, -1, -1, -4, -3};
+        assertArrayEquals(expected, StackMonotonicStack.nextGreaterElementsCircularArray(nums));
+    }
+
+    @Test
+    void testNextGreaterElementsCircularArray_LongArray() {
+        int[] nums = new int[10000];
+        for (int i = 0; i < 10000; i++) {
+            nums[i] = i; // 0, 1, 2, ..., 9999
+        }
+        int[] expected = new int[10000];
+        for (int i = 0; i < 9999; i++) {
+            expected[i] = i + 1;
+        }
+        expected[9999] = -1;
+        assertArrayEquals(expected, StackMonotonicStack.nextGreaterElementsCircularArray(nums));
+    }
+
+    @Test
+    void testNextGreaterElementsCircularArray_NullArray() {
+        int[] nums = null;
+        assertThrows(NullPointerException.class, () -> StackMonotonicStack.nextGreaterElementsCircularArray(nums));
+    }
+
+    @Test
+    void testNextGreaterElementsCircularArray_EmptyArray() {
+        int[] nums = {};
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> StackMonotonicStack.nextGreaterElementsCircularArray(nums));
+    }
 }

@@ -1,5 +1,7 @@
 package miscellaneous;
 
+import java.util.Arrays;
+
 public class StackMonotonicStack {
 
     // Leetcode Problem https://leetcode.com/problems/valid-parentheses/
@@ -59,6 +61,26 @@ public class StackMonotonicStack {
 
         }
 
+        return result;
+    }
+
+    //Leetcode Problem https://leetcode.com/problems/next-greater-element-ii/
+    public static int[] nextGreaterElementsCircularArray(int[] nums) {
+        int stack[] = new int[2*nums.length];
+        int result[] = new int[nums.length];
+        Arrays.fill(result,-1);
+        int top=0;
+        stack[top] = 0;
+        int currentIndex;
+        for(int i=1;i<2*nums.length-1;i++)
+        {
+            currentIndex = i%nums.length;
+            while(top>=0&&nums[currentIndex]>nums[stack[top]])
+            result[stack[top--]] = nums[currentIndex];
+
+            stack[++top] = currentIndex;
+        }
+        
         return result;
     }
 

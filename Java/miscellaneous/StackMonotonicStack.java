@@ -84,6 +84,23 @@ public class StackMonotonicStack {
         return result;
     }
 
+    // Leetcode Problem https://leetcode.com/problems/daily-temperatures/
+    public static int[] dailyTemperatures(int[] temperatures) {
+        int stack[] = new int[temperatures.length];
+        int answer[] = new int[temperatures.length];
+    
+        int top = 0;
+        stack[top] = 0;
+        for(int i=1;i<temperatures.length;i++)
+        {
+            while(top>=0&&temperatures[i]>temperatures[stack[top]])
+             answer[stack[top]] = i - stack[top--];
+
+             stack[++top] = i;
+        }
+        return answer;
+    }
+
     public static void main(String[] args) {
         System.out.println(isValid("()"));
     }

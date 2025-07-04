@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.Arrays;
+
 import org.junit.jupiter.api.Test;
 
 import miscellaneous.StackMonotonicStack;
@@ -309,5 +311,101 @@ public class StackMonotonicStackTest {
     void testNextGreaterElementsCircularArray_EmptyArray() {
         int[] nums = {};
         assertThrows(ArrayIndexOutOfBoundsException.class, () -> StackMonotonicStack.nextGreaterElementsCircularArray(nums));
+    }
+
+    // --- Test Cases for dailyTemperatures (LeetCode 739) ---
+
+    @Test
+    void testDailyTemperatures_Example1() {
+        int[] temperatures = {73, 74, 75, 71, 69, 72, 76, 73};
+        int[] expected = {1, 1, 4, 2, 1, 1, 0, 0};
+        assertArrayEquals(expected, StackMonotonicStack.dailyTemperatures(temperatures));
+    }
+
+    @Test
+    void testDailyTemperatures_Example2() {
+        int[] temperatures = {30, 40, 50, 60};
+        int[] expected = {1, 1, 1, 0};
+        assertArrayEquals(expected, StackMonotonicStack.dailyTemperatures(temperatures));
+    }
+
+    @Test
+    void testDailyTemperatures_Example3() {
+        int[] temperatures = {30, 60, 90};
+        int[] expected = {1, 1, 0};
+        assertArrayEquals(expected, StackMonotonicStack.dailyTemperatures(temperatures));
+    }
+
+    @Test
+    void testDailyTemperatures_DecreasingOrder() {
+        int[] temperatures = {90, 80, 70, 60};
+        int[] expected = {0, 0, 0, 0};
+        assertArrayEquals(expected, StackMonotonicStack.dailyTemperatures(temperatures));
+    }
+
+    @Test
+    void testDailyTemperatures_AllSameTemperature() {
+        int[] temperatures = {70, 70, 70, 70};
+        int[] expected = {0, 0, 0, 0};
+        assertArrayEquals(expected, StackMonotonicStack.dailyTemperatures(temperatures));
+    }
+
+    @Test
+    void testDailyTemperatures_SingleTemperature() {
+        int[] temperatures = {70};
+        int[] expected = {0};
+        assertArrayEquals(expected, StackMonotonicStack.dailyTemperatures(temperatures));
+    }
+
+    @Test
+    void testDailyTemperatures_WarmThenCold() {
+        int[] temperatures = {80, 70, 60, 50, 90};
+        int[] expected = {4, 3, 2, 1, 0};
+        assertArrayEquals(expected, StackMonotonicStack.dailyTemperatures(temperatures));
+    }
+
+    @Test
+    void testDailyTemperatures_MixedFluctuations() {
+        int[] temperatures = {34, 80, 80, 80, 34, 80, 80, 80, 34, 80};
+        int[] expected = {1, 0, 0, 0, 1, 0, 0, 0, 1, 0};
+        assertArrayEquals(expected, StackMonotonicStack.dailyTemperatures(temperatures));
+    }
+
+    @Test
+    void testDailyTemperatures_MaxAndMinConstraints() {
+        int[] temperatures = {30, 100, 30, 100, 30};
+        int[] expected = {1, 0, 1, 0, 0};
+        assertArrayEquals(expected, StackMonotonicStack.dailyTemperatures(temperatures));
+    }
+
+    @Test
+    void testDailyTemperatures_LongArray() {
+        int[] temperatures = new int[100000];
+        Arrays.fill(temperatures, 70);
+        temperatures[50000] = 80;
+        temperatures[99999] = 75;
+        
+        int[] expected = new int[100000];
+        Arrays.fill(expected, 0);
+        for(int i = 0; i < 50000; i++) {
+            expected[i] = 50000 - i;
+        }
+        
+        assertEquals(expected[0], StackMonotonicStack.dailyTemperatures(temperatures)[0]);
+        assertEquals(expected[49999], StackMonotonicStack.dailyTemperatures(temperatures)[49999]);
+        assertEquals(expected[50000], StackMonotonicStack.dailyTemperatures(temperatures)[50000]);
+        assertEquals(expected[99999], StackMonotonicStack.dailyTemperatures(temperatures)[99999]);
+    }
+
+    @Test
+    void testDailyTemperatures_NullArray() {
+        int[] temperatures = null;
+        assertThrows(NullPointerException.class, () -> StackMonotonicStack.dailyTemperatures(temperatures));
+    }
+
+    @Test
+    void testDailyTemperatures_EmptyArray() {
+        int[] temperatures = {};
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> StackMonotonicStack.dailyTemperatures(temperatures));
     }
 }

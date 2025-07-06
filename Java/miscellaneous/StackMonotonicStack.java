@@ -101,6 +101,33 @@ public class StackMonotonicStack {
         return answer;
     }
 
+    // Leetcode Problem https://leetcode.com/problems/largest-rectangle-in-histogram/
+    public static int largestRectangleArea(int[] heights) {
+
+        if(heights.length==0)
+        return 0;
+        int stack[] = new int[heights.length+1];
+        int result=heights[0], h;
+        int top=-1;
+        int width, height;
+        if(heights.length==1)
+        return result;
+
+        for(int i=0; i<=heights.length;i++)
+        {
+            h = (i==heights.length)?0:heights[i];
+           
+            while(top>=0&&h<heights[stack[top]])
+            {
+                height = heights[stack[top--]];
+                width = (top==-1)?i:i-stack[top]-1;
+                result = Math.max(result,height*width);
+            }
+            stack[++top] = i;
+        }
+        return result;
+    }
+
     public static void main(String[] args) {
         System.out.println(isValid("()"));
     }

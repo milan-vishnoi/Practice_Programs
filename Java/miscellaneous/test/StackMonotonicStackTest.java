@@ -408,4 +408,103 @@ public class StackMonotonicStackTest {
         int[] temperatures = {};
         assertThrows(ArrayIndexOutOfBoundsException.class, () -> StackMonotonicStack.dailyTemperatures(temperatures));
     }
+
+    // --- Test Cases for largestRectangleArea (LeetCode 84) ---
+
+    @Test
+    void testLargestRectangleArea_Example1() {
+        int[] heights = {2, 1, 5, 6, 2, 3};
+        int expected = 10;
+        assertEquals(expected, StackMonotonicStack.largestRectangleArea(heights));
+    }
+
+    @Test
+    void testLargestRectangleArea_Example2() {
+        int[] heights = {2, 4};
+        int expected = 4;
+        assertEquals(expected, StackMonotonicStack.largestRectangleArea(heights));
+    }
+
+    @Test
+    void testLargestRectangleArea_SingleBar() {
+        int[] heights = {5};
+        int expected = 5;
+        assertEquals(expected, StackMonotonicStack.largestRectangleArea(heights));
+    }
+
+    @Test
+    void testLargestRectangleArea_AllSameHeight() {
+        int[] heights = {4, 4, 4, 4, 4};
+        int expected = 20;
+        assertEquals(expected, StackMonotonicStack.largestRectangleArea(heights));
+    }
+
+    @Test
+    void testLargestRectangleArea_IncreasingHeights() {
+        int[] heights = {1, 2, 3, 4, 5};
+        int expected = 9;
+        assertEquals(expected, StackMonotonicStack.largestRectangleArea(heights));
+    }
+
+    @Test
+    void testLargestRectangleArea_DecreasingHeights() {
+        int[] heights = {5, 4, 3, 2, 1};
+        int expected = 9;
+        assertEquals(expected, StackMonotonicStack.largestRectangleArea(heights));
+    }
+
+    @Test
+    void testLargestRectangleArea_WithZeroHeightBars() {
+        int[] heights = {0, 1, 0, 1, 0};
+        int expected = 1;
+        assertEquals(expected, StackMonotonicStack.largestRectangleArea(heights));
+    }
+
+    @Test
+    void testLargestRectangleArea_ZeroHeightAtEnds() {
+        int[] heights = {0, 1, 2, 3, 2, 1, 0};
+        int expected = 6;
+        assertEquals(expected, StackMonotonicStack.largestRectangleArea(heights));
+    }
+
+    @Test
+    void testLargestRectangleArea_PeakInMiddle() {
+        int[] heights = {1, 2, 3, 4, 5, 4, 3, 2, 1};
+        int expected = 15;
+        assertEquals(expected, StackMonotonicStack.largestRectangleArea(heights));
+    }
+
+    @Test
+    void testLargestRectangleArea_ValleyInMiddle() {
+        int[] heights = {3, 2, 1, 2, 3};
+        int expected = 5;
+        assertEquals(expected, StackMonotonicStack.largestRectangleArea(heights));
+    }
+
+    @Test
+    void testLargestRectangleArea_LongArrayComplex() {
+        int[] heights = {6, 2, 5, 4, 5, 1, 6};
+        int expected = 12;
+        assertEquals(expected, StackMonotonicStack.largestRectangleArea(heights));
+    }
+
+    @Test
+    void testLargestRectangleArea_AnotherComplexCase() {
+        int[] heights = {2, 1, 2};
+        int expected = 3;
+        assertEquals(expected, StackMonotonicStack.largestRectangleArea(heights));
+    }
+
+    @Test
+    void testLargestRectangleArea_NullArray() {
+        int[] heights = null;
+        assertThrows(NullPointerException.class, () -> StackMonotonicStack.largestRectangleArea(heights));
+    }
+
+    @Test
+    void testLargestRectangleArea_EmptyArray() {
+        int[] heights = {};
+        int expected = 0;
+        assertEquals(expected, StackMonotonicStack.largestRectangleArea(heights));
+    }
 }

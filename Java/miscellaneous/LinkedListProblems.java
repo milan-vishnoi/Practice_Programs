@@ -10,6 +10,19 @@ public class LinkedListProblems {
     public ListNode(int val) {
         this.val = val;
     }
+
+    public static void printList(ListNode head){
+
+        ListNode current = head;
+        while(current!=null)
+        {
+          System.out.print(current.val);
+          if(current.next!=null)
+          System.out.print("->");
+          current = current.next;
+        }
+
+    }
 }
 
 //Leetcode Problem https://leetcode.com/problems/reverse-linked-list/
@@ -28,12 +41,25 @@ public static ListNode reverseList(ListNode head)
         prev = current;
         current = next;
     }
+    head = prev;
 
     return prev;
 }
 
     public static void main(String[] args) {
-        
+
+        int[] arr = {10,20,30,40,50};
+        ListNode head = new ListNode(arr[0]);
+        ListNode current = head;
+        for (int i = 1; i < arr.length; i++) {
+            current.next = new ListNode(arr[i]); 
+            current = current.next;
+        }
+        System.out.print("Passed List:");
+        ListNode.printList(head);
+        head = reverseList(head);
+        System.out.print("\nReversed List:");
+        ListNode.printList(head);
     }
     
 }

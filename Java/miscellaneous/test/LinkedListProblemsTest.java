@@ -1,5 +1,6 @@
 package miscellaneous.test;
 
+import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -74,6 +75,18 @@ public class LinkedListProblemsTest {
             current.next = cycleNode;
         }
         return head;
+    }
+
+    // Helper method to get the node at a specific index
+    private ListNode getNodeAtIndex(ListNode head, int index) {
+        if (head == null) return null;
+        ListNode current = head;
+        int count = 0;
+        while (current != null && count < index) {
+            current = current.next;
+            count++;
+        }
+        return current;
     }
 
 
@@ -253,6 +266,136 @@ public class LinkedListProblemsTest {
         ListNode head = createCycleList(arr, 5000); // Cycle from tail to middle
         boolean expected = true;
         assertEquals(expected, LinkedListProblems.hasCycle(head));
+    }
+
+    // --- Test Cases for detectCycle (LeetCode 142) ---
+
+    @Test
+    void testDetectCycle_Example1() {
+        int[] arr = {3, 2, 0, -4};
+        int pos = 1;
+        ListNode head = createCycleList(arr, pos);
+        ListNode expectedNode = getNodeAtIndex(head, pos);
+        assertEquals(expectedNode, LinkedListProblems.detectCycle(head));
+    }
+
+    @Test
+    void testDetectCycle_Example2() {
+        int[] arr = {1, 2};
+        int pos = 0;
+        ListNode head = createCycleList(arr, pos);
+        ListNode expectedNode = getNodeAtIndex(head, pos);
+        assertEquals(expectedNode, LinkedListProblems.detectCycle(head));
+    }
+
+    @Test
+    void testDetectCycle_Example3() {
+        int[] arr = {1};
+        int pos = -1;
+        ListNode head = createCycleList(arr, pos);
+        assertNull(LinkedListProblems.detectCycle(head));
+    }
+
+    @Test
+    void testDetectCycle_NoCycleLongList() {
+        ListNode head = createList(new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10});
+        assertNull(LinkedListProblems.detectCycle(head));
+    }
+
+    @Test
+    void testDetectCycle_EmptyList() {
+        ListNode head = createList(new int[]{});
+        assertNull(LinkedListProblems.detectCycle(head));
+    }
+
+    @Test
+    void testDetectCycle_SingleNodeNoCycle() {
+        ListNode head = createList(new int[]{1});
+        assertNull(LinkedListProblems.detectCycle(head));
+    }
+
+    @Test
+    void testDetectCycle_TwoNodesNoCycle() {
+        ListNode head = createList(new int[]{1, 2});
+        assertNull(LinkedListProblems.detectCycle(head));
+    }
+
+    @Test
+    void testDetectCycle_TwoNodesCycleAtHead() {
+        int[] arr = {1, 2};
+        int pos = 0;
+        ListNode head = createCycleList(arr, pos);
+        ListNode expectedNode = getNodeAtIndex(head, pos);
+        assertEquals(expectedNode, LinkedListProblems.detectCycle(head));
+    }
+
+    @Test
+    void testDetectCycle_TwoNodesCycleAtSecondNode() {
+        int[] arr = {1, 2};
+        int pos = 1; // Tail (2) points to itself
+        ListNode head = createCycleList(arr, pos);
+        ListNode expectedNode = getNodeAtIndex(head, pos);
+        assertEquals(expectedNode, LinkedListProblems.detectCycle(head));
+    }
+
+    @Test
+    void testDetectCycle_CycleAtHeadOfMultiNodeList() {
+        int[] arr = {10, 20, 30};
+        int pos = 0; // 30 -> 10
+        ListNode head = createCycleList(arr, pos);
+        ListNode expectedNode = getNodeAtIndex(head, pos);
+        assertEquals(expectedNode, LinkedListProblems.detectCycle(head));
+    }
+
+    @Test
+    void testDetectCycle_CycleInMiddleOfMultiNodeList() {
+        int[] arr = {1, 2, 3, 4, 5};
+        int pos = 2; // 5 -> 3
+        ListNode head = createCycleList(arr, pos);
+        ListNode expectedNode = getNodeAtIndex(head, pos);
+        assertEquals(expectedNode, LinkedListProblems.detectCycle(head));
+    }
+
+    @Test
+    void testDetectCycle_TailPointsToItself() {
+        int[] arr = {1, 2, 3};
+        int pos = 2; // 3 -> 3
+        ListNode head = createCycleList(arr, pos);
+        ListNode expectedNode = getNodeAtIndex(head, pos);
+        assertEquals(expectedNode, LinkedListProblems.detectCycle(head));
+    }
+
+    @Test
+    void testDetectCycle_AllNodesInCycle() {
+        int[] arr = {1, 2, 3};
+        int pos = 0; // 3 -> 1
+        ListNode head = createCycleList(arr, pos);
+        ListNode expectedNode = getNodeAtIndex(head, pos);
+        assertEquals(expectedNode, LinkedListProblems.detectCycle(head));
+    }
+
+    @Test
+    void testDetectCycle_LongListWithCycle() {
+        int[] arr = new int[10000];
+        for (int i = 0; i < 10000; i++) {
+            arr[i] = i;
+        }
+        int pos = 5000; // Cycle from tail to middle
+        ListNode head = createCycleList(arr, pos);
+        ListNode expectedNode = getNodeAtIndex(head, pos);
+        assertEquals(expectedNode, LinkedListProblems.detectCycle(head));
+    }
+
+    @Test
+    void testDetectCycle_LongListWithCycleAtEnd() {
+        int[] arr = new int[10000];
+        for (int i = 0; i < 10000; i++) {
+            arr[i] = i;
+        }
+        int pos = 9999; // Cycle from tail to last element
+        ListNode head = createCycleList(arr, pos);
+        ListNode expectedNode = getNodeAtIndex(head, pos);
+        assertEquals(expectedNode, LinkedListProblems.detectCycle(head));
     }
 
 }

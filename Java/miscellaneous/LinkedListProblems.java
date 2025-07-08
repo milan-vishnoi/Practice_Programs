@@ -65,6 +65,39 @@ public class LinkedListProblems {
         return false;
     }
 
+    // Leetcode Problem https://leetcode.com/problems/linked-list-cycle-ii/
+    public static ListNode detectCycle(ListNode head) 
+    {
+        ListNode meeting=null;
+        ListNode slow = head;
+        ListNode fast = head;
+        ListNode result = null;
+
+        while(fast!=null && fast.next!=null)
+        {
+            slow = slow.next;
+            fast= fast.next.next;
+            if(fast==slow)
+            {
+                meeting = slow;
+                break;
+            }
+        }
+       if(meeting==null)
+        return result;
+    
+       result = head;
+
+       while(result!=meeting)
+       {
+         meeting= meeting.next;
+         if(result==meeting)
+         return result;
+         result= result.next;
+       }
+       return result;       
+    }
+
     public static void main(String[] args) {
 
         int[] arr = {10,20,30,40,50};

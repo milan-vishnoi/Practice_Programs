@@ -91,8 +91,8 @@ public class LinkedListProblems {
        while(result!=meeting)
        {
          meeting= meeting.next;
-         if(result==meeting)
-         return result;
+        //  if(result==meeting)
+        //  return result;
          result= result.next;
        }
        return result;       

@@ -1,6 +1,7 @@
 package miscellaneous.test;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
@@ -47,6 +48,34 @@ public class LinkedListProblemsTest {
         }
         return list.stream().mapToInt(i -> i).toArray();
     }
+
+    // Helper method to create a linked list with a cycle
+    private ListNode createCycleList(int[] arr, int pos) {
+        if (arr == null || arr.length == 0) {
+            return null;
+        }
+        ListNode head = new ListNode(arr[0]);
+        ListNode current = head;
+        ListNode cycleNode = null; // Node where the cycle points to
+
+        if (pos == 0) {
+            cycleNode = head;
+        }
+
+        for (int i = 1; i < arr.length; i++) {
+            current.next = new ListNode(arr[i]);
+            current = current.next;
+            if (i == pos) {
+                cycleNode = current;
+            }
+        }
+        // Create the cycle: tail.next points to cycleNode
+        if (cycleNode != null) {
+            current.next = cycleNode;
+        }
+        return head;
+    }
+
 
     // --- Test Cases for reverseList (LeetCode 206) ---
 
@@ -127,6 +156,103 @@ public class LinkedListProblemsTest {
         }
         ListNode reversedHead = LinkedListProblems.reverseList(head);
         assertArrayEquals(expected, toArray(reversedHead));
+    }
+
+    // --- Test Cases for hasCycle (LeetCode 141) ---
+
+    @Test
+    void testHasCycle_Example1() {
+        ListNode head = createCycleList(new int[]{3, 2, 0, -4}, 1);
+        boolean expected = true;
+        assertEquals(expected, LinkedListProblems.hasCycle(head));
+    }
+
+    @Test
+    void testHasCycle_Example2() {
+        ListNode head = createCycleList(new int[]{1, 2}, 0);
+        boolean expected = true;
+        assertEquals(expected, LinkedListProblems.hasCycle(head));
+    }
+
+    @Test
+    void testHasCycle_Example3() {
+        ListNode head = createCycleList(new int[]{1}, -1);
+        boolean expected = false;
+        assertEquals(expected, LinkedListProblems.hasCycle(head));
+    }
+
+    @Test
+    void testHasCycle_NoCycleLongList() {
+        ListNode head = createList(new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10});
+        boolean expected = false;
+        assertEquals(expected, LinkedListProblems.hasCycle(head));
+    }
+
+    @Test
+    void testHasCycle_EmptyList() {
+        ListNode head = createList(new int[]{});
+        boolean expected = false;
+        assertEquals(expected, LinkedListProblems.hasCycle(head));
+    }
+
+    @Test
+    void testHasCycle_SingleNodeNoCycle() {
+        ListNode head = createList(new int[]{1});
+        boolean expected = false;
+        assertEquals(expected, LinkedListProblems.hasCycle(head));
+    }
+
+    @Test
+    void testHasCycle_TwoNodesNoCycle() {
+        ListNode head = createList(new int[]{1, 2});
+        boolean expected = false;
+        assertEquals(expected, LinkedListProblems.hasCycle(head));
+    }
+
+    @Test
+    void testHasCycle_TwoNodesCycle() {
+        ListNode head = createCycleList(new int[]{1, 2}, 0); // 2 -> 1
+        boolean expected = true;
+        assertEquals(expected, LinkedListProblems.hasCycle(head));
+    }
+
+    @Test
+    void testHasCycle_CycleAtHead() {
+        ListNode head = createCycleList(new int[]{10, 20, 30}, 0); // 30 -> 10
+        boolean expected = true;
+        assertEquals(expected, LinkedListProblems.hasCycle(head));
+    }
+
+    @Test
+    void testHasCycle_CycleInMiddle() {
+        ListNode head = createCycleList(new int[]{1, 2, 3, 4, 5}, 2); // 5 -> 3
+        boolean expected = true;
+        assertEquals(expected, LinkedListProblems.hasCycle(head));
+    }
+
+    @Test
+    void testHasCycle_TailPointsToItself() {
+        ListNode head = createCycleList(new int[]{1, 2, 3}, 2); // 3 -> 3
+        boolean expected = true;
+        assertEquals(expected, LinkedListProblems.hasCycle(head));
+    }
+
+    @Test
+    void testHasCycle_AllNodesInCycle() {
+        ListNode head = createCycleList(new int[]{1, 2, 3}, 0); // 3 -> 1
+        boolean expected = true;
+        assertEquals(expected, LinkedListProblems.hasCycle(head));
+    }
+
+    @Test
+    void testHasCycle_LongListWithCycle() {
+        int[] arr = new int[10000];
+        for (int i = 0; i < 10000; i++) {
+            arr[i] = i;
+        }
+        ListNode head = createCycleList(arr, 5000); // Cycle from tail to middle
+        boolean expected = true;
+        assertEquals(expected, LinkedListProblems.hasCycle(head));
     }
 
 }

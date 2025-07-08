@@ -25,26 +25,45 @@ public class LinkedListProblems {
     }
 }
 
-//Leetcode Problem https://leetcode.com/problems/reverse-linked-list/
-public static ListNode reverseList(ListNode head) 
-{
-    if (head == null || head.next == null)
-        return head;
+    //Leetcode Problem https://leetcode.com/problems/reverse-linked-list/
+    public static ListNode reverseList(ListNode head) 
+    {
+        if (head == null || head.next == null)
+            return head;
 
-    ListNode prev = null;
-    ListNode current = head;
-    ListNode next;
+        ListNode prev = null;
+        ListNode current = head;
+        ListNode next;
 
-    while (current != null) {
-        next = current.next;
-        current.next = prev;
-        prev = current;
-        current = next;
+        while (current != null) {
+            next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+        }
+        head = prev;
+
+        return prev;
     }
-    head = prev;
 
-    return prev;
-}
+    // Leetcode problem https://leetcode.com/problems/linked-list-cycle/
+    public static boolean hasCycle(ListNode head) 
+    {
+
+        if(head==null || head.next==null)
+        return false;
+        ListNode slow=head;
+        ListNode fast = head;
+
+        while(fast!=null && fast.next != null)
+        {
+            slow = slow.next;
+            fast = fast.next.next;
+            if(slow==fast)
+            return true;
+        }
+        return false;
+    }
 
     public static void main(String[] args) {
 

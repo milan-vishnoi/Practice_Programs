@@ -3,6 +3,7 @@ package miscellaneous.test;
 import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
@@ -533,6 +534,97 @@ public class LinkedListProblemsTest {
         int[] expected = {1, 2, 3};
         ListNode mergedHead = LinkedListProblems.mergeTwoLists(list1, list2);
         assertArrayEquals(expected, toArray(mergedHead));
+    }
+
+    // --- Test Cases for removeNthFromEnd (LeetCode 19) ---
+
+    @Test
+    void testRemoveNthFromEnd_Example1() {
+        ListNode head = createList(new int[]{1, 2, 3, 4, 5});
+        int n = 2;
+        int[] expected = {1, 2, 3, 5};
+        ListNode resultHead = LinkedListProblems.removeNthFromEnd(head, n);
+        assertArrayEquals(expected, toArray(resultHead));
+    }
+
+    @Test
+    void testRemoveNthFromEnd_Example2() {
+        ListNode head = createList(new int[]{1});
+        int n = 1;
+        int[] expected = {};
+        ListNode resultHead = LinkedListProblems.removeNthFromEnd(head, n);
+        assertArrayEquals(expected, toArray(resultHead));
+    }
+
+    @Test
+    void testRemoveNthFromEnd_Example3() {
+        ListNode head = createList(new int[]{1, 2});
+        int n = 1;
+        int[] expected = {1};
+        ListNode resultHead = LinkedListProblems.removeNthFromEnd(head, n);
+        assertArrayEquals(expected, toArray(resultHead));
+    }
+
+    @Test
+    void testRemoveNthFromEnd_RemoveHead() {
+        ListNode head = createList(new int[]{1, 2, 3, 4, 5});
+        int n = 5; // Remove 5th from end, which is 1st from beginning
+        int[] expected = {2, 3, 4, 5};
+        ListNode resultHead = LinkedListProblems.removeNthFromEnd(head, n);
+        assertArrayEquals(expected, toArray(resultHead));
+    }
+
+    @Test
+    void testRemoveNthFromEnd_RemoveTail() {
+        ListNode head = createList(new int[]{1, 2, 3, 4, 5});
+        int n = 1; // Remove 1st from end, which is 5th from beginning
+        int[] expected = {1, 2, 3, 4};
+        ListNode resultHead = LinkedListProblems.removeNthFromEnd(head, n);
+        assertArrayEquals(expected, toArray(resultHead));
+    }
+
+    @Test
+    void testRemoveNthFromEnd_TwoNodesRemoveFirst() {
+        ListNode head = createList(new int[]{1, 2});
+        int n = 2;
+        int[] expected = {2};
+        ListNode resultHead = LinkedListProblems.removeNthFromEnd(head, n);
+        assertArrayEquals(expected, toArray(resultHead));
+    }
+
+    @Test
+    void testRemoveNthFromEnd_MiddleNode() {
+        ListNode head = createList(new int[]{1, 2, 3, 4, 5, 6, 7});
+        int n = 4; // Remove 4 from end (which is 4)
+        int[] expected = {1, 2, 3, 5, 6, 7};
+        ListNode resultHead = LinkedListProblems.removeNthFromEnd(head, n);
+        assertArrayEquals(expected, toArray(resultHead));
+    }
+
+    @Test
+    void testRemoveNthFromEnd_LongListRemoveMiddle() {
+        int[] original = new int[30];
+        for (int i = 0; i < 30; i++) {
+            original[i] = i + 1;
+        }
+        ListNode head = createList(original);
+        int n = 15; // Remove 15th from end (which is 16 from start, value 16)
+        int[] expected = new int[29];
+        for (int i = 0; i < 15; i++) {
+            expected[i] = i + 1;
+        }
+        for (int i = 15; i < 29; i++) {
+            expected[i] = i + 2;
+        }
+        ListNode resultHead = LinkedListProblems.removeNthFromEnd(head, n);
+        assertArrayEquals(expected, toArray(resultHead));
+    }
+
+    @Test
+    void testRemoveNthFromEnd_NullHead() {
+        ListNode head = null;
+        int n = 1;
+        assertThrows(NullPointerException.class, () -> LinkedListProblems.removeNthFromEnd(head, n));
     }
 
 }

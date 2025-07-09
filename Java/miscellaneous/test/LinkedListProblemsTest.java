@@ -398,4 +398,141 @@ public class LinkedListProblemsTest {
         assertEquals(expectedNode, LinkedListProblems.detectCycle(head));
     }
 
+    // --- Test Cases for mergeTwoLists (LeetCode 21) ---
+
+    @Test
+    void testMergeTwoLists_Example1() {
+        ListNode list1 = createList(new int[]{1, 2, 4});
+        ListNode list2 = createList(new int[]{1, 3, 4});
+        int[] expected = {1, 1, 2, 3, 4, 4};
+        ListNode mergedHead = LinkedListProblems.mergeTwoLists(list1, list2);
+        assertArrayEquals(expected, toArray(mergedHead));
+    }
+
+    @Test
+    void testMergeTwoLists_Example2() {
+        ListNode list1 = createList(new int[]{});
+        ListNode list2 = createList(new int[]{});
+        int[] expected = {};
+        ListNode mergedHead = LinkedListProblems.mergeTwoLists(list1, list2);
+        assertArrayEquals(expected, toArray(mergedHead));
+    }
+
+    @Test
+    void testMergeTwoLists_Example3() {
+        ListNode list1 = createList(new int[]{});
+        ListNode list2 = createList(new int[]{0});
+        int[] expected = {0};
+        ListNode mergedHead = LinkedListProblems.mergeTwoLists(list1, list2);
+        assertArrayEquals(expected, toArray(mergedHead));
+    }
+
+    @Test
+    void testMergeTwoLists_FirstListEmpty() {
+        ListNode list1 = createList(new int[]{});
+        ListNode list2 = createList(new int[]{1, 2, 3});
+        int[] expected = {1, 2, 3};
+        ListNode mergedHead = LinkedListProblems.mergeTwoLists(list1, list2);
+        assertArrayEquals(expected, toArray(mergedHead));
+    }
+
+    @Test
+    void testMergeTwoLists_SecondListEmpty() {
+        ListNode list1 = createList(new int[]{1, 2, 3});
+        ListNode list2 = createList(new int[]{});
+        int[] expected = {1, 2, 3};
+        ListNode mergedHead = LinkedListProblems.mergeTwoLists(list1, list2);
+        assertArrayEquals(expected, toArray(mergedHead));
+    }
+
+    @Test
+    void testMergeTwoLists_SingleNodes() {
+        ListNode list1 = createList(new int[]{5});
+        ListNode list2 = createList(new int[]{1});
+        int[] expected = {1, 5};
+        ListNode mergedHead = LinkedListProblems.mergeTwoLists(list1, list2);
+        assertArrayEquals(expected, toArray(mergedHead));
+    }
+
+    @Test
+    void testMergeTwoLists_AllFromList1Smaller() {
+        ListNode list1 = createList(new int[]{1, 2, 3});
+        ListNode list2 = createList(new int[]{4, 5, 6});
+        int[] expected = {1, 2, 3, 4, 5, 6};
+        ListNode mergedHead = LinkedListProblems.mergeTwoLists(list1, list2);
+        assertArrayEquals(expected, toArray(mergedHead));
+    }
+
+    @Test
+    void testMergeTwoLists_AllFromList2Smaller() {
+        ListNode list1 = createList(new int[]{4, 5, 6});
+        ListNode list2 = createList(new int[]{1, 2, 3});
+        int[] expected = {1, 2, 3, 4, 5, 6};
+        ListNode mergedHead = LinkedListProblems.mergeTwoLists(list1, list2);
+        assertArrayEquals(expected, toArray(mergedHead));
+    }
+
+    @Test
+    void testMergeTwoLists_Interleaving() {
+        ListNode list1 = createList(new int[]{1, 3, 5});
+        ListNode list2 = createList(new int[]{2, 4, 6});
+        int[] expected = {1, 2, 3, 4, 5, 6};
+        ListNode mergedHead = LinkedListProblems.mergeTwoLists(list1, list2);
+        assertArrayEquals(expected, toArray(mergedHead));
+    }
+
+    @Test
+    void testMergeTwoLists_DuplicateValues() {
+        ListNode list1 = createList(new int[]{1, 1, 2, 3});
+        ListNode list2 = createList(new int[]{1, 3, 4, 4});
+        int[] expected = {1, 1, 1, 2, 3, 3, 4, 4};
+        ListNode mergedHead = LinkedListProblems.mergeTwoLists(list1, list2);
+        assertArrayEquals(expected, toArray(mergedHead));
+    }
+
+    @Test
+    void testMergeTwoLists_NegativeValues() {
+        ListNode list1 = createList(new int[]{-5, -3, -1});
+        ListNode list2 = createList(new int[]{-4, -2, 0});
+        int[] expected = {-5, -4, -3, -2, -1, 0};
+        ListNode mergedHead = LinkedListProblems.mergeTwoLists(list1, list2);
+        assertArrayEquals(expected, toArray(mergedHead));
+    }
+
+    @Test
+    void testMergeTwoLists_BothMaxNodes() {
+        int[] arr1 = new int[50];
+        int[] arr2 = new int[50];
+        for (int i = 0; i < 50; i++) {
+            arr1[i] = i * 2;
+            arr2[i] = i * 2 + 1;
+        }
+        ListNode list1 = createList(arr1);
+        ListNode list2 = createList(arr2);
+        int[] expected = new int[100];
+        for (int i = 0; i < 100; i++) {
+            expected[i] = i;
+        }
+        ListNode mergedHead = LinkedListProblems.mergeTwoLists(list1, list2);
+        assertArrayEquals(expected, toArray(mergedHead));
+    }
+
+    @Test
+    void testMergeTwoLists_NullList1() {
+        ListNode list1 = null;
+        ListNode list2 = createList(new int[]{1, 2, 3});
+        int[] expected = {1, 2, 3};
+        ListNode mergedHead = LinkedListProblems.mergeTwoLists(list1, list2);
+        assertArrayEquals(expected, toArray(mergedHead));
+    }
+
+    @Test
+    void testMergeTwoLists_NullList2() {
+        ListNode list1 = createList(new int[]{1, 2, 3});
+        ListNode list2 = null;
+        int[] expected = {1, 2, 3};
+        ListNode mergedHead = LinkedListProblems.mergeTwoLists(list1, list2);
+        assertArrayEquals(expected, toArray(mergedHead));
+    }
+
 }

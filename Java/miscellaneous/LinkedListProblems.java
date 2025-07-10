@@ -180,6 +180,48 @@ public class LinkedListProblems {
         return head; 
     }
 
+    //Leetcode Problem https://leetcode.com/problems/reorder-list/
+    public static void reorderList(ListNode head) {
+
+       if(head==null || head.next==null ||head.next.next==null)
+        return;
+        ListNode slow=head;
+        ListNode fast = head;
+        ListNode prev, curr, nextMid;
+        ListNode temp;
+
+        while(fast!=null && fast.next!=null)
+        {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        prev = slow;
+        curr = slow.next;
+
+        while(curr!=null)
+        {
+            nextMid = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = nextMid;
+        }
+
+        curr = head;
+
+        while(slow!=prev)
+        {
+            temp = prev;
+            prev = prev.next;
+            temp.next = curr.next;
+            curr.next = temp;
+            curr = temp.next;
+        }
+
+        slow.next = null;
+
+    }
+
     public static void main(String[] args) {
 
         int[] arr = {10,20,30,40,50};

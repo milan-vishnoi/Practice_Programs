@@ -2,6 +2,7 @@ package miscellaneous.test;
 
 import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -625,6 +626,95 @@ public class LinkedListProblemsTest {
         ListNode head = null;
         int n = 1;
         assertThrows(NullPointerException.class, () -> LinkedListProblems.removeNthFromEnd(head, n));
+    }
+
+    // --- Test Cases for reorderList (LeetCode 143) ---
+
+    @Test
+    void testReorderList_Example1() {
+        ListNode head = createList(new int[]{1, 2, 3, 4});
+        int[] expected = {1, 4, 2, 3};
+        LinkedListProblems.reorderList(head);
+        assertArrayEquals(expected, toArray(head));
+    }
+
+    @Test
+    void testReorderList_Example2() {
+        ListNode head = createList(new int[]{1, 2, 3, 4, 5});
+        int[] expected = {1, 5, 2, 4, 3};
+        LinkedListProblems.reorderList(head);
+        assertArrayEquals(expected, toArray(head));
+    }
+
+    @Test
+    void testReorderList_SingleNode() {
+        ListNode head = createList(new int[]{1});
+        int[] expected = {1};
+        LinkedListProblems.reorderList(head);
+        assertArrayEquals(expected, toArray(head));
+    }
+
+    @Test
+    void testReorderList_TwoNodes() {
+        ListNode head = createList(new int[]{1, 2});
+        int[] expected = {1, 2};
+        LinkedListProblems.reorderList(head);
+        assertArrayEquals(expected, toArray(head));
+    }
+
+    @Test
+    void testReorderList_ThreeNodes() {
+        ListNode head = createList(new int[]{1, 2, 3});
+        int[] expected = {1, 3, 2};
+        LinkedListProblems.reorderList(head);
+        assertArrayEquals(expected, toArray(head));
+    }
+
+    @Test
+    void testReorderList_SixNodes() {
+        ListNode head = createList(new int[]{1, 2, 3, 4, 5, 6});
+        int[] expected = {1, 6, 2, 5, 3, 4};
+        LinkedListProblems.reorderList(head);
+        assertArrayEquals(expected, toArray(head));
+    }
+
+    @Test
+    void testReorderList_SevenNodes() {
+        ListNode head = createList(new int[]{1, 2, 3, 4, 5, 6, 7});
+        int[] expected = {1, 7, 2, 6, 3, 5, 4};
+        LinkedListProblems.reorderList(head);
+        assertArrayEquals(expected, toArray(head));
+    }
+
+    @Test
+    void testReorderList_LongList() {
+        int[] original = new int[50000];
+        for (int i = 0; i < 50000; i++) {
+            original[i] = i + 1;
+        }
+        ListNode head = createList(original);
+
+
+        int[] expected = new int[50000];
+        int left = 0;
+        int right = 49999;
+        int k = 0;
+        while (left <= right) {
+            expected[k++] = original[left++];
+            if (left <= right) { 
+                expected[k++] = original[right--];
+            }
+        }
+        
+        LinkedListProblems.reorderList(head);
+        assertArrayEquals(expected, toArray(head));
+    }
+
+    @Test
+    void testReorderList_NullHead() {
+        ListNode head = null;
+        assertDoesNotThrow(() -> LinkedListProblems.reorderList(head));
+        assertNull(head);
     }
 
 }

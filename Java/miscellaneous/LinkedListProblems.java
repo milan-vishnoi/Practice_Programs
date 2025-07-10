@@ -181,7 +181,8 @@ public class LinkedListProblems {
     }
 
     //Leetcode Problem https://leetcode.com/problems/reorder-list/
-    public static void reorderList(ListNode head) {
+    public static void reorderList(ListNode head) 
+    {
 
        if(head==null || head.next==null ||head.next.next==null)
         return;
@@ -220,6 +221,49 @@ public class LinkedListProblems {
 
         slow.next = null;
 
+    }
+
+    //Leetcode problem https://leetcode.com/problems/palindrome-linked-list/
+    public static boolean isPalindrome(ListNode head) 
+    {
+
+        if(head==null || head.next==null)
+        return true;
+        else if(head.next.next==null && head.val!=head.next.val)
+        return false;
+
+        ListNode fast=head;
+        ListNode slow = head;
+        ListNode prev,curr,next;
+
+        while(fast!=null && fast.next!=null &&fast.next.next!=null)
+        {
+            slow = slow.next;
+            fast=fast.next.next;
+        }
+
+        prev = slow;
+        curr = slow.next;
+        while(curr!=null)
+        {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+
+        curr = head;
+        while(slow!=prev)
+        {
+            if(curr.val!=prev.val)
+            return false;
+
+            prev = prev.next;
+            curr = curr.next;
+        }
+
+        return true;
+        
     }
 
     public static void main(String[] args) {

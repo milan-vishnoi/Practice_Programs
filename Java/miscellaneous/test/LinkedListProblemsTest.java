@@ -717,4 +717,114 @@ public class LinkedListProblemsTest {
         assertNull(head);
     }
 
+    // --- Test Cases for isPalindrome (LeetCode 234) ---
+
+    @Test
+    void testIsPalindrome_Example1() {
+        ListNode head = createList(new int[]{1, 2, 2, 1});
+        boolean expected = true;
+        assertEquals(expected, LinkedListProblems.isPalindrome(head));
+    }
+
+    @Test
+    void testIsPalindrome_Example2() {
+        ListNode head = createList(new int[]{1, 2});
+        boolean expected = false;
+        assertEquals(expected, LinkedListProblems.isPalindrome(head));
+    }
+
+    @Test
+    void testIsPalindrome_SingleNode() {
+        ListNode head = createList(new int[]{1});
+        boolean expected = true;
+        assertEquals(expected, LinkedListProblems.isPalindrome(head));
+    }
+
+    @Test
+    void testIsPalindrome_EmptyList() {
+        // Constraints: 1 <= number of nodes. So this scenario shouldn't happen.
+        // But it's good for robustness. Usually an empty list is considered a palindrome.
+        ListNode head = createList(new int[]{});
+        boolean expected = true;
+        assertEquals(expected, LinkedListProblems.isPalindrome(head));
+    }
+
+    @Test
+    void testIsPalindrome_ThreeNodePalindrome() {
+        ListNode head = createList(new int[]{1, 2, 1});
+        boolean expected = true;
+        assertEquals(expected, LinkedListProblems.isPalindrome(head));
+    }
+
+    @Test
+    void testIsPalindrome_ThreeNodeNonPalindrome() {
+        ListNode head = createList(new int[]{1, 2, 3});
+        boolean expected = false;
+        assertEquals(expected, LinkedListProblems.isPalindrome(head));
+    }
+
+    @Test
+    void testIsPalindrome_AllSameValues() {
+        ListNode head = createList(new int[]{5, 5, 5, 5, 5});
+        boolean expected = true;
+        assertEquals(expected, LinkedListProblems.isPalindrome(head));
+    }
+
+    @Test
+    void testIsPalindrome_TwoDifferentValues() {
+        ListNode head = createList(new int[]{1, 0, 0, 1});
+        boolean expected = true;
+        assertEquals(expected, LinkedListProblems.isPalindrome(head));
+    }
+
+    @Test
+    void testIsPalindrome_TwoDifferentValuesNonPalindrome() {
+        ListNode head = createList(new int[]{1, 0});
+        boolean expected = false;
+        assertEquals(expected, LinkedListProblems.isPalindrome(head));
+    }
+
+    @Test
+    void testIsPalindrome_LongPalindromeEvenLength() {
+        int[] arr = new int[1000];
+        for (int i = 0; i < 500; i++) {
+            arr[i] = i % 10;
+            arr[999 - i] = i % 10;
+        }
+        ListNode head = createList(arr);
+        boolean expected = true;
+        assertEquals(expected, LinkedListProblems.isPalindrome(head));
+    }
+
+    @Test
+    void testIsPalindrome_LongPalindromeOddLength() {
+        int[] arr = new int[1001];
+        for (int i = 0; i < 500; i++) {
+            arr[i] = i % 10;
+            arr[1000 - i] = i % 10;
+        }
+        arr[500] = 7; // Middle element
+        ListNode head = createList(arr);
+        boolean expected = true;
+        assertEquals(expected, LinkedListProblems.isPalindrome(head));
+    }
+
+    @Test
+    void testIsPalindrome_LongNonPalindrome() {
+        int[] arr = new int[1000];
+        for (int i = 0; i < 1000; i++) {
+            arr[i] = i % 10;
+        }
+        ListNode head = createList(arr);
+        boolean expected = false;
+        assertEquals(expected, LinkedListProblems.isPalindrome(head));
+    }
+
+    @Test
+    void testIsPalindrome_NullHead() {
+        ListNode head = null;
+        boolean expected = true;
+        assertEquals(expected, LinkedListProblems.isPalindrome(head));
+    }
+
 }

@@ -229,14 +229,12 @@ public class LinkedListProblems {
 
         if(head==null || head.next==null)
         return true;
-        else if(head.next.next==null && head.val!=head.next.val)
-        return false;
 
         ListNode fast=head;
         ListNode slow = head;
         ListNode prev,curr,next;
 
-        while(fast!=null && fast.next!=null &&fast.next.next!=null)
+        while(fast.next!=null &&fast.next.next!=null)
         {
             slow = slow.next;
             fast=fast.next.next;
@@ -263,7 +261,6 @@ public class LinkedListProblems {
         }
 
         return true;
-        
     }
 
     public static void main(String[] args) {

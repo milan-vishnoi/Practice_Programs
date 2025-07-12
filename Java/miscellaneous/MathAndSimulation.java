@@ -53,7 +53,7 @@ public class MathAndSimulation {
         String padding ="";
         int carry=0, sum;
         int aChar, bChar;
-        String result ="";
+        StringBuilder result = new StringBuilder("");
         int diff = maxLength-b.length();
 
         for(int i=1;i<=diff;i++)
@@ -69,13 +69,13 @@ public class MathAndSimulation {
            sum = (aChar^bChar)^carry;
            carry = (aChar&bChar)|(aChar&carry)|(bChar&carry);
 
-           result = sum + result;
+           result.append(sum);
         }
 
         if(carry==0)
-        return result;
+        return result.reverse().toString();
 
-        return '1'+result;
+        return result.append('1').reverse().toString();
      
     }
     

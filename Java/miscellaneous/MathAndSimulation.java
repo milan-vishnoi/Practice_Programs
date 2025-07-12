@@ -39,5 +39,44 @@ public class MathAndSimulation {
         return results;
         
     }
+
+    // Leetcode Problem https://leetcode.com/problems/add-binary/
+    public static String addBinary(String a, String b) {
+
+        if(a.isBlank() || b.isBlank())
+        throw new StringIndexOutOfBoundsException(b);
+
+        if(a.length()<b.length())
+        return addBinary(b,a);
+        
+        int maxLength = a.length();
+        String padding ="";
+        int carry=0, sum;
+        int aChar, bChar;
+        String result ="";
+        int diff = maxLength-b.length();
+
+        for(int i=1;i<=diff;i++)
+        padding+='0';
+        
+        b = padding + b;
+
+        for(int i=maxLength-1;i>=0;i--)
+        {
+           aChar = a.charAt(i) -'0';
+           bChar = b.charAt(i) - '0';
+
+           sum = (aChar^bChar)^carry;
+           carry = (aChar&bChar)|(aChar&carry)|(bChar&carry);
+
+           result = sum + result;
+        }
+
+        if(carry==0)
+        return result;
+
+        return '1'+result;
+     
+    }
     
 }

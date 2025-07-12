@@ -1,6 +1,7 @@
 package miscellaneous.test;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Arrays;
@@ -103,6 +104,102 @@ public class MathAndSimulationTest {
     void testPlusOne_EmptyInput() {
         int[] digits = {};
         assertThrows(ArrayIndexOutOfBoundsException.class, () -> MathAndSimulation.plusOne(digits));
+    }
+
+   // --- Test Cases for addBinary (LeetCode 67) ---
+
+    @Test
+    void testAddBinary_Example1() {
+        String a = "11";
+        String b = "1";
+        String expected = "100";
+        assertEquals(expected, MathAndSimulation.addBinary(a, b));
+    }
+
+    @Test
+    void testAddBinary_Example2() {
+        String a = "1010";
+        String b = "1011";
+        String expected = "10101";
+        assertEquals(expected, MathAndSimulation.addBinary(a, b));
+    }
+
+    @Test
+    void testAddBinary_BothZero() {
+        String a = "0";
+        String b = "0";
+        String expected = "0";
+        assertEquals(expected, MathAndSimulation.addBinary(a, b));
+    }
+
+    @Test
+    void testAddBinary_OneZero() {
+        String a = "101";
+        String b = "0";
+        String expected = "101";
+        assertEquals(expected, MathAndSimulation.addBinary(a, b));
+    }
+
+    @Test
+    void testAddBinary_CarryPropagation() {
+        String a = "111";
+        String b = "1";
+        String expected = "1000";
+        assertEquals(expected, MathAndSimulation.addBinary(a, b));
+    }
+
+    @Test
+    void testAddBinary_LongCarryPropagation() {
+        String a = "11111";
+        String b = "1";
+        String expected = "100000";
+        assertEquals(expected, MathAndSimulation.addBinary(a, b));
+    }
+
+    @Test
+    void testAddBinary_DifferentLengths() {
+        String a = "1";
+        String b = "10101";
+        String expected = "10110";
+        assertEquals(expected, MathAndSimulation.addBinary(a, b));
+    }
+
+    @Test
+    void testAddBinary_EqualLengthsNoCarry() {
+        String a = "101";
+        String b = "010";
+        String expected = "111";
+        assertEquals(expected, MathAndSimulation.addBinary(a, b));
+    }
+
+    @Test
+    void testAddBinary_AllOnesSum() {
+        String a = "111";
+        String b = "111";
+        String expected = "1110";
+        assertEquals(expected, MathAndSimulation.addBinary(a, b));
+    }
+
+    @Test
+    void testAddBinary_LongStrings() {
+        String longA = "1111111111111111111111111111111111111111111111111111111111111111";
+        String longB = "1";
+        String expectedLong = "10000000000000000000000000000000000000000000000000000000000000000";
+        assertEquals(expectedLong, MathAndSimulation.addBinary(longA, longB));
+    }
+
+    @Test
+    void testAddBinary_NullA() {
+        String a = null;
+        String b = "1";
+        assertThrows(NullPointerException.class, () -> MathAndSimulation.addBinary(a, b));
+    }
+
+    @Test
+    void testAddBinary_NullB() {
+        String a = "1";
+        String b = null;
+        assertThrows(NullPointerException.class, () -> MathAndSimulation.addBinary(a, b));
     }
     
 }

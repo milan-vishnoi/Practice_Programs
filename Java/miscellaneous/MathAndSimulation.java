@@ -46,30 +46,22 @@ public class MathAndSimulation {
         if(a.isBlank() || b.isBlank())
         throw new StringIndexOutOfBoundsException(b);
 
-        if(a.length()<b.length())
-        return addBinary(b,a);
-        
-        int maxLength = a.length();
-        String padding ="";
+        int m = a.length()-1;
+        int n = b.length()-1;
         int carry=0, sum;
-        int aChar, bChar;
         StringBuilder result = new StringBuilder("");
-        int diff = maxLength-b.length();
 
-        for(int i=1;i<=diff;i++)
-        padding+='0';
-        
-        b = padding + b;
-
-        for(int i=maxLength-1;i>=0;i--)
+        while(m>=0 || n>=0)
         {
-           aChar = a.charAt(i) -'0';
-           bChar = b.charAt(i) - '0';
+            sum = carry;
+            if(m>=0)
+            sum+=a.charAt(m--)-'0';
+            if(n>=0)
+            sum+=b.charAt(n--)-'0';
 
-           sum = (aChar^bChar)^carry;
-           carry = (aChar&bChar)|(aChar&carry)|(bChar&carry);
+           carry = sum/2;
 
-           result.append(sum);
+           result.append(sum%2);
         }
 
         if(carry==0)

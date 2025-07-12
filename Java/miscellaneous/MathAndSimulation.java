@@ -70,5 +70,26 @@ public class MathAndSimulation {
         return result.append('1').reverse().toString();
      
     }
+
+    // Leetcode problem https://leetcode.com/problems/excel-sheet-column-title/
+    public static String convertToTitle(int columnNumber) {
+
+        char[] mappings = new char[26];
+        int index;
+        StringBuilder result = new StringBuilder("");
+
+        for(int i=0;i<26;i++)
+        mappings[i] = (char)(65+i);
+
+        while(columnNumber>0)
+        {
+            index = columnNumber%26;
+            index = index>0?index-1:25;
+            result.append(mappings[index]);
+            columnNumber=(columnNumber-1)/26;
+        } 
+
+        return result.reverse().toString();
+    }
     
 }

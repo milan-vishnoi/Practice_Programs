@@ -201,5 +201,92 @@ public class MathAndSimulationTest {
         String b = null;
         assertThrows(NullPointerException.class, () -> MathAndSimulation.addBinary(a, b));
     }
+
+    // --- Test Cases for convertToTitle (LeetCode 168) ---
+
+    @Test
+    void testConvertToTitle_Example1() {
+        int columnNumber = 1;
+        String expected = "A";
+        assertEquals(expected, MathAndSimulation.convertToTitle(columnNumber));
+    }
+
+    @Test
+    void testConvertToTitle_Example2() {
+        int columnNumber = 28;
+        String expected = "AB";
+        assertEquals(expected, MathAndSimulation.convertToTitle(columnNumber));
+    }
+
+    @Test
+    void testConvertToTitle_Example3() {
+        int columnNumber = 701;
+        String expected = "ZY";
+        assertEquals(expected, MathAndSimulation.convertToTitle(columnNumber));
+    }
+
+    @Test
+    void testConvertToTitle_Z() {
+        int columnNumber = 26;
+        String expected = "Z";
+        assertEquals(expected, MathAndSimulation.convertToTitle(columnNumber));
+    }
+
+    @Test
+    void testConvertToTitle_AA() {
+        int columnNumber = 27;
+        String expected = "AA";
+        assertEquals(expected, MathAndSimulation.convertToTitle(columnNumber));
+    }
+
+    @Test
+    void testConvertToTitle_AZ() {
+        int columnNumber = 52;
+        String expected = "AZ";
+        assertEquals(expected, MathAndSimulation.convertToTitle(columnNumber));
+    }
+
+    @Test
+    void testConvertToTitle_BA() {
+        int columnNumber = 53;
+        String expected = "BA";
+        assertEquals(expected, MathAndSimulation.convertToTitle(columnNumber));
+    }
+
+    @Test
+    void testConvertToTitle_ZZ() {
+        int columnNumber = 26 * 26 + 26;
+        String expected = "ZZ";
+        assertEquals(expected, MathAndSimulation.convertToTitle(columnNumber));
+    }
+
+    @Test
+    void testConvertToTitle_AAA() {
+        int columnNumberAAA = 703;
+        String expectedAAA = "AAA";
+        assertEquals(expectedAAA, MathAndSimulation.convertToTitle(columnNumberAAA));
+    }
+
+
+    @Test
+    void testConvertToTitle_MaxIntMinusOne() {
+        int columnNumber = 2147483647;
+        String expected = "FXSHRXW";
+        assertEquals(expected, MathAndSimulation.convertToTitle(columnNumber));
+    }
+
+    @Test
+    void testConvertToTitle_SmallestValidInput() {
+        int columnNumber = 1;
+        String expected = "A";
+        assertEquals(expected, MathAndSimulation.convertToTitle(columnNumber));
+    }
+
+    @Test
+    void testConvertToTitle_JustBelowPowerOf26() {
+        int columnNumberYZ = 676;
+        String expectedYZ = "YZ";
+        assertEquals(expectedYZ, MathAndSimulation.convertToTitle(columnNumberYZ));
+    }
     
 }

@@ -4,7 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -287,6 +289,106 @@ public class MathAndSimulationTest {
         int columnNumberYZ = 676;
         String expectedYZ = "YZ";
         assertEquals(expectedYZ, MathAndSimulation.convertToTitle(columnNumberYZ));
+    }
+
+     // --- Test Cases for spiralOrder (LeetCode 54) ---
+
+    @Test
+    void testSpiralOrder_Example1() {
+        int[][] matrix = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+        List<Integer> expected = Arrays.asList(1, 2, 3, 6, 9, 8, 7, 4, 5);
+        assertEquals(expected, MathAndSimulation.spiralOrder(matrix));
+    }
+
+    @Test
+    void testSpiralOrder_Example2() {
+        int[][] matrix = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}};
+        List<Integer> expected = Arrays.asList(1, 2, 3, 4, 8, 12, 11, 10, 9, 5, 6, 7);
+        assertEquals(expected, MathAndSimulation.spiralOrder(matrix));
+    }
+
+    @Test
+    void testSpiralOrder_SingleRow() {
+        int[][] matrix = {{1, 2, 3, 4, 5}};
+        List<Integer> expected = Arrays.asList(1, 2, 3, 4, 5);
+        assertEquals(expected, MathAndSimulation.spiralOrder(matrix));
+    }
+
+    @Test
+    void testSpiralOrder_SingleColumn() {
+        int[][] matrix = {{1}, {2}, {3}, {4}, {5}};
+        List<Integer> expected = Arrays.asList(1, 2, 3, 4, 5);
+        assertEquals(expected, MathAndSimulation.spiralOrder(matrix));
+    }
+
+    @Test
+    void testSpiralOrder_SingleElement() {
+        int[][] matrix = {{7}};
+        List<Integer> expected = Arrays.asList(7);
+        assertEquals(expected, MathAndSimulation.spiralOrder(matrix));
+    }
+
+    @Test
+    void testSpiralOrder_2x2Matrix() {
+        int[][] matrix = {{1, 2}, {3, 4}};
+        List<Integer> expected = Arrays.asList(1, 2, 4, 3);
+        assertEquals(expected, MathAndSimulation.spiralOrder(matrix));
+    }
+
+    @Test
+    void testSpiralOrder_RectangularMatrixMxN() {
+        int[][] matrix = {{1, 2, 3}, {8, 9, 4}, {7, 6, 5}};
+        List<Integer> expected = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9);
+        assertEquals(expected, MathAndSimulation.spiralOrder(matrix));
+    }
+
+    @Test
+    void testSpiralOrder_RectangularMatrixNxM() {
+        int[][] matrix = {{1, 2}, {3, 4}, {5, 6}};
+        List<Integer> expected = Arrays.asList(1, 2, 4, 6, 5, 3);
+        assertEquals(expected, MathAndSimulation.spiralOrder(matrix));
+    }
+
+    @Test
+    void testSpiralOrder_MatrixWithNegativeNumbersAndZeros() {
+        int[][] matrix = {{1, -2, 3}, {0, 5, -6}, {-7, 8, 9}};
+        List<Integer> expected = Arrays.asList(1, -2, 3, -6, 9, 8, -7, 0, 5);
+        assertEquals(expected, MathAndSimulation.spiralOrder(matrix));
+    }
+
+    @Test
+    void testSpiralOrder_MaximalSizeMatrix10x10() {
+        int[][] matrix = new int[10][10];
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                matrix[i][j] = i * 10 + j + 1;
+            }
+        }
+        List<Integer> result = MathAndSimulation.spiralOrder(matrix);
+        assertEquals(100, result.size());
+        assertEquals(1, result.get(0));
+        assertEquals(10, result.get(9));
+        assertEquals(55, result.get(99));
+    }
+
+    @Test
+    void testSpiralOrder_NullMatrix() {
+        int[][] matrix = null;
+        assertThrows(NullPointerException.class, () -> MathAndSimulation.spiralOrder(matrix));
+    }
+
+    @Test
+    void testSpiralOrder_EmptyMatrix() {
+        int[][] matrix = {};
+        List<Integer> expected = new ArrayList<>();
+        assertEquals(expected, MathAndSimulation.spiralOrder(matrix));
+    }
+
+    @Test
+    void testSpiralOrder_MatrixWithEmptyRows() {
+        int[][] matrix = {{}};
+        List<Integer> expected = new ArrayList<>();
+        assertEquals(expected, MathAndSimulation.spiralOrder(matrix));
     }
     
 }

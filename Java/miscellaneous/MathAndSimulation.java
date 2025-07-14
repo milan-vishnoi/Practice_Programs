@@ -141,28 +141,60 @@ public class MathAndSimulation {
         
         int m = matrix.length;
         int n = matrix[0].length;
-        int rows[] = new int[m];
-        int columns[] = new int[n];
+        boolean firstRowHasZero = false;
+        boolean firstColumnHasZero = false;
+        // int rows[] = new int[m];
+        // int columns[] = new int[n];
 
         for(int i=0;i<m;i++)
         {
-            for(int j=0;j<n;j++)
+            if(matrix[i][0]==0)
+            {
+                firstColumnHasZero= true;
+                break;
+            }
+        }
+
+        for(int j=0;j<n;j++)
+        {
+            if(matrix[0][j]==0)
+            {
+                firstRowHasZero = true;
+                break;
+            }
+        }
+
+        for(int i=1;i<m;i++)
+        { 
+            for(int j=1;j<n;j++)
             {
                 if(matrix[i][j]==0)
                 {
-                    rows[i]=1;
-                    columns[j]=1;
+                    matrix[0][j]=0;
+                    matrix[i][0]=0;
                 }
             }
         }
         
-        for(int i=0;i<m;i++)
+        for(int i=1;i<m;i++)
         {
-            for(int j=0;j<n;j++)
+            for(int j=1;j<n;j++)
             {
-                if(rows[i]>0 || columns[j]>0)
+                if(matrix[0][j]==0 || matrix[i][0]==0)
                 matrix[i][j]=0;
             }
+        }
+
+        if(firstRowHasZero)
+        {
+            for(int j =0;j<n;j++)
+            matrix[0][j]=0;
+        }
+
+        if(firstColumnHasZero)
+        {
+            for(int i=0;i<m;i++)
+            matrix[i][0]=0;
         }
     }
     

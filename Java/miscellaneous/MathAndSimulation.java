@@ -132,5 +132,38 @@ public class MathAndSimulation {
         }
         return result;
     }
+
+    // Leetcode Problems https://leetcode.com/problems/set-matrix-zeroes/
+    public static void setZeroes(int[][] matrix) {
+
+        if(matrix.length==0)
+        return;
+        
+        int m = matrix.length;
+        int n = matrix[0].length;
+        int rows[] = new int[m];
+        int columns[] = new int[n];
+
+        for(int i=0;i<m;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                if(matrix[i][j]==0)
+                {
+                    rows[i]=1;
+                    columns[j]=1;
+                }
+            }
+        }
+        
+        for(int i=0;i<m;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                if(rows[i]>0 || columns[j]>0)
+                matrix[i][j]=0;
+            }
+        }
+    }
     
 }

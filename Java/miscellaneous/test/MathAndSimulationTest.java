@@ -1,6 +1,7 @@
 package miscellaneous.test;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -389,6 +390,154 @@ public class MathAndSimulationTest {
         int[][] matrix = {{}};
         List<Integer> expected = new ArrayList<>();
         assertEquals(expected, MathAndSimulation.spiralOrder(matrix));
+    }
+
+    // --- Test Cases for setZeroes (LeetCode 73) ---
+
+    @Test
+    void testSetZeroes_Example1() {
+        int[][] matrix = {{1, 1, 1}, {1, 0, 1}, {1, 1, 1}};
+        int[][] expected = {{1, 0, 1}, {0, 0, 0}, {1, 0, 1}};
+        MathAndSimulation.setZeroes(matrix);
+        assertArrayEquals(expected, matrix);
+    }
+
+    @Test
+    void testSetZeroes_Example2() {
+        int[][] matrix = {{0, 1, 2, 0}, {3, 4, 5, 2}, {1, 3, 1, 5}};
+        int[][] expected = {{0, 0, 0, 0}, {0, 4, 5, 0}, {0, 3, 1, 0}};
+        MathAndSimulation.setZeroes(matrix);
+        assertArrayEquals(expected, matrix);
+    }
+
+    @Test
+    void testSetZeroes_NoZeroes() {
+        int[][] matrix = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+        int[][] expected = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+        MathAndSimulation.setZeroes(matrix);
+        assertArrayEquals(expected, matrix);
+    }
+
+    @Test
+    void testSetZeroes_AllZeroes() {
+        int[][] matrix = {{0, 0}, {0, 0}};
+        int[][] expected = {{0, 0}, {0, 0}};
+        MathAndSimulation.setZeroes(matrix);
+        assertArrayEquals(expected, matrix);
+    }
+
+    @Test
+    void testSetZeroes_SingleElementMatrixZero() {
+        int[][] matrix = {{0}};
+        int[][] expected = {{0}};
+        MathAndSimulation.setZeroes(matrix);
+        assertArrayEquals(expected, matrix);
+    }
+
+    @Test
+    void testSetZeroes_SingleElementMatrixNonZero() {
+        int[][] matrix = {{5}};
+        int[][] expected = {{5}};
+        MathAndSimulation.setZeroes(matrix);
+        assertArrayEquals(expected, matrix);
+    }
+
+    @Test
+    void testSetZeroes_ZeroAtTopLeft() {
+        int[][] matrix = {{0, 1, 1}, {1, 1, 1}, {1, 1, 1}};
+        int[][] expected = {{0, 0, 0}, {0, 1, 1}, {0, 1, 1}};
+        MathAndSimulation.setZeroes(matrix);
+        assertArrayEquals(expected, matrix);
+    }
+
+    @Test
+    void testSetZeroes_ZeroInFirstRowNotFirstCol() {
+        int[][] matrix = {{1, 0, 1}, {1, 1, 1}, {1, 1, 1}};
+        int[][] expected = {{0, 0, 0}, {1, 0, 1}, {1, 0, 1}};
+        MathAndSimulation.setZeroes(matrix);
+        assertArrayEquals(expected, matrix);
+    }
+
+    @Test
+    void testSetZeroes_ZeroInFirstColNotFirstRow() {
+        int[][] matrix = {{1, 1, 1}, {0, 1, 1}, {1, 1, 1}};
+        int[][] expected = {{0, 1, 1}, {0, 0, 0}, {0, 1, 1}};
+        MathAndSimulation.setZeroes(matrix);
+        assertArrayEquals(expected, matrix);
+    }
+
+    @Test
+    void testSetZeroes_MultipleZerosScattered() {
+        int[][] matrix = {{1, 2, 3, 4}, {5, 0, 7, 8}, {9, 10, 11, 12}, {13, 14, 0, 16}};
+        int[][] expected = {{1, 0, 0, 4}, {0, 0, 0, 0}, {9, 0, 0, 12}, {0, 0, 0, 0}};
+        MathAndSimulation.setZeroes(matrix);
+        assertArrayEquals(expected, matrix);
+    }
+
+    @Test
+    void testSetZeroes_RectangularMatrixWithZeros() {
+        int[][] matrix = {{1, 1, 1, 1}, {1, 0, 1, 1}, {1, 1, 1, 1}, {1, 1, 0, 1}};
+        int[][] expected = {{1, 0, 0, 1}, {0, 0, 0, 0}, {1, 0, 0, 1}, {0, 0, 0, 0}};
+        MathAndSimulation.setZeroes(matrix);
+        assertArrayEquals(expected, matrix);
+    }
+
+    @Test
+    void testSetZeroes_LargeMatrixWithNegativeValues() {
+        int[][] matrix = {
+            {10, 20, 30, 40},
+            {-5, -6, 0, -8},
+            {90, 80, 70, 60},
+            {1, 2, 3, 4}
+        };
+        int[][] expected = {
+            {10, 20, 0, 40},
+            {0, 0, 0, 0},
+            {90, 80, 0, 60},
+            {1, 2, 0, 4}
+        };
+        MathAndSimulation.setZeroes(matrix);
+        assertArrayEquals(expected, matrix);
+    }
+
+    @Test
+    void testSetZeroes_MaximalSizeMatrixWithOneZero() {
+        int m = 200;
+        int n = 200;
+        int[][] matrix = new int[m][n];
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                matrix[i][j] = 1;
+            }
+        }
+        matrix[100][100] = 0; // Set a zero in the middle
+
+        int[][] expected = new int[m][n];
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (i == 100 || j == 100) {
+                    expected[i][j] = 0;
+                } else {
+                    expected[i][j] = 1;
+                }
+            }
+        }
+
+        MathAndSimulation.setZeroes(matrix);
+        assertArrayEquals(expected, matrix);
+    }
+
+    @Test
+    void testSetZeroes_NullMatrix() {
+        int[][] matrix = null;
+        assertThrows(NullPointerException.class, () -> MathAndSimulation.setZeroes(matrix));
+    }
+
+    @Test
+    void testSetZeroes_EmptyMatrix() {
+        int[][] matrix = {};
+        assertDoesNotThrow(() -> MathAndSimulation.setZeroes(matrix));
+        assertArrayEquals(new int[][]{}, matrix);
     }
     
 }

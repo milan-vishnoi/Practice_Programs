@@ -646,5 +646,103 @@ public class MathAndSimulationTest {
         assertEquals(expected, MathAndSimulation.isPalindrome(x));
     }
 
+    // --- Test Cases for titleToNumber (LeetCode 171) ---
+
+    @Test
+    void testTitleToNumber_Example1() {
+        String columnTitle = "A";
+        int expected = 1;
+        assertEquals(expected, MathAndSimulation.titleToNumber(columnTitle));
+    }
+
+    @Test
+    void testTitleToNumber_Example2() {
+        String columnTitle = "AB";
+        int expected = 28;
+        assertEquals(expected, MathAndSimulation.titleToNumber(columnTitle));
+    }
+
+    @Test
+    void testTitleToNumber_Example3() {
+        String columnTitle = "ZY";
+        int expected = 701;
+        assertEquals(expected, MathAndSimulation.titleToNumber(columnTitle));
+    }
+
+    @Test
+    void testTitleToNumber_Z() {
+        String columnTitle = "Z";
+        int expected = 26;
+        assertEquals(expected, MathAndSimulation.titleToNumber(columnTitle));
+    }
+
+    @Test
+    void testTitleToNumber_AA() {
+        String columnTitle = "AA";
+        int expected = 27;
+        assertEquals(expected, MathAndSimulation.titleToNumber(columnTitle));
+    }
+
+    @Test
+    void testTitleToNumber_AZ() {
+        String columnTitle = "AZ";
+        int expected = 52; // 26*1 + 26
+        assertEquals(expected, MathAndSimulation.titleToNumber(columnTitle));
+    }
+
+    @Test
+    void testTitleToNumber_BA() {
+        String columnTitle = "BA";
+        int expected = 53; // 26*2 + 1
+        assertEquals(expected, MathAndSimulation.titleToNumber(columnTitle));
+    }
+
+    @Test
+    void testTitleToNumber_ZZ() {
+        String columnTitle = "ZZ";
+        int expected = 702; // 26*26 + 26
+        assertEquals(expected, MathAndSimulation.titleToNumber(columnTitle));
+    }
+
+    @Test
+    void testTitleToNumber_AAA() {
+        String columnTitle = "AAA";
+        int expected = 703;
+        assertEquals(expected, MathAndSimulation.titleToNumber(columnTitle));
+    }
+
+    @Test
+    void testTitleToNumber_LongTitle() {
+        String columnTitle = "FXSHRXW"; // Corresponds to Integer.MAX_VALUE
+        int expected = 2147483647;
+        assertEquals(expected, MathAndSimulation.titleToNumber(columnTitle));
+    }
+
+    @Test
+    void testTitleToNumber_ShortTitleB() {
+        String columnTitle = "B";
+        int expected = 2;
+        assertEquals(expected, MathAndSimulation.titleToNumber(columnTitle));
+    }
+
+    @Test
+    void testTitleToNumber_SmallestValidInput() {
+        String columnTitle = "A";
+        int expected = 1;
+        assertEquals(expected, MathAndSimulation.titleToNumber(columnTitle));
+    }
+
+    @Test
+    void testTitleToNumber_SingleCharMax() {
+        String columnTitle = "Z";
+        int expected = 26;
+        assertEquals(expected, MathAndSimulation.titleToNumber(columnTitle));
+    }
+
+    @Test
+    void testTitleToNumber_NullInput() {
+        String columnTitle = null;
+        assertThrows(NullPointerException.class, () -> MathAndSimulation.titleToNumber(columnTitle));
+    }
     
 }

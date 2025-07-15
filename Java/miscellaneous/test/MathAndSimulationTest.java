@@ -539,5 +539,112 @@ public class MathAndSimulationTest {
         assertDoesNotThrow(() -> MathAndSimulation.setZeroes(matrix));
         assertArrayEquals(new int[][]{}, matrix);
     }
+    // --- Test Cases for isPalindrome (LeetCode 9) ---
+
+    @Test
+    void testIsPalindrome_Example1() {
+        int x = 121;
+        boolean expected = true;
+        assertEquals(expected, MathAndSimulation.isPalindrome(x));
+    }
+
+    @Test
+    void testIsPalindrome_Example2() {
+        int x = -121;
+        boolean expected = false;
+        assertEquals(expected, MathAndSimulation.isPalindrome(x));
+    }
+
+    @Test
+    void testIsPalindrome_Example3() {
+        int x = 10;
+        boolean expected = false;
+        assertEquals(expected, MathAndSimulation.isPalindrome(x));
+    }
+
+    @Test
+    void testIsPalindrome_Zero() {
+        int x = 0;
+        boolean expected = true;
+        assertEquals(expected, MathAndSimulation.isPalindrome(x));
+    }
+
+    @Test
+    void testIsPalindrome_SingleDigitNonZero() {
+        int x = 7;
+        boolean expected = true;
+        assertEquals(expected, MathAndSimulation.isPalindrome(x));
+    }
+
+    @Test
+    void testIsPalindrome_EndsWithZeroNotZeroItself() {
+        int x = 100;
+        boolean expected = false;
+        assertEquals(expected, MathAndSimulation.isPalindrome(x));
+    }
+
+    @Test
+    void testIsPalindrome_EvenDigitsPalindrome() {
+        int x = 1221;
+        boolean expected = true;
+        assertEquals(expected, MathAndSimulation.isPalindrome(x));
+    }
+
+    @Test
+    void testIsPalindrome_EvenDigitsNonPalindrome() {
+        int x = 1234;
+        boolean expected = false;
+        assertEquals(expected, MathAndSimulation.isPalindrome(x));
+    }
+
+    @Test
+    void testIsPalindrome_OddDigitsPalindrome() {
+        int x = 12321;
+        boolean expected = true;
+        assertEquals(expected, MathAndSimulation.isPalindrome(x));
+    }
+
+    @Test
+    void testIsPalindrome_OddDigitsNonPalindrome() {
+        int x = 12345;
+        boolean expected = false;
+        assertEquals(expected, MathAndSimulation.isPalindrome(x));
+    }
+
+    @Test
+    void testIsPalindrome_LargePalindrome() {
+        int x = 2147447412; 
+        boolean expected = true;
+        assertEquals(expected, MathAndSimulation.isPalindrome(x));
+    }
+
+    @Test
+    void testIsPalindrome_MaxIntValue() {
+        int x = Integer.MAX_VALUE;
+        boolean expected = false;
+        assertEquals(expected, MathAndSimulation.isPalindrome(x));
+    }
+
+    @Test
+    void testIsPalindrome_MinIntValue() {
+        int x = Integer.MIN_VALUE;
+        boolean expected = false;
+        assertEquals(expected, MathAndSimulation.isPalindrome(x));
+    }
+
+    @Test
+    void testIsPalindrome_NegativeNumberEndingInOne() {
+        int x = -101;
+        boolean expected = false;
+        assertEquals(expected, MathAndSimulation.isPalindrome(x));
+    }
+
+    @Test
+    void testIsPalindrome_NegativeNumberEndingInZero() {
+        int x = -200;
+        boolean expected = false;
+        assertEquals(expected, MathAndSimulation.isPalindrome(x));
+    }
+
     
 }

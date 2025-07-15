@@ -58,7 +58,8 @@ public class SlidingWindow {
         
     }
 
-        public static int lengthOfLongestSubstring(String s) {
+    //Leetcode Problem https://leetcode.com/problems/longest-substring-without-repeating-characters
+    public static int lengthOfLongestSubstring(String s) {
         Map<Character,Integer> indexTracker = new HashMap<>();
         int startIndex = 0;
         int maxLength = 0;

@@ -6,6 +6,7 @@ import java.util.List;
 
 public class TwoPointers {
 
+    // Leetcode Problem https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/
     public static int[] twoSum(int[] numbers, int target) {
 
         int index1=0;
@@ -26,6 +27,7 @@ public class TwoPointers {
         return result;
     }
 
+    // Leetcode problems https://leetcode.com/problems/3sum/
     public static List<List<Integer>> threeSum(int[] nums) {
 
 
@@ -70,6 +72,7 @@ public class TwoPointers {
         
     }
 
+    // Leetcode Problem https://leetcode.com/problems/container-with-most-water/
     public static int maxArea(int[] height) {
         int maxArea = 0;
         if(height == null || height.length < 2)

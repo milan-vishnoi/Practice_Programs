@@ -2,8 +2,9 @@ package miscellaneous;
 
 import java.util.Arrays;
 
-// Problem : https://leetcode.com/problems/maximum-subarray/
+
 public class KadaneMaxSumSubArray {
+    // Leetcode Problem : https://leetcode.com/problems/maximum-subarray/
     public static int maxSubArray(int[] nums) {
         int maxSum = Integer.MIN_VALUE;
         int currentSum = Integer.MIN_VALUE;

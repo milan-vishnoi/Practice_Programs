@@ -31,18 +31,18 @@ public class DP1 {
         if(n<1)
         throw new IllegalArgumentException();
 
-        if(n<3)
+        if(n<=2)
         return n;
-        
         int prev1=1;
         int prev2=2;
-        int result=3;
+        int result=0;
 
-        for(int i=4;i<=n;i++)
+        for(int i=3;i<=n;i++)
         {
+            result = prev1 + prev2;
             prev1 = prev2;
             prev2 = result;
-            result = prev1 + prev2;
+
         }
 
         return result;

@@ -24,6 +24,29 @@ public class DP1 {
 
      return current;
         
-    }   
+    }
+
+    // Leetcode Problem https://leetcode.com/problems/climbing-stairs/
+    public static int climbStairs(int n) {
+        if(n<1)
+        throw new IllegalArgumentException();
+
+        if(n<3)
+        return n;
+        
+        int prev1=1;
+        int prev2=2;
+        int result=3;
+
+        for(int i=4;i<=n;i++)
+        {
+            prev1 = prev2;
+            prev2 = result;
+            result = prev1 + prev2;
+        }
+
+        return result;
+        
+    }
     
 }

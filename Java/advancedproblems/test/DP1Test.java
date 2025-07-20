@@ -149,4 +149,95 @@ public class DP1Test {
         int n = -1;
         assertThrows(IllegalArgumentException.class, () -> DP1.climbStairs(n), "Should throw IllegalArgumentException for n <= 0");
     }
+
+    // --- Test Cases for rob (LeetCode 198) ---
+
+    @Test
+    void testRob_Example1() {
+        int[] nums = {1, 2, 3, 1};
+        int expected = 4;
+        assertEquals(expected, DP1.rob(nums));
+    }
+
+    @Test
+    void testRob_Example2() {
+        int[] nums = {2, 7, 9, 3, 1};
+        int expected = 12;
+        assertEquals(expected, DP1.rob(nums));
+    }
+
+    @Test
+    void testRob_SingleHouse() {
+        int[] nums = {5};
+        int expected = 5;
+        assertEquals(expected, DP1.rob(nums));
+    }
+
+    @Test
+    void testRob_TwoHouses() {
+        int[] nums = {2, 1};
+        int expected = 2;
+        assertEquals(expected, DP1.rob(nums));
+    }
+
+    @Test
+    void testRob_TwoHousesSecondGreater() {
+        int[] nums = {1, 2};
+        int expected = 2;
+        assertEquals(expected, DP1.rob(nums));
+    }
+
+    @Test
+    void testRob_ThreeHousesOptimalSkip() {
+        int[] nums = {2, 1, 1, 2};
+        int expected = 4;
+        assertEquals(expected, DP1.rob(nums));
+    }
+
+    @Test
+    void testRob_AllZeros() {
+        int[] nums = {0, 0, 0, 0};
+        int expected = 0;
+        assertEquals(expected, DP1.rob(nums));
+    }
+
+    @Test
+    void testRob_MixedValues() {
+        int[] nums = {2, 1, 4, 5, 3, 1};
+        int expected = 9;
+        assertEquals(expected, DP1.rob(nums));
+    }
+
+    @Test
+    void testRob_LongSequence() {
+        int[] nums = {6, 6, 4, 8, 4, 3, 3, 10};
+        int expected = 27;
+        assertEquals(expected, DP1.rob(nums));
+    }
+
+    @Test
+    void testRob_MaxConstraintLength() {
+        int[] nums = new int[100];
+        for (int i = 0; i < 100; i++) {
+            if (i % 2 == 0) {
+                nums[i] = 400;
+            } else {
+                nums[i] = 0;
+            }
+        }
+        int expected = 50 * 400;
+        assertEquals(expected, DP1.rob(nums));
+    }
+
+    @Test
+    void testRob_NullInput() {
+        int[] nums = null;
+        assertThrows(NullPointerException.class, () -> DP1.rob(nums));
+    }
+
+    @Test
+    void testRob_EmptyInput() {
+        int[] nums = {};
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> DP1.rob(nums));
+    }
 }

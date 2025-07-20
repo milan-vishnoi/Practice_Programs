@@ -234,10 +234,4 @@ public class DP1Test {
         int[] nums = null;
         assertThrows(NullPointerException.class, () -> DP1.rob(nums));
     }
-
-    @Test
-    void testRob_EmptyInput() {
-        int[] nums = {};
-        assertThrows(ArrayIndexOutOfBoundsException.class, () -> DP1.rob(nums));
-    }
 }

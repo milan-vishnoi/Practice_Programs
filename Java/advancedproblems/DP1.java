@@ -55,15 +55,27 @@ public class DP1 {
         if(nums.length==1)
         return nums[0];
 
-        int memo[] = new int[nums.length+1];
+        // int memo[] = new int[nums.length+1];
 
-        memo[0]=0;
-        memo[1]=nums[0];        
+        // memo[0]=0;
+        // memo[1]=nums[0];        
 
-        for(int i=1;i<nums.length;i++)
-        memo[i+1] = Math.max(memo[i],memo[i-1]+nums[i]);
+        // for(int i=1;i<nums.length;i++)
+        // memo[i+1] = Math.max(memo[i],memo[i-1]+nums[i]);
 
-        return memo[nums.length];
+        int prev1=0;
+        int prev2=0;
+        int tmp;
+
+        for(int i=0;i<nums.length;i++)
+        {
+            tmp = prev1;
+            prev1 = Math.max(prev1,prev2+nums[i]);
+            prev2 = tmp;
+        }
+
+        //return memo[nums.length];
+        return prev1;
     }
     
 }

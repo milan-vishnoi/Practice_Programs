@@ -65,17 +65,17 @@ public class DP1 {
 
         int prev1=0;
         int prev2=0;
-        int tmp;
+        int result=0;
 
         for(int i=0;i<nums.length;i++)
         {
-            tmp = prev1;
-            prev1 = Math.max(prev1,prev2+nums[i]);
-            prev2 = tmp;
+            result = Math.max(prev1,prev2+nums[i]);
+            prev2 = prev1;
+            prev1 = result;
         }
 
         //return memo[nums.length];
-        return prev1;
+        return result;
     }
     
 }

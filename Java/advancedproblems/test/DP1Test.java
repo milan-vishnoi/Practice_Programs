@@ -234,4 +234,114 @@ public class DP1Test {
         int[] nums = null;
         assertThrows(NullPointerException.class, () -> DP1.rob(nums));
     }
+
+   // --- Test Cases for robCircular (LeetCode 213) ---
+
+    @Test
+    void testRobCircular_Example1() {
+        int[] nums = {2, 3, 2};
+        assertEquals(3, DP1.robCircular(nums));
+    }
+
+    @Test
+    void testRobCircular_Example2() {
+        int[] nums = {1, 2, 3, 1};
+        assertEquals(4, DP1.robCircular(nums));
+    }
+
+    @Test
+    void testRobCircular_Example3() {
+        int[] nums = {1, 2, 3};
+        assertEquals(3, DP1.robCircular(nums));
+    }
+
+    @Test
+    void testRobCircular_SingleHouse() {
+        int[] nums = {1};
+        assertEquals(1, DP1.robCircular(nums));
+    }
+
+    @Test
+    void testRobCircular_TwoHouses() {
+        int[] nums = {1, 2};
+        assertEquals(2, DP1.robCircular(nums));
+    }
+
+    @Test
+    void testRobCircular_AllZeros() {
+        int[] nums = {0, 0, 0, 0};
+        assertEquals(0, DP1.robCircular(nums));
+    }
+
+    @Test
+    void testRobCircular_MixedValues() {
+        int[] nums = {10, 0, 5, 0, 20};
+        assertEquals(25, DP1.robCircular(nums));
+    }
+
+    @Test
+    void testRobCircular_LargeValues() {
+        int[] nums = {1000, 1, 1000, 1, 1000};
+        assertEquals(2000, DP1.robCircular(nums));
+    }
+
+    @Test
+    void testRobCircular_AllSameValue() {
+        int[] nums = {5, 5, 5, 5, 5};
+        assertEquals(10, DP1.robCircular(nums));
+    }
+
+    @Test
+    void testRobCircular_AlternatingValues() {
+        int[] nums = {1, 10, 1, 10, 1};
+        assertEquals(20, DP1.robCircular(nums));
+    }
+
+    @Test
+    void testRobCircular_ManyHousesIncreasing() {
+        int[] nums = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        assertEquals(30, DP1.robCircular(nums));
+    }
+
+    @Test
+    void testRobCircular_ManyHousesDecreasing() {
+        int[] nums = {10, 9, 8, 7, 6, 5, 4, 3, 2, 1};
+        assertEquals(30, DP1.robCircular(nums));
+    }
+
+    @Test
+    void testRobCircular_LongArrayWithZeros() {
+        int[] nums = {1, 0, 0, 0, 10, 0, 0, 0, 5};
+        assertEquals(15, DP1.robCircular(nums));
+    }
+
+    @Test
+    void testRobCircular_EdgeCaseThreeHousesRobFirst() {
+        int[] nums = {10, 1, 1};
+        assertEquals(10, DP1.robCircular(nums));
+    }
+
+    @Test
+    void testRobCircular_EdgeCaseThreeHousesRobMiddle() {
+        int[] nums = {1, 10, 1};
+        assertEquals(10, DP1.robCircular(nums));
+    }
+
+    @Test
+    void testRobCircular_EdgeCaseFourHouses() {
+        int[] nums = {1, 2, 1, 1};
+        assertEquals(3, DP1.robCircular(nums));
+    }
+
+    @Test
+    void testRobCircular_AnotherFourHouses() {
+        int[] nums = {2, 7, 9, 3};
+        assertEquals(11, DP1.robCircular(nums));
+    }
+
+    @Test
+    void testRobCircular_FourHousesMaximum() {
+        int[] nums = {2, 7, 9, 3, 1};
+        assertEquals(11, DP1.robCircular(nums));
+    }
 }

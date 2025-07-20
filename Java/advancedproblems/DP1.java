@@ -1,5 +1,7 @@
 package advancedproblems;
 
+import java.util.Arrays;
+
 public class DP1 {
 
     //Leetcode Problem https://leetcode.com/problems/fibonacci-number/
@@ -76,6 +78,41 @@ public class DP1 {
 
         //return memo[nums.length];
         return result;
+    }
+
+    // Leetcode Problem https://leetcode.com/problems/house-robber-ii/
+    public static int robCircular(int[] nums) {
+
+        int n = nums.length;
+        
+        if(n==1)
+        return nums[0];
+        else if(n==2)
+        return Math.max(nums[0],nums[1]);
+        int memo[] = new int[n+1];
+
+        // First calculate for 0 to n-2
+        memo[0] = 0;
+        memo[1] = nums[0];
+        int result=0;
+
+        for(int i=1;i<n-1;i++)
+        memo[i+1] = Math.max(memo[i],memo[i-1]+nums[i]);
+
+        // Saving the max value of 0 to n-2 houses
+        result = memo[n-1];
+        
+        // Resetting the value of array
+        Arrays.fill(memo,0);
+
+        // Calculating for 1 to n-1
+        memo[2] = nums[1];
+
+        for(int i=2;i<n;i++)
+        memo[i+1] = Math.max(memo[i],memo[i-1]+nums[i]);
+
+
+        return Math.max(memo[n],result);
     }
     
 }

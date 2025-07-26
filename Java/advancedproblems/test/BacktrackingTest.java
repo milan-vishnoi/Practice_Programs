@@ -1,6 +1,7 @@
 package advancedproblems.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -142,5 +143,112 @@ public class BacktrackingTest {
     void testSubsets_NullInput() {
         int[] nums = null;
         assertThrows(NullPointerException.class, () -> Backtracking.subsets(nums));
+    }
+
+
+    // --- Test Cases for subsetsWithDup (LeetCode 90) ---
+
+    @Test
+    void testSubsetsWithDup_Example1() {
+        int[] nums = {1, 2, 2};
+        List<List<Integer>> expected = Arrays.asList(
+                Arrays.asList(),
+                Arrays.asList(1),
+                Arrays.asList(1, 2),
+                Arrays.asList(1, 2, 2),
+                Arrays.asList(2),
+                Arrays.asList(2, 2)
+        );
+        assertEquals(sortSubsets(expected), sortSubsets(Backtracking.subsetsWithDup(nums)));
+    }
+
+    @Test
+    void testSubsetsWithDup_Example2() {
+        int[] nums = {0};
+        List<List<Integer>> expected = Arrays.asList(
+                Arrays.asList(),
+                Arrays.asList(0)
+        );
+        assertEquals(sortSubsets(expected), sortSubsets(Backtracking.subsetsWithDup(nums)));
+    }
+
+    @Test
+    void testSubsetsWithDup_EmptyArray() {
+        int[] nums = {};
+        List<List<Integer>> expected = Arrays.asList(
+                Arrays.asList()
+        );
+        assertEquals(sortSubsets(expected), sortSubsets(Backtracking.subsetsWithDup(nums)));
+    }
+
+    @Test
+    void testSubsetsWithDup_SingleElement() {
+        int[] nums = {5};
+        List<List<Integer>> expected = Arrays.asList(
+                Arrays.asList(),
+                Arrays.asList(5)
+        );
+        assertEquals(sortSubsets(expected), sortSubsets(Backtracking.subsetsWithDup(nums)));
+    }
+
+    @Test
+    void testSubsetsWithDup_AllDuplicates() {
+        int[] nums = {1, 1, 1};
+        List<List<Integer>> expected = Arrays.asList(
+                Arrays.asList(),
+                Arrays.asList(1),
+                Arrays.asList(1, 1),
+                Arrays.asList(1, 1, 1)
+        );
+        assertEquals(sortSubsets(expected), sortSubsets(Backtracking.subsetsWithDup(nums)));
+    }
+
+    @Test
+    void testSubsetsWithDup_MixedDuplicatesAndUniques() {
+        int[] nums = {4, 1, 4, 4};
+        List<List<Integer>> expected = Arrays.asList(
+                Arrays.asList(),
+                Arrays.asList(1),
+                Arrays.asList(1, 4),
+                Arrays.asList(1, 4, 4),
+                Arrays.asList(1, 4, 4, 4),
+                Arrays.asList(4),
+                Arrays.asList(4, 4),
+                Arrays.asList(4, 4, 4)
+        );
+        assertEquals(sortSubsets(expected), sortSubsets(Backtracking.subsetsWithDup(nums)));
+    }
+
+    @Test
+    void testSubsetsWithDup_ElementsWithNegativeNumbersAndZero() {
+        int[] nums = {-1, 0, -1};
+        List<List<Integer>> expected = Arrays.asList(
+                Arrays.asList(),
+                Arrays.asList(-1),
+                Arrays.asList(-1, -1),
+                Arrays.asList(-1, -1, 0),
+                Arrays.asList(-1, 0),
+                Arrays.asList(0)
+        );
+        assertEquals(sortSubsets(expected), sortSubsets(Backtracking.subsetsWithDup(nums)));
+    }
+
+    @Test
+    void testSubsetsWithDup_MaxConstraintSize() {
+        int[] nums = {1, 1, 2, 2, 3, 3, 4, 4, 5, 5}; 
+        List<List<Integer>> result = Backtracking.subsetsWithDup(nums);
+        assertNotNull(result);
+        assertTrue(result.size() > 0 && result.size() < (1 << nums.length));
+        assertTrue(sortSubsets(result).contains(Arrays.asList()));
+        assertTrue(sortSubsets(result).contains(Arrays.asList(1, 1, 2, 2, 3, 3, 4, 4, 5, 5)));
+        assertTrue(sortSubsets(result).contains(Arrays.asList(1)));
+        assertTrue(sortSubsets(result).contains(Arrays.asList(2,2)));
+        assertTrue(sortSubsets(result).contains(Arrays.asList(5)));
+    }
+
+    @Test
+    void testSubsetsWithDup_NullInput() {
+        int[] nums = null;
+        assertThrows(NullPointerException.class, () -> Backtracking.subsetsWithDup(nums));
     }
 }

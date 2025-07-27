@@ -44,6 +44,12 @@ public class BacktrackingTest {
         return subsets;
     }
 
+    // Helper method to sort a list of strings for consistent assertion
+    private List<String> sortStrings(List<String> list) {
+        Collections.sort(list);
+        return list;
+    }
+
     // --- Test Cases for subsets (LeetCode 78) ---
 
     @Test
@@ -250,5 +256,89 @@ public class BacktrackingTest {
     void testSubsetsWithDup_NullInput() {
         int[] nums = null;
         assertThrows(NullPointerException.class, () -> Backtracking.subsetsWithDup(nums));
+    }
+
+    // --- Test Cases for letterCasePermutation (LeetCode 784) ---
+
+    @Test
+    void testLetterCasePermutation_Example1() {
+        String s = "a1b2";
+        List<String> expected = Arrays.asList("a1b2", "a1B2", "A1b2", "A1B2");
+        assertEquals(sortStrings(expected), sortStrings(Backtracking.letterCasePermutation(s)));
+    }
+
+    @Test
+    void testLetterCasePermutation_Example2() {
+        String s = "3z4";
+        List<String> expected = Arrays.asList("3z4", "3Z4");
+        assertEquals(sortStrings(expected), sortStrings(Backtracking.letterCasePermutation(s)));
+    }
+
+    @Test
+    void testLetterCasePermutation_Example3() {
+        String s = "12345";
+        List<String> expected = Arrays.asList("12345");
+        assertEquals(sortStrings(expected), sortStrings(Backtracking.letterCasePermutation(s)));
+    }
+
+    @Test
+    void testLetterCasePermutation_EmptyString() {
+        String s = "";
+        List<String> expected = Arrays.asList("");
+        assertEquals(sortStrings(expected), sortStrings(Backtracking.letterCasePermutation(s)));
+    }
+
+    @Test
+    void testLetterCasePermutation_AllLettersLowercase() {
+        String s = "abc";
+        List<String> expected = Arrays.asList("abc", "abC", "aBc", "aBC", "Abc", "AbC", "ABc", "ABC");
+        assertEquals(sortStrings(expected), sortStrings(Backtracking.letterCasePermutation(s)));
+    }
+
+    @Test
+    void testLetterCasePermutation_AllLettersUppercase() {
+        String s = "XYZ";
+        List<String> expected = Arrays.asList("xyz", "xyZ", "xYz", "xYZ", "Xyz", "XyZ", "XYz", "XYZ");
+        assertEquals(sortStrings(expected), sortStrings(Backtracking.letterCasePermutation(s)));
+    }
+
+    @Test
+    void testLetterCasePermutation_MixedCaseLetters() {
+        String s = "aBc";
+        List<String> expected = Arrays.asList("abc", "abC", "aBc", "aBC", "Abc", "AbC", "ABc", "ABC");
+        assertEquals(sortStrings(expected), sortStrings(Backtracking.letterCasePermutation(s)));
+    }
+
+    @Test
+    void testLetterCasePermutation_StringWithOnlyDigits() {
+        String s = "0123";
+        List<String> expected = Arrays.asList("0123");
+        assertEquals(sortStrings(expected), sortStrings(Backtracking.letterCasePermutation(s)));
+    }
+
+    @Test
+    void testLetterCasePermutation_LongStringMixed() {
+        String s = "h1k2e3d4"; // 4 letters, 2^4 = 16 permutations
+        List<String> result = Backtracking.letterCasePermutation(s);
+        assertEquals(16, result.size());
+        assertTrue(result.contains("h1k2e3d4"));
+        assertTrue(result.contains("H1K2E3D4"));
+        assertTrue(result.contains("h1K2e3D4"));
+        assertTrue(result.contains("H1k2E3d4"));
+    }
+
+    @Test
+    void testLetterCasePermutation_MaxConstraintLength() {
+        String s = "abcdefghij";
+        List<String> result = Backtracking.letterCasePermutation(s);
+        assertEquals(1024, result.size());
+        assertTrue(result.contains("abcdefghij"));
+        assertTrue(result.contains("ABCDEFGHIJ"));
+    }
+
+    @Test
+    void testLetterCasePermutation_NullInput() {
+        String s = null;
+        assertThrows(NullPointerException.class, () -> Backtracking.letterCasePermutation(s));
     }
 }

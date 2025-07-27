@@ -6,13 +6,13 @@ import java.util.Arrays;
 
 public class Backtracking {
 
-    static Backtracking object = new Backtracking();
+    static Backtracking backtracking = new Backtracking();
 
     //Leetcode Problem https://leetcode.com/problems/subsets/
     public static List<List<Integer>> subsets(int[] nums) {
         List<List<Integer>> result = new ArrayList<>();
         List<Integer> subset=new ArrayList<>();
-        object.calcSubSet(0, nums, result, subset);
+        backtracking.calcSubSet(0, nums, result, subset);
         return result;
 
     }
@@ -40,7 +40,7 @@ public class Backtracking {
      */
 
 
-    public void calcSubSet(int i, int[] nums, List<List<Integer>> result, List<Integer> subset) {
+    private void calcSubSet(int i, int[] nums, List<List<Integer>> result, List<Integer> subset) {
         if (i == nums.length) {
             result.add(new ArrayList<>(subset));
             return;
@@ -58,11 +58,11 @@ public class Backtracking {
 
         List<List<Integer>> result = new ArrayList<>();
         Arrays.sort(nums);
-        object.findPowerSet(0,nums,result,new ArrayList<>(),false);
+        backtracking.findPowerSet(0,nums,result,new ArrayList<>(),false);
         return result;
     }
 
-    public void findPowerSet(int i , int[] nums, List<List<Integer>> result, List<Integer> subset, boolean prevIncluded) {
+    private void findPowerSet(int i , int[] nums, List<List<Integer>> result, List<Integer> subset, boolean prevIncluded) {
         if(i==nums.length)
         {
             result.add(new ArrayList<>(subset));
@@ -78,5 +78,34 @@ public class Backtracking {
         }
 
         findPowerSet(i+1,nums,result,subset,false);
+    }
+
+    //Leetcode Problem https://leetcode.com/problems/letter-case-permutation/
+    public static List<String> letterCasePermutation(String s) {
+        List<String> result = new ArrayList<>();
+        // StringBuilder sb = new StringBuilder();
+        char[] permutation = new char[s.length()];
+        backtracking.calcPermutation(0, s, result, permutation);
+        return result;
+    }
+
+    private void calcPermutation(int i, String s, List<String> result, char[] permutation) {
+        if (i == s.length()) {
+            result.add(new String(permutation));
+            return;
+        }
+        char ch = s.charAt(i);
+        permutation[i] = ch;
+        calcPermutation(i + 1, s, result, permutation);
+        if (ch >= 65 && ch <= 90) {  //if it is upper case
+            permutation[i] = (char) (ch + 32);  //convert to lower case
+            calcPermutation(i + 1, s, result, permutation);
+        }
+
+        else if (ch >= 97 && ch <= 122) {  //if it is lower case convert it to upper case
+            permutation[i] = (char) (ch - 32);
+            calcPermutation(i + 1, s, result, permutation);
+        }
+
     }
 }

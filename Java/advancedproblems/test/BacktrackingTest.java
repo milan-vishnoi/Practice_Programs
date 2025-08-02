@@ -50,6 +50,26 @@ public class BacktrackingTest {
         return list;
     }
 
+    private List<List<Integer>> sortCombinations(List<List<Integer>> combinations) {
+        for (List<Integer> combination : combinations) {
+            Collections.sort(combination);
+        }
+        Collections.sort(combinations, new Comparator<List<Integer>>() {
+            @Override
+            public int compare(List<Integer> l1, List<Integer> l2) {
+                int minSize = Math.min(l1.size(), l2.size());
+                for (int i = 0; i < minSize; i++) {
+                    int cmp = Integer.compare(l1.get(i), l2.get(i));
+                    if (cmp != 0) {
+                        return cmp;
+                    }
+                }
+                return Integer.compare(l1.size(), l2.size());
+            }
+        });
+        return combinations;
+    }
+
     // --- Test Cases for subsets (LeetCode 78) ---
 
     @Test
@@ -446,5 +466,118 @@ public class BacktrackingTest {
         String num = null;
         int target = 0;
         assertThrows(NullPointerException.class, () -> Backtracking.addOperators(num, target));
+    }
+
+    // --- Test Cases for combinationSum (LeetCode 39) ---
+
+    @Test
+    void testCombinationSum_Example1() {
+        int[] candidates = {2, 3, 6, 7};
+        int target = 7;
+        List<List<Integer>> expected = Arrays.asList(
+                Arrays.asList(2, 2, 3),
+                Arrays.asList(7)
+        );
+        assertEquals(sortCombinations(expected), sortCombinations(Backtracking.combinationSum(candidates, target)));
+    }
+
+    @Test
+    void testCombinationSum_Example2() {
+        int[] candidates = {2, 3, 5};
+        int target = 8;
+        List<List<Integer>> expected = Arrays.asList(
+                Arrays.asList(2, 2, 2, 2),
+                Arrays.asList(2, 3, 3),
+                Arrays.asList(3, 5)
+        );
+        assertEquals(sortCombinations(expected), sortCombinations(Backtracking.combinationSum(candidates, target)));
+    }
+
+    @Test
+    void testCombinationSum_SingleCandidateMatchTarget() {
+        int[] candidates = {5};
+        int target = 5;
+        List<List<Integer>> expected = Arrays.asList(
+                Arrays.asList(5)
+        );
+        assertEquals(sortCombinations(expected), sortCombinations(Backtracking.combinationSum(candidates, target)));
+    }
+
+    @Test
+    void testCombinationSum_SingleCandidateNoMatch() {
+        int[] candidates = {5};
+        int target = 6;
+        List<List<Integer>> expected = Collections.emptyList();
+        assertEquals(sortCombinations(expected), sortCombinations(Backtracking.combinationSum(candidates, target)));
+    }
+
+    @Test
+    void testCombinationSum_NoSolutionPossible() {
+        int[] candidates = {8, 9};
+        int target = 7;
+        List<List<Integer>> expected = Collections.emptyList();
+        assertEquals(sortCombinations(expected), sortCombinations(Backtracking.combinationSum(candidates, target)));
+    }
+
+    @Test
+    void testCombinationSum_TargetIsMultipleOfCandidate() {
+        int[] candidates = {2};
+        int target = 6;
+        List<List<Integer>> expected = Arrays.asList(
+                Arrays.asList(2, 2, 2)
+        );
+        assertEquals(sortCombinations(expected), sortCombinations(Backtracking.combinationSum(candidates, target)));
+    }
+
+    @Test
+    void testCombinationSum_CandidatesIncludeOne() {
+        int[] candidates = {1, 2, 3};
+        int target = 3;
+        List<List<Integer>> expected = Arrays.asList(
+                Arrays.asList(1, 1, 1),
+                Arrays.asList(1, 2),
+                Arrays.asList(3)
+        );
+        assertEquals(sortCombinations(expected), sortCombinations(Backtracking.combinationSum(candidates, target)));
+    }
+
+    @Test
+    void testCombinationSum_LargerInput() {
+        int[] candidates = {2, 4, 6, 8};
+        int target = 10;
+        List<List<Integer>> expected = Arrays.asList(
+                Arrays.asList(2, 2, 2, 2, 2),
+                Arrays.asList(2,2,2,4),
+                Arrays.asList(2, 2, 6),
+                Arrays.asList(2, 4, 4),
+                Arrays.asList(2,8),
+                Arrays.asList(4,6)
+        );
+        assertEquals(sortCombinations(expected), sortCombinations(Backtracking.combinationSum(candidates, target)));
+    }
+
+    @Test
+    void testCombinationSum_LargeTargetAndCandidates() {
+        int[] candidates = {2, 3, 5, 7};
+        int target = 14;
+        List<List<Integer>> expected = Arrays.asList(
+                Arrays.asList(2, 2, 2, 2, 2, 2, 2),
+                Arrays.asList(2, 2, 2,2, 3, 3),
+                Arrays.asList(2,2,2,3,5),
+                Arrays.asList(2, 2, 3, 7),
+                Arrays.asList(2, 2, 5, 5),
+                Arrays.asList(2, 3, 3, 3, 3),
+                Arrays.asList(2, 5, 7),
+                Arrays.asList(3, 3, 3, 5),
+                Arrays.asList(7, 7)
+        );
+        assertEquals(sortCombinations(expected), sortCombinations(Backtracking.combinationSum(candidates, target)));
+    }
+
+    @Test
+    void testCombinationSum_NullInput() {
+        int[] candidates = null;
+        int target = 1;
+        assertThrows(NullPointerException.class, () -> Backtracking.combinationSum(candidates, target));
     }
 }

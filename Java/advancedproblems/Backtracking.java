@@ -114,13 +114,13 @@ public class Backtracking {
     {
         List<String> result = new ArrayList<>();
         
-        findExpression(0,num,target,0,0,"",result);
+        backtracking.findExpression(0,num,target,0,0,"",result);
 
         return result;
         
     }
 
-    private static void findExpression(int index,String num,int target, long eval, long prev, String path, List<String> result)
+    private void findExpression(int index,String num,int target, long eval, long prev, String path, List<String> result)
     {
 
     if(index==num.length())
@@ -155,5 +155,34 @@ public class Backtracking {
          }
        }
   
+    }
+
+    //Leetcode problem https://leetcode.com/problems/combination-sum/
+    public static List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<Integer>> result = new ArrayList<>();
+
+        backtracking.findSum(0,candidates,target,new ArrayList<>(),result);
+
+        return result;
+        
+    }
+
+    private void findSum(int i, int[] candidates, int target, List<Integer> combination, List<List<Integer>> result)
+    {
+        if(target==0)
+        {
+            result.add(new ArrayList<>(combination));
+            return;
+        }
+        else if(target<0)
+        return;
+
+      for(int index=i;index<candidates.length;index++)
+      {
+        combination.add(candidates[index]);
+        findSum(index,candidates,target-candidates[index],combination,result);
+        combination.remove(combination.size()-1);
+      }
+
     }
 }

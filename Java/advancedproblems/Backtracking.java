@@ -185,4 +185,39 @@ public class Backtracking {
       }
 
     }
+
+    //Leetcode Problem https://leetcode.com/problems/combination-sum-ii/
+    public static List<List<Integer>> combinationSum2(int[] candidates, int target) {
+
+        List<List<Integer>> result = new ArrayList<>();
+        Arrays.sort(candidates);
+        backtracking.findCombinations2(0,candidates,target,new ArrayList<>(),result);
+
+        return result;
+    }
+
+    private void findCombinations2(int i, int[] candidates, int target, List<Integer> combination, List<List<Integer>> result)
+    {
+        if(target==0)
+        {
+            result.add(new ArrayList<>(combination));
+            return;
+        }
+        else if(target<0)
+        return;
+        else if(i==candidates.length||candidates[i]>target)
+        return;
+
+
+
+        for(int index=i;index<candidates.length;index++)
+        {
+            if(index>i && candidates[index]==candidates[index-1])
+            continue;
+
+            combination.add(candidates[index]);
+            findCombinations2(index+1,candidates,target-candidates[index],combination,result);
+            combination.remove(combination.size()-1);
+        }
+    }
 }

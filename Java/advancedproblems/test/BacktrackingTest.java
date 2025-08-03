@@ -580,4 +580,107 @@ public class BacktrackingTest {
         int target = 1;
         assertThrows(NullPointerException.class, () -> Backtracking.combinationSum(candidates, target));
     }
+
+    // --- Test Cases for combinationSum2 (LeetCode 40) ---
+
+    @Test
+    void testCombinationSum2_Example1() {
+        int[] candidates = {10, 1, 2, 7, 6, 1, 5};
+        int target = 8;
+        List<List<Integer>> expected = Arrays.asList(
+                Arrays.asList(1, 1, 6),
+                Arrays.asList(1, 2, 5),
+                Arrays.asList(1, 7),
+                Arrays.asList(2, 6)
+        );
+        assertEquals(sortCombinations(expected), sortCombinations(Backtracking.combinationSum2(candidates, target)));
+    }
+
+    @Test
+    void testCombinationSum2_Example2() {
+        int[] candidates = {2, 5, 2, 1, 2};
+        int target = 5;
+        List<List<Integer>> expected = Arrays.asList(
+                Arrays.asList(1, 2, 2),
+                Arrays.asList(5)
+        );
+        assertEquals(sortCombinations(expected), sortCombinations(Backtracking.combinationSum2(candidates, target)));
+    }
+
+    @Test
+    void testCombinationSum2_NoDuplicatesInInput() {
+        int[] candidates = {2, 3, 5};
+        int target = 8;
+        List<List<Integer>> expected = Arrays.asList(
+                Arrays.asList(3, 5)
+        );
+        assertEquals(sortCombinations(expected), sortCombinations(Backtracking.combinationSum2(candidates, target)));
+    }
+
+    @Test
+    void testCombinationSum2_NoSolution() {
+        int[] candidates = {3, 4, 5};
+        int target = 2;
+        List<List<Integer>> expected = Collections.emptyList();
+        assertEquals(sortCombinations(expected), sortCombinations(Backtracking.combinationSum2(candidates, target)));
+    }
+
+    @Test
+    void testCombinationSum2_SingleDuplicateCandidate() {
+        int[] candidates = {2, 2};
+        int target = 2;
+        List<List<Integer>> expected = Arrays.asList(
+                Arrays.asList(2)
+        );
+        assertEquals(sortCombinations(expected), sortCombinations(Backtracking.combinationSum2(candidates, target)));
+    }
+
+    @Test
+    void testCombinationSum2_SingleDuplicateCandidateAndTargetIsSum() {
+        int[] candidates = {2, 2};
+        int target = 4;
+        List<List<Integer>> expected = Arrays.asList(
+                Arrays.asList(2, 2)
+        );
+        assertEquals(sortCombinations(expected), sortCombinations(Backtracking.combinationSum2(candidates, target)));
+    }
+
+    @Test
+    void testCombinationSum2_MultipleDuplicates() {
+        int[] candidates = {1, 1, 1, 2, 2};
+        int target = 3;
+        List<List<Integer>> expected = Arrays.asList(
+                Arrays.asList(1, 2),
+                Arrays.asList(1, 1,1)
+        );
+        assertEquals(sortCombinations(expected), sortCombinations(Backtracking.combinationSum2(candidates, target)));
+    }
+
+    @Test
+    void testCombinationSum2_MaxConstraints() {
+        int[] candidates = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
+        int target = 30;
+        List<List<Integer>> expected = Arrays.asList(
+                Arrays.asList(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+        );
+        assertEquals(sortCombinations(expected), sortCombinations(Backtracking.combinationSum2(candidates, target)));
+    }
+
+    @Test
+    void testCombinationSum2_LargeValues() {
+        int[] candidates = {1, 1, 50, 50, 100};
+        int target = 102;
+        List<List<Integer>> expected = Arrays.asList(
+                Arrays.asList(1, 1, 100),
+                Arrays.asList(50, 50, 1, 1)
+        );
+        assertEquals(sortCombinations(expected), sortCombinations(Backtracking.combinationSum2(candidates, target)));
+    }
+
+    @Test
+    void testCombinationSum2_NullInput() {
+        int[] candidates = null;
+        int target = 1;
+        assertThrows(NullPointerException.class, () -> Backtracking.combinationSum2(candidates, target));
+    }
 }

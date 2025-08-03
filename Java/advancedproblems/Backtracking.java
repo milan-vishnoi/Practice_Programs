@@ -220,4 +220,32 @@ public class Backtracking {
             combination.remove(combination.size()-1);
         }
     }
+
+    //Leetcode Problem https://leetcode.com/problems/generate-parentheses/
+    public static List<String> generateParenthesis(int n) {
+        List<String> result = new ArrayList<>();
+        backtracking.generate(0,n,new StringBuilder(),0,0,result);
+
+        return result;
+    }
+
+    private void generate(int i,int n,StringBuilder str,int open, int close,List<String> result)
+    {
+
+      if(close>open || open>n)
+        return;
+
+        if(str.length()==2*n)
+        {
+            if(open==close)
+            result.add(str.toString());
+            return;
+        }
+
+
+            generate(i+1,n,str.append("("),open+1,close,result);
+            str.setCharAt(i,')');
+            generate(i+1,n,str,open,close+1,result);
+            str.deleteCharAt(i);
+    }
 }

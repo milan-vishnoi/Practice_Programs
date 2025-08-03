@@ -683,4 +683,51 @@ public class BacktrackingTest {
         int target = 1;
         assertThrows(NullPointerException.class, () -> Backtracking.combinationSum2(candidates, target));
     }
+    // --- Test Cases for generateParenthesis (LeetCode 22) ---
+
+    @Test
+    void testGenerateParenthesis_N1() {
+        int n = 1;
+        List<String> expected = Arrays.asList("()");
+        assertEquals(sortStrings(expected), sortStrings(Backtracking.generateParenthesis(n)));
+    }
+
+    @Test
+    void testGenerateParenthesis_N2() {
+        int n = 2;
+        List<String> expected = Arrays.asList("(())", "()()");
+        assertEquals(sortStrings(expected), sortStrings(Backtracking.generateParenthesis(n)));
+    }
+
+    @Test
+    void testGenerateParenthesis_N3() {
+        int n = 3;
+        List<String> expected = Arrays.asList("((()))", "(()())", "(())()", "()(())", "()()()");
+        assertEquals(sortStrings(expected), sortStrings(Backtracking.generateParenthesis(n)));
+    }
+
+    @Test
+    void testGenerateParenthesis_N4() {
+        int n = 4;
+        List<String> result = Backtracking.generateParenthesis(n);
+        assertEquals(14, result.size());
+        assertTrue(sortStrings(result).containsAll(Arrays.asList("(((())))", "()()()()")));
+    }
+
+    @Test
+    void testGenerateParenthesis_MaxConstraintN8() {
+        int n = 8;
+        List<String> result = Backtracking.generateParenthesis(n);
+        assertEquals(1430, result.size());
+        assertTrue(result.contains("(((((((())))))))"));
+        assertTrue(result.contains("()()()()()()()()"));
+    }
+
+    @Test
+    void testGenerateParenthesis_NegativeN() {
+        int n = -1;
+        List<String> expected = Collections.emptyList();
+        assertEquals(sortStrings(expected), sortStrings(Backtracking.generateParenthesis(n)));
+    }
+
 }

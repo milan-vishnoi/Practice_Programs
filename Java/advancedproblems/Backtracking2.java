@@ -40,5 +40,46 @@ public class Backtracking2 {
         }
 
     }
+
+    //Leetcode Problem https://leetcode.com/problems/palindrome-partitioning/
+    public static List<List<String>> partition(String s) {
+
+        List<List<String>> result = new ArrayList<>();
+        backtracking2.findPartition(0, s, new ArrayList<>(), result);
+
+        return result;
+
+    }
+
+    private void findPartition(int i, String s, List<String> partition, List<List<String>> result) {
+        if (i == s.length()) {
+            result.add(new ArrayList<>(partition));
+            return;
+        }
+
+        //String str;
+
+        for (int index = i; index < s.length(); index++) {
+            String str = s.substring(i, index + 1);
+
+            if (isPalindrom(str)) {
+                partition.add(str);
+                findPartition(index + 1, s, partition, result);
+                partition.remove(partition.size() - 1);
+            }
+        }
+    }
+
+    private boolean isPalindrom(String sb) {
+        if (sb.length() <= 1)
+            return true;
+
+        for (int i = 0, j = sb.length() - 1; i < j; i++, j--) {
+            if (sb.charAt(i) != sb.charAt(j))
+                return false;
+        }
+
+        return true;
+    }
     
 }

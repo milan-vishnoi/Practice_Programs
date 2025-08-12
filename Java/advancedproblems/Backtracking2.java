@@ -112,7 +112,10 @@ public class Backtracking2 {
         {
         if(i+j>length)
         return;
-
+        int remainingChars = s.length() - (i + j);
+        int remainingSegments = 4 - (sCount + 1);
+        if (remainingChars < remainingSegments || remainingChars > remainingSegments * 3) 
+        continue;
         segment = s.substring(i,i+j);
         if(isValid(segment))
         {

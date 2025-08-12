@@ -81,5 +81,58 @@ public class Backtracking2 {
 
         return true;
     }
+
+    //Leetcode Problem https://leetcode.com/problems/restore-ip-addresses/
+    public static List<String> restoreIpAddresses(String s) {
+        List<String> result = new ArrayList<>();
+        if(s.length()>12)
+        return result;
+
+      backtracking2.findIp(0,s,new StringBuilder(),0,result);
+
+        return result; 
+        
+    }
+
+    private void findIp(int i,String s, StringBuilder ip,int sCount, List<String> result)
+    {
+        int length = s.length();
+        if(i==length)
+        {
+            if(sCount==4)
+            result.add(ip.toString());
+
+            return;
+        }
+
+      String segment;
+      int sbLength = ip.length();
+
+        for(int j=1;j<=3;j++)
+        {
+        if(i+j>length)
+        return;
+
+        segment = s.substring(i,i+j);
+        if(isValid(segment))
+        {
+            if(sCount>0)
+            ip.append(".");
+            ip.append(segment);
+            findIp(i+j,s,ip,sCount+1,result);
+           ip.setLength(sbLength);
+        }
+        else
+        return;
+        }
+    }
+    private boolean isValid(String s)
+    {
+    if (s.length() > 1 && s.startsWith("0")) 
+    return false;
+    int val = Integer.parseInt(s);
+    return val >= 0 && val <= 255;
+    }
+
     
 }

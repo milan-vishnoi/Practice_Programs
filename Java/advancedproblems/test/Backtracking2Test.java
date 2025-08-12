@@ -162,4 +162,82 @@ public class Backtracking2Test {
         assertThrows(NullPointerException.class, () -> Backtracking2.partition(s));
     }
 
+    // --- Test Cases for restoreIpAddresses (LeetCode 93) ---
+
+    @Test
+    void testRestoreIpAddresses_Example1() {
+        String s = "25525511135";
+        List<String> expected = Arrays.asList("255.255.11.135", "255.255.111.35");
+        assertEquals(sortStrings(expected), sortStrings(Backtracking2.restoreIpAddresses(s)));
+    }
+
+    @Test
+    void testRestoreIpAddresses_Example2() {
+        String s = "0000";
+        List<String> expected = Arrays.asList("0.0.0.0");
+        assertEquals(sortStrings(expected), sortStrings(Backtracking2.restoreIpAddresses(s)));
+    }
+
+    @Test
+    void testRestoreIpAddresses_Example3() {
+        String s = "101023";
+        List<String> expected = Arrays.asList("1.0.10.23", "1.0.102.3", "10.1.0.23", "10.10.2.3", "101.0.2.3");
+        assertEquals(sortStrings(expected), sortStrings(Backtracking2.restoreIpAddresses(s)));
+    }
+
+    @Test
+    void testRestoreIpAddresses_NoValidAddresses() {
+        String s = "256256256256";
+        List<String> expected = Collections.emptyList();
+        assertEquals(sortStrings(expected), sortStrings(Backtracking2.restoreIpAddresses(s)));
+    }
+
+    @Test
+    void testRestoreIpAddresses_LeadingZeros() {
+        String s = "010010";
+        List<String> expected = Arrays.asList("0.10.0.10", "0.100.1.0");
+        assertEquals(sortStrings(expected), sortStrings(Backtracking2.restoreIpAddresses(s)));
+    }
+
+    @Test
+    void testRestoreIpAddresses_MinLength() {
+        String s = "1234";
+        List<String> expected = Arrays.asList("1.2.3.4");
+        assertEquals(sortStrings(expected), sortStrings(Backtracking2.restoreIpAddresses(s)));
+    }
+
+    @Test
+    void testRestoreIpAddresses_MaxLength() {
+        String s = "111111111111";
+        List<String> result = Backtracking2.restoreIpAddresses(s);
+        assertEquals(1, result.size());
+    }
+
+    @Test
+    void testRestoreIpAddresses_AllNines() {
+        String s = "999999999999";
+        List<String> expected = Arrays.asList();
+        assertEquals(sortStrings(expected), sortStrings(Backtracking2.restoreIpAddresses(s)));
+    }
+
+    @Test
+    void testRestoreIpAddresses_InvalidLengthTooShort() {
+        String s = "123";
+        List<String> expected = Collections.emptyList();
+        assertEquals(sortStrings(expected), sortStrings(Backtracking2.restoreIpAddresses(s)));
+    }
+
+    @Test
+    void testRestoreIpAddresses_InvalidLengthTooLong() {
+        String s = "123456789101112";
+        List<String> expected = Collections.emptyList();
+        assertEquals(sortStrings(expected), sortStrings(Backtracking2.restoreIpAddresses(s)));
+    }
+
+    @Test
+    void testRestoreIpAddresses_NullInput() {
+        String s = null;
+        assertThrows(NullPointerException.class, () -> Backtracking2.restoreIpAddresses(s));
+    }
+
 }

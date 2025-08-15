@@ -109,54 +109,6 @@ public class Backtracking {
 
     }
 
-    //Leetcode Problem https://leetcode.com/problems/expression-add-operators/
-    public static List<String> addOperators(String num, int target) 
-    {
-        List<String> result = new ArrayList<>();
-        
-        backtracking.findExpression(0,num,target,0,0,"",result);
-
-        return result;
-        
-    }
-
-    private void findExpression(int index,String num,int target, long eval, long prev, String path, List<String> result)
-    {
-
-    if(index==num.length())
-        {
-          if(eval==target)
-            result.add(path);
-
-            return;
-        }
-    
-       String currStr;
-       long currNum;
-       for(int i=index;i<num.length();i++)  //for generating digits with multiple numbers
-       {
-        if(i!=index && num.charAt(index)=='0')  // if there arev more than 1 digit and leading is 0 the skip that path
-        break;
-        currStr = num.substring(index,i+1);
-        currNum = Long.parseLong(currStr);
-
-         if(index==0)
-         findExpression(i+1,num,target,currNum,currNum,currStr,result); // for 0th index there won't be any operator
-         else
-         {
-            // for addition
-            findExpression(i+1,num,target,eval+currNum,currNum,path+'+'+currStr,result);
-
-            //for subtractiom
-            findExpression(i+1,num,target,eval-currNum,-currNum,path+'-'+currStr,result);
-
-            //for multiplication
-            findExpression(i+1,num,target,(eval-prev)+(prev*currNum),prev*currNum,path+'*'+currStr,result);
-         }
-       }
-  
-    }
-
     //Leetcode problem https://leetcode.com/problems/combination-sum/
     public static List<List<Integer>> combinationSum(int[] candidates, int target) {
         List<List<Integer>> result = new ArrayList<>();

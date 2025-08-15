@@ -11,6 +11,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import advancedproblems.Backtracking;
 import advancedproblems.Backtracking2;
 
 
@@ -308,6 +309,112 @@ public class Backtracking2Test {
         int n = 9;
         List<List<String>> result = Backtracking2.solveNQueens(n);
         assertEquals(352, result.size());
+    }
+
+    // --- Test Cases for addOperators (LeetCode 282) ---
+
+    @Test
+    void testAddOperators_Example1() {
+        String num = "123";
+        int target = 6;
+        List<String> expected = Arrays.asList("1*2*3", "1+2+3");
+        assertEquals(sortStrings(expected), sortStrings(Backtracking2.addOperators(num, target)));
+    }
+
+    @Test
+    void testAddOperators_Example2() {
+        String num = "232";
+        int target = 8;
+        List<String> expected = Arrays.asList("2*3+2", "2+3*2");
+        assertEquals(sortStrings(expected), sortStrings(Backtracking2.addOperators(num, target)));
+    }
+
+    @Test
+    void testAddOperators_Example3() {
+        String num = "105";
+        int target = 5;
+        List<String> expected = Arrays.asList("1*0+5", "10-5");
+        assertEquals(sortStrings(expected), sortStrings(Backtracking2.addOperators(num, target)));
+    }
+
+    @Test
+    void testAddOperators_Example4() {
+        String num = "00";
+        int target = 0;
+        List<String> expected = Arrays.asList("0+0", "0-0", "0*0");
+        assertEquals(sortStrings(expected), sortStrings(Backtracking2.addOperators(num, target)));
+    }
+
+    @Test
+    void testAddOperators_Example5() {
+        String num = "3456237490";
+        int target = 9191;
+        List<String> expected = Collections.emptyList();
+        assertEquals(sortStrings(expected), sortStrings(Backtracking2.addOperators(num, target)));
+    }
+
+    @Test
+    void testAddOperators_SingleDigitMatchTarget() {
+        String num = "5";
+        int target = 5;
+        List<String> expected = Arrays.asList("5");
+        assertEquals(sortStrings(expected), sortStrings(Backtracking2.addOperators(num, target)));
+    }
+
+    @Test
+    void testAddOperators_SingleDigitNoMatchTarget() {
+        String num = "5";
+        int target = 6;
+        List<String> expected = Collections.emptyList();
+        assertEquals(sortStrings(expected), sortStrings(Backtracking2.addOperators(num, target)));
+    }
+
+    @Test
+    void testAddOperators_LeadingZerosNotAllowed() {
+        String num = "100";
+        int target = 0;
+        List<String> expected = Arrays.asList("1*0*0", "1*0+0", "1*0-0", "10*0");
+        assertEquals(sortStrings(expected), sortStrings(Backtracking2.addOperators(num, target)));
+    }
+
+    @Test
+    void testAddOperators_TargetZeroWithManyZeros() {
+        String num = "000";
+        int target = 0;
+        List<String> expected = Arrays.asList("0*0*0", "0*0+0", "0*0-0", "0+0+0", "0+0-0", "0-0+0", "0-0-0", "0-0*0", "0+0*0");
+        assertEquals(sortStrings(expected), sortStrings(Backtracking2.addOperators(num, target)));
+    }
+
+    @Test
+    void testAddOperators_NoSolution() {
+        String num = "123";
+        int target = 100;
+        List<String> expected = Collections.emptyList();
+        assertEquals(sortStrings(expected), sortStrings(Backtracking2.addOperators(num, target)));
+    }
+
+    @Test
+    void testAddOperators_LargeTarget() {
+        String num2 = "125";
+        int target2 = 7;
+        List<String> expected3 = Arrays.asList("12-5","1*2+5");
+        assertEquals(sortStrings(expected3), sortStrings(Backtracking2.addOperators(num2, target2)));
+    }
+
+    @Test
+    void testAddOperators_MaximalLengthAndTarget() {
+        String num = "123456789";
+        int target = 45;
+        List<String> expected = Arrays.asList("1+2+3+4+5+6+7+8+9");
+        List<String> actual = Backtracking2.addOperators(num, target);
+        assertTrue(sortStrings(actual).containsAll(expected));
+    }
+
+    @Test
+    void testAddOperators_NullInput() {
+        String num = null;
+        int target = 0;
+        assertThrows(NullPointerException.class, () -> Backtracking2.addOperators(num, target));
     }
 
 }

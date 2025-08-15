@@ -129,12 +129,60 @@ public class Backtracking2 {
         return;
         }
     }
+
     private boolean isValid(String s)
     {
     if (s.length() > 1 && s.startsWith("0")) 
     return false;
     int val = Integer.parseInt(s);
     return val >= 0 && val <= 255;
+    }
+
+    //Leetcode Problem https://leetcode.com/problems/n-queens/
+    public static List<List<String>> solveNQueens(int n) {
+        List<List<String>> result = new ArrayList<>();
+        boolean[] cols = new boolean[n];
+        boolean[] diag1 = new boolean[2*n];
+        boolean[] diag2 = new boolean[2*n];
+
+        backtracking2.findNQueen(0,n,cols,diag1,diag2,new ArrayList<>(),result);
+
+        return result;
+        
+    }
+
+    private void findNQueen(int i, int n,boolean[] cols, boolean[] diag1, boolean[] diag2, List<String> combo, List<List<String>> result)
+    {
+        if(i==n)
+        {
+            result.add(new ArrayList<>(combo));
+            return;
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for(int index=0;index<n;index++)
+        sb.append('.');
+
+        for(int j=0;j<n;j++)
+        {
+            int d1 = n+ i-j;
+            int d2 = i+j;
+            if(!cols[j] && !diag1[d1] && !diag2[d2])
+            {
+               sb.setCharAt(j,'Q');
+               cols[j] = true;
+               diag1[d1] = true;
+               diag2[d2] = true;
+               combo.add(sb.toString());
+               findNQueen(i+1,n,cols,diag1,diag2,combo,result);
+               cols[j] = false;
+               diag1[d1] = false;
+               diag2[d2] = false;
+               sb.setCharAt(j,'.');
+               combo.remove(combo.size()-1);
+            }
+        }
+
     }
 
     

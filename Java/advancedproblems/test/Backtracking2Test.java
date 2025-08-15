@@ -240,4 +240,74 @@ public class Backtracking2Test {
         assertThrows(NullPointerException.class, () -> Backtracking2.restoreIpAddresses(s));
     }
 
+    // --- Test Cases for solveNQueens (LeetCode 51) ---
+
+    @Test
+    void testSolveNQueens_N1() {
+        int n = 1;
+        List<List<String>> expected = Arrays.asList(
+                Arrays.asList("Q")
+        );
+        assertEquals(expected, Backtracking2.solveNQueens(n));
+    }
+
+    @Test
+    void testSolveNQueens_N4() {
+        int n = 4;
+        List<List<String>> expected = Arrays.asList(
+                Arrays.asList(".Q..", "...Q", "Q...", "..Q."),
+                Arrays.asList("..Q.", "Q...", "...Q", ".Q..")
+        );
+        assertEquals(expected, Backtracking2.solveNQueens(n));
+    }
+
+    @Test
+    void testSolveNQueens_N2() {
+        int n = 2;
+        List<List<String>> expected = Collections.emptyList();
+        assertEquals(expected, Backtracking2.solveNQueens(n));
+    }
+
+    @Test
+    void testSolveNQueens_N3() {
+        int n = 3;
+        List<List<String>> expected = Collections.emptyList();
+        assertEquals(expected, Backtracking2.solveNQueens(n));
+    }
+
+    @Test
+    void testSolveNQueens_N8() {
+        int n = 8;
+        List<List<String>> result = Backtracking2.solveNQueens(n);
+        assertEquals(92, result.size());
+    }
+
+    @Test
+    void testSolveNQueens_N5() {
+        int n = 5;
+        List<List<String>> result = Backtracking2.solveNQueens(n);
+        assertEquals(10, result.size());
+    }
+
+    @Test
+    void testSolveNQueens_N6() {
+        int n = 6;
+        List<List<String>> result = Backtracking2.solveNQueens(n);
+        assertEquals(4, result.size());
+    }
+
+    @Test
+    void testSolveNQueens_N7() {
+        int n = 7;
+        List<List<String>> result = Backtracking2.solveNQueens(n);
+        assertEquals(40, result.size());
+    }
+
+    @Test
+    void testSolveNQueens_N9() {
+        int n = 9;
+        List<List<String>> result = Backtracking2.solveNQueens(n);
+        assertEquals(352, result.size());
+    }
+
 }

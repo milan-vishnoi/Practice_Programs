@@ -47,5 +47,18 @@ public class TreeTraversals {
         return result;
         
     }
+
+    //Leetcode problem https://leetcode.com/problems/binary-tree-postorder-traversal/
+    public static List<Integer> postorderTraversal(TreeNode root) {
+        if(root==null)
+        return result;
+
+        postorderTraversal(root.left);
+        postorderTraversal(root.right);
+        result.add(root.val);
+
+        return result;
+        
+    }
     
 }

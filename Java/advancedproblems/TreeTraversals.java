@@ -2,6 +2,7 @@ package advancedproblems;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 
 public class TreeTraversals {
@@ -33,6 +34,32 @@ public class TreeTraversals {
 
         return result;
     }
+
+    /* Using Stack and iteration
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode current = root;
+
+        while (current != null || !stack.isEmpty()) {
+            // go as left as possible
+            while (current != null) {
+                stack.push(current);
+                current = current.left;
+            }
+
+            // process the node
+            current = stack.pop();
+            result.add(current.val);
+
+            // now go right
+            current = current.right;
+        }
+
+        return result;
+    }
+     */
+
 
     //Leetcode problem https://leetcode.com/problems/binary-tree-preorder-traversal/
     public static List<Integer> preorderTraversal(TreeNode root) {

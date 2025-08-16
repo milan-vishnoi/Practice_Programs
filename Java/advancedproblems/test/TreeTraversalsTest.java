@@ -1,6 +1,8 @@
 package advancedproblems.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -12,6 +14,11 @@ import advancedproblems.TreeTraversals;
 
 public class TreeTraversalsTest {
 
+    @BeforeEach
+    void setup() {
+        TreeTraversals.result = new ArrayList<>();
+    }
+
     // --- Test Cases for inorderTraversal (LeetCode 94) ---
 
     @Test
@@ -20,7 +27,6 @@ public class TreeTraversalsTest {
         root.right = new TreeTraversals.TreeNode(2);
         root.right.left = new TreeTraversals.TreeNode(3);
         List<Integer> expected = Arrays.asList(1, 3, 2);
-        TreeTraversals.inorderResult = new ArrayList<>();
         assertEquals(expected, TreeTraversals.inorderTraversal(root));
     }
 
@@ -28,7 +34,6 @@ public class TreeTraversalsTest {
     void testInorderTraversal_EmptyTree() {
         TreeTraversals.TreeNode root = null;
         List<Integer> expected = Collections.emptyList();
-        TreeTraversals.inorderResult = new ArrayList<>();
         assertEquals(expected, TreeTraversals.inorderTraversal(root));
     }
 
@@ -36,7 +41,6 @@ public class TreeTraversalsTest {
     void testInorderTraversal_SingleNodeTree() {
         TreeTraversals.TreeNode root = new TreeTraversals.TreeNode(1);
         List<Integer> expected = Arrays.asList(1);
-        TreeTraversals.inorderResult = new ArrayList<>();
         assertEquals(expected, TreeTraversals.inorderTraversal(root));
     }
 
@@ -50,7 +54,6 @@ public class TreeTraversalsTest {
         root.right.left = new TreeTraversals.TreeNode(6);
         root.right.right = new TreeTraversals.TreeNode(7);
         List<Integer> expected = Arrays.asList(4, 2, 5, 1, 6, 3, 7);
-        TreeTraversals.inorderResult = new ArrayList<>();
         assertEquals(expected, TreeTraversals.inorderTraversal(root));
     }
 
@@ -61,7 +64,6 @@ public class TreeTraversalsTest {
         root.left.left = new TreeTraversals.TreeNode(3);
         root.left.left.left = new TreeTraversals.TreeNode(4);
         List<Integer> expected = Arrays.asList(4, 3, 2, 1);
-        TreeTraversals.inorderResult = new ArrayList<>();
         assertEquals(expected, TreeTraversals.inorderTraversal(root));
     }
 
@@ -72,7 +74,6 @@ public class TreeTraversalsTest {
         root.right.right = new TreeTraversals.TreeNode(3);
         root.right.right.right = new TreeTraversals.TreeNode(4);
         List<Integer> expected = Arrays.asList(1, 2, 3, 4);
-        TreeTraversals.inorderResult = new ArrayList<>();
         assertEquals(expected, TreeTraversals.inorderTraversal(root));
     }
     

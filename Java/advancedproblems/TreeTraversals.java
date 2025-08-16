@@ -19,17 +19,33 @@ public class TreeTraversals {
        }
    }
 
-    public static List<Integer> inorderResult;
+    public static List<Integer> result;
+
+    //Leetcode Problem https://leetcode.com/problems/binary-tree-inorder-traversal/
     public static List<Integer> inorderTraversal(TreeNode root) {
 
         if(root==null)
-        return inorderResult;
+        return result;
 
         inorderTraversal(root.left);
-        inorderResult.add(root.val);
+        result.add(root.val);
         inorderTraversal(root.right);
 
-        return inorderResult;
+        return result;
+    }
+
+    //Leetcode problem https://leetcode.com/problems/binary-tree-preorder-traversal/
+    public static List<Integer> preorderTraversal(TreeNode root) {
+
+        if(root==null)
+        return result;
+
+        result.add(root.val);
+        preorderTraversal(root.left);
+        preorderTraversal(root.right);
+
+        return result;
+        
     }
     
 }

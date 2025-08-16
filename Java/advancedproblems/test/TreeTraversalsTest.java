@@ -76,5 +76,63 @@ public class TreeTraversalsTest {
         List<Integer> expected = Arrays.asList(1, 2, 3, 4);
         assertEquals(expected, TreeTraversals.inorderTraversal(root));
     }
+
+    // --- Test Cases for preorderTraversal (LeetCode 144) ---
+
+    @Test
+    void testPreorderTraversal_Example1() {
+        TreeTraversals.TreeNode root = new TreeTraversals.TreeNode(1);
+        root.right = new TreeTraversals.TreeNode(2);
+        root.right.left = new TreeTraversals.TreeNode(3);
+        List<Integer> expected = Arrays.asList(1, 2, 3);
+        assertEquals(expected, TreeTraversals.preorderTraversal(root));
+    }
+
+    @Test
+    void testPreorderTraversal_EmptyTree() {
+        TreeTraversals.TreeNode root = null;
+        List<Integer> expected = Collections.emptyList();
+        assertEquals(expected, TreeTraversals.preorderTraversal(root));
+    }
+
+    @Test
+    void testPreorderTraversal_SingleNodeTree() {
+        TreeTraversals.TreeNode root = new TreeTraversals.TreeNode(1);
+        List<Integer> expected = Arrays.asList(1);
+        assertEquals(expected, TreeTraversals.preorderTraversal(root));
+    }
+
+    @Test
+    void testPreorderTraversal_FullBinaryTree() {
+        TreeTraversals.TreeNode root = new TreeTraversals.TreeNode(1);
+        root.left = new TreeTraversals.TreeNode(2);
+        root.right = new TreeTraversals.TreeNode(3);
+        root.left.left = new TreeTraversals.TreeNode(4);
+        root.left.right = new TreeTraversals.TreeNode(5);
+        root.right.left = new TreeTraversals.TreeNode(6);
+        root.right.right = new TreeTraversals.TreeNode(7);
+        List<Integer> expected = Arrays.asList(1, 2, 4, 5, 3, 6, 7);
+        assertEquals(expected, TreeTraversals.preorderTraversal(root));
+    }
+
+    @Test
+    void testPreorderTraversal_LeftSkewedTree() {
+        TreeTraversals.TreeNode root = new TreeTraversals.TreeNode(1);
+        root.left = new TreeTraversals.TreeNode(2);
+        root.left.left = new TreeTraversals.TreeNode(3);
+        root.left.left.left = new TreeTraversals.TreeNode(4);
+        List<Integer> expected = Arrays.asList(1, 2, 3, 4);
+        assertEquals(expected, TreeTraversals.preorderTraversal(root));
+    }
+
+    @Test
+    void testPreorderTraversal_RightSkewedTree() {
+        TreeTraversals.TreeNode root = new TreeTraversals.TreeNode(1);
+        root.right = new TreeTraversals.TreeNode(2);
+        root.right.right = new TreeTraversals.TreeNode(3);
+        root.right.right.right = new TreeTraversals.TreeNode(4);
+        List<Integer> expected = Arrays.asList(1, 2, 3, 4);
+        assertEquals(expected, TreeTraversals.preorderTraversal(root));
+    }
     
 }

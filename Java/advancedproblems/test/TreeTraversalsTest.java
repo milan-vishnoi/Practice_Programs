@@ -274,5 +274,87 @@ public class TreeTraversalsTest {
         );
         assertEquals(expected, TreeTraversals.levelOrder(root));
     }
+
+    // --- Test Cases for levelOrderBottom (LeetCode 107) ---
+
+    @Test
+    void testLevelOrderBottom_Example1() {
+        TreeTraversals.TreeNode root = new TreeTraversals.TreeNode(3);
+        root.left = new TreeTraversals.TreeNode(9);
+        root.right = new TreeTraversals.TreeNode(20);
+        root.right.left = new TreeTraversals.TreeNode(15);
+        root.right.right = new TreeTraversals.TreeNode(7);
+        List<List<Integer>> expected = Arrays.asList(
+                Arrays.asList(15, 7),
+                Arrays.asList(9, 20),
+                Arrays.asList(3)
+        );
+        assertEquals(expected, TreeTraversals.levelOrderBottom(root));
+    }
+
+    @Test
+    void testLevelOrderBottom_EmptyTree() {
+        TreeTraversals.TreeNode root = null;
+        List<List<Integer>> expected = Collections.emptyList();
+        assertEquals(expected, TreeTraversals.levelOrderBottom(root));
+    }
+
+    @Test
+    void testLevelOrderBottom_SingleNodeTree() {
+        TreeTraversals.TreeNode root = new TreeTraversals.TreeNode(1);
+        List<List<Integer>> expected = Arrays.asList(
+                Arrays.asList(1)
+        );
+        assertEquals(expected, TreeTraversals.levelOrderBottom(root));
+    }
+
+    @Test
+    void testLevelOrderBottom_FullBinaryTree() {
+        TreeTraversals.TreeNode root = new TreeTraversals.TreeNode(1);
+        root.left = new TreeTraversals.TreeNode(2);
+        root.right = new TreeTraversals.TreeNode(3);
+        root.left.left = new TreeTraversals.TreeNode(4);
+        root.left.right = new TreeTraversals.TreeNode(5);
+        root.right.left = new TreeTraversals.TreeNode(6);
+        root.right.right = new TreeTraversals.TreeNode(7);
+        List<List<Integer>> expected = Arrays.asList(
+                Arrays.asList(4, 5, 6, 7),
+                Arrays.asList(2, 3),
+                Arrays.asList(1)
+        );
+        assertEquals(expected, TreeTraversals.levelOrderBottom(root));
+    }
+
+    @Test
+    void testLevelOrderBottom_SkewedTree() {
+        TreeTraversals.TreeNode root = new TreeTraversals.TreeNode(1);
+        root.left = new TreeTraversals.TreeNode(2);
+        root.left.left = new TreeTraversals.TreeNode(3);
+        root.left.left.left = new TreeTraversals.TreeNode(4);
+        List<List<Integer>> expected = Arrays.asList(
+                Arrays.asList(4),
+                Arrays.asList(3),
+                Arrays.asList(2),
+                Arrays.asList(1)
+        );
+        assertEquals(expected, TreeTraversals.levelOrderBottom(root));
+    }
+
+    @Test
+    void testLevelOrderBottom_ZigZagTree() {
+        TreeTraversals.TreeNode root = new TreeTraversals.TreeNode(1);
+        root.left = new TreeTraversals.TreeNode(2);
+        root.right = new TreeTraversals.TreeNode(3);
+        root.left.right = new TreeTraversals.TreeNode(4);
+        root.right.left = new TreeTraversals.TreeNode(5);
+        root.left.right.left = new TreeTraversals.TreeNode(6);
+        List<List<Integer>> expected = Arrays.asList(
+                Arrays.asList(6),
+                Arrays.asList(4, 5),
+                Arrays.asList(2, 3),
+                Arrays.asList(1)
+        );
+        assertEquals(expected, TreeTraversals.levelOrderBottom(root));
+    }
     
 }

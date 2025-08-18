@@ -140,7 +140,7 @@ public class TreeTraversals {
         return result;
         TreeNode[] nodeQueue = new TreeNode[2000];
         int front=-1,rear=-1;
-        //Queue<TreeNode> nodeQueue = new ArrayDeque<>();
+        //Queue<TreeNode> nodeQueue = new ArrayDeque<>(); // can use LinkedList<>() also
         List<Integer> nodeList;
         TreeNode node;
         int size;
@@ -171,10 +171,44 @@ public class TreeTraversals {
            //nodeQueue.add(node.right);
           }
 
-           result.add(new ArrayList<>(nodeList));
+           result.add(nodeList);
         }
 
         return result;
+    }
+
+    //Leetcode problem https://leetcode.com/problems/binary-tree-level-order-traversal-ii/
+    public static List<List<Integer>> levelOrderBottom(TreeNode root) {
+        List<List<Integer>> result = new ArrayList<>();
+        if(root==null)
+        return result;
+        Queue<TreeNode> nodeQueue = new ArrayDeque<>();
+        List<Integer> nodeList ;
+        TreeNode node;
+        int size;
+
+        nodeQueue.add(root);
+
+        while(!nodeQueue.isEmpty())
+        {
+           nodeList = new ArrayList<>();
+           size = nodeQueue.size();
+
+           for(int i=0;i<size;i++)
+           {
+            node = nodeQueue.poll();
+            nodeList.add(node.val);
+            if(node.left!=null)
+            nodeQueue.add(node.left);
+            if(node.right!=null)
+            nodeQueue.add(node.right);
+           }
+
+           result.add(0,nodeList);
+        }
+
+        return result;
+        
     }
     
 }

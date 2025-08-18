@@ -141,26 +141,28 @@ public class TreeTraversals {
         TreeNode[] nodeQueue = new TreeNode[2000];
         int front=-1,rear=-1;
         //Queue<TreeNode> nodeQueue = new ArrayDeque<>();
-        List<TreeNode> nodeList;
-        List<Integer> valueList;
+        List<Integer> nodeList;
         TreeNode node;
+        int size;
 
         //nodeQueue.add(root);
         nodeQueue[++rear] = root;
         front++;
+
+        //while(!nodeQueue.isEmpty())
         while(front<=rear)
         {
            nodeList = new ArrayList<>();
-           valueList= new ArrayList<>();
-        //   while(!nodeQueue.isEmpty())
-        //    nodeList.add(nodeQueue.poll());
-         while(front<=rear)
-          nodeList.add(nodeQueue[front++]);
 
-          for(int i=0;i<nodeList.size();i++)
+           size = rear-front+1;
+          //size = nodeQueue.size();
+
+
+          for(int i=0;i<size;i++)
           {
-           node = nodeList.get(i);
-           valueList.add(node.val);
+           node = nodeQueue[front++];
+           //node = nodeQueue.poll();
+           nodeList.add(node.val);
            if(node.left!=null)
            nodeQueue[++rear] = node.left;
            //nodeQueue.add(node.left);
@@ -169,7 +171,7 @@ public class TreeTraversals {
            //nodeQueue.add(node.right);
           }
 
-           result.add(new ArrayList<>(valueList));
+           result.add(new ArrayList<>(nodeList));
         }
 
         return result;

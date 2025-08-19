@@ -356,5 +356,88 @@ public class TreeTraversalsTest {
         );
         assertEquals(expected, TreeTraversals.levelOrderBottom(root));
     }
+
+    // --- Test Cases for zigzagLevelOrder (LeetCode 103) ---
+
+    @Test
+    void testZigzagLevelOrder_Example1() {
+        TreeTraversals.TreeNode root = new TreeTraversals.TreeNode(3);
+        root.left = new TreeTraversals.TreeNode(9);
+        root.right = new TreeTraversals.TreeNode(20);
+        root.right.left = new TreeTraversals.TreeNode(15);
+        root.right.right = new TreeTraversals.TreeNode(7);
+        List<List<Integer>> expected = Arrays.asList(
+                Arrays.asList(3),
+                Arrays.asList(20, 9),
+                Arrays.asList(15, 7)
+        );
+        assertEquals(expected, TreeTraversals.zigzagLevelOrder(root));
+    }
+
+    @Test
+    void testZigzagLevelOrder_EmptyTree() {
+        TreeTraversals.TreeNode root = null;
+        List<List<Integer>> expected = Collections.emptyList();
+        assertEquals(expected, TreeTraversals.zigzagLevelOrder(root));
+    }
+
+    @Test
+    void testZigzagLevelOrder_SingleNodeTree() {
+        TreeTraversals.TreeNode root = new TreeTraversals.TreeNode(1);
+        List<List<Integer>> expected = Arrays.asList(
+                Arrays.asList(1)
+        );
+        assertEquals(expected, TreeTraversals.zigzagLevelOrder(root));
+    }
+
+    @Test
+    void testZigzagLevelOrder_FullBinaryTree() {
+        TreeTraversals.TreeNode root = new TreeTraversals.TreeNode(1);
+        root.left = new TreeTraversals.TreeNode(2);
+        root.right = new TreeTraversals.TreeNode(3);
+        root.left.left = new TreeTraversals.TreeNode(4);
+        root.left.right = new TreeTraversals.TreeNode(5);
+        root.right.left = new TreeTraversals.TreeNode(6);
+        root.right.right = new TreeTraversals.TreeNode(7);
+        List<List<Integer>> expected = Arrays.asList(
+                Arrays.asList(1),
+                Arrays.asList(3, 2),
+                Arrays.asList(4, 5, 6, 7)
+        );
+        assertEquals(expected, TreeTraversals.zigzagLevelOrder(root));
+    }
+
+    @Test
+    void testZigzagLevelOrder_SkewedTree() {
+        TreeTraversals.TreeNode root = new TreeTraversals.TreeNode(1);
+        root.left = new TreeTraversals.TreeNode(2);
+        root.left.left = new TreeTraversals.TreeNode(3);
+        root.left.left.left = new TreeTraversals.TreeNode(4);
+        List<List<Integer>> expected = Arrays.asList(
+                Arrays.asList(1),
+                Arrays.asList(2),
+                Arrays.asList(3),
+                Arrays.asList(4)
+        );
+        assertEquals(expected, TreeTraversals.zigzagLevelOrder(root));
+    }
+
+    @Test
+    void testZigzagLevelOrder_ComplexZigzag() {
+        TreeTraversals.TreeNode root = new TreeTraversals.TreeNode(1);
+        root.left = new TreeTraversals.TreeNode(2);
+        root.right = new TreeTraversals.TreeNode(3);
+        root.left.left = new TreeTraversals.TreeNode(4);
+        root.right.right = new TreeTraversals.TreeNode(5);
+        root.left.left.left = new TreeTraversals.TreeNode(6);
+        root.right.right.right = new TreeTraversals.TreeNode(7);
+        List<List<Integer>> expected = Arrays.asList(
+                Arrays.asList(1),
+                Arrays.asList(3, 2),
+                Arrays.asList(4, 5),
+                Arrays.asList(7, 6)
+        );
+        assertEquals(expected, TreeTraversals.zigzagLevelOrder(root));
+    }
     
 }

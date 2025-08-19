@@ -2,6 +2,7 @@ package advancedproblems;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Queue;
 import java.util.Stack;
@@ -205,6 +206,47 @@ public class TreeTraversals {
            }
 
            result.add(0,nodeList);
+        }
+
+        return result;
+        
+    }
+
+    //Leetcode Problem https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/
+    public static List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+
+        List<List<Integer>> result = new ArrayList<>();
+        if(root==null)
+        return result;
+        Queue<TreeNode> nodeQue = new ArrayDeque<>();
+        List<Integer> nodelist;
+        int size;
+        TreeNode node;
+        boolean startLeft= true;
+        nodeQue.add(root);
+
+        while(!nodeQue.isEmpty())
+        {
+            nodelist = new ArrayList<>();
+            size = nodeQue.size();
+
+            for(int i=0;i<size;i++)
+            {
+                node = nodeQue.poll();
+
+                nodelist.add(node.val);
+
+                if(node.left!=null)
+                nodeQue.add(node.left);
+                if(node.right!=null)
+                nodeQue.add(node.right);
+            }
+            
+            if(!startLeft)
+            Collections.reverse(nodelist);
+
+            result.add(nodelist);
+            startLeft=!startLeft;
         }
 
         return result;

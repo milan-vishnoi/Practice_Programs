@@ -439,5 +439,63 @@ public class TreeTraversalsTest {
         );
         assertEquals(expected, TreeTraversals.zigzagLevelOrder(root));
     }
+
+    // --- Test Cases for maxDepth (LeetCode 104) ---
+
+    @Test
+    void testMaxDepth_Example1() {
+        TreeTraversals.TreeNode root = new TreeTraversals.TreeNode(3);
+        root.left = new TreeTraversals.TreeNode(9);
+        root.right = new TreeTraversals.TreeNode(20);
+        root.right.left = new TreeTraversals.TreeNode(15);
+        root.right.right = new TreeTraversals.TreeNode(7);
+        int expected = 3;
+        assertEquals(expected, TreeTraversals.maxDepth(root));
+    }
+
+    @Test
+    void testMaxDepth_Example2() {
+        TreeTraversals.TreeNode root = new TreeTraversals.TreeNode(1);
+        root.right = new TreeTraversals.TreeNode(2);
+        int expected = 2;
+        assertEquals(expected, TreeTraversals.maxDepth(root));
+    }
+
+    @Test
+    void testMaxDepth_EmptyTree() {
+        TreeTraversals.TreeNode root = null;
+        int expected = 0;
+        assertEquals(expected, TreeTraversals.maxDepth(root));
+    }
+
+    @Test
+    void testMaxDepth_SingleNodeTree() {
+        TreeTraversals.TreeNode root = new TreeTraversals.TreeNode(0);
+        int expected = 1;
+        assertEquals(expected, TreeTraversals.maxDepth(root));
+    }
+
+    @Test
+    void testMaxDepth_FullBinaryTree() {
+        TreeTraversals.TreeNode root = new TreeTraversals.TreeNode(1);
+        root.left = new TreeTraversals.TreeNode(2);
+        root.right = new TreeTraversals.TreeNode(3);
+        root.left.left = new TreeTraversals.TreeNode(4);
+        root.left.right = new TreeTraversals.TreeNode(5);
+        root.right.left = new TreeTraversals.TreeNode(6);
+        root.right.right = new TreeTraversals.TreeNode(7);
+        int expected = 3;
+        assertEquals(expected, TreeTraversals.maxDepth(root));
+    }
+
+    @Test
+    void testMaxDepth_LeftSkewedTree() {
+        TreeTraversals.TreeNode root = new TreeTraversals.TreeNode(1);
+        root.left = new TreeTraversals.TreeNode(2);
+        root.left.left = new TreeTraversals.TreeNode(3);
+        root.left.left.left = new TreeTraversals.TreeNode(4);
+        int expected = 4;
+        assertEquals(expected, TreeTraversals.maxDepth(root));
+    }
     
 }

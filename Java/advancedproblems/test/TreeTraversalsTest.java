@@ -1,6 +1,8 @@
 package advancedproblems.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -496,6 +498,81 @@ public class TreeTraversalsTest {
         root.left.left.left = new TreeTraversals.TreeNode(4);
         int expected = 4;
         assertEquals(expected, TreeTraversals.maxDepth(root));
+    }
+
+    // --- Test Cases for isSameTree (LeetCode 100) ---
+
+    @Test
+    void testIsSameTree_Example1() {
+        // p = [1,2,3], q = [1,2,3]
+        TreeTraversals.TreeNode p = new TreeTraversals.TreeNode(1, new TreeTraversals.TreeNode(2), new TreeTraversals.TreeNode(3));
+        TreeTraversals.TreeNode q = new TreeTraversals.TreeNode(1, new TreeTraversals.TreeNode(2), new TreeTraversals.TreeNode(3));
+        assertTrue(TreeTraversals.isSameTree(p, q));
+    }
+
+    @Test
+    void testIsSameTree_Example2() {
+        // p = [1,2], q = [1,null,2]
+        TreeTraversals.TreeNode p = new TreeTraversals.TreeNode(1, new TreeTraversals.TreeNode(2), null);
+        TreeTraversals.TreeNode q = new TreeTraversals.TreeNode(1, null, new TreeTraversals.TreeNode(2));
+        assertFalse(TreeTraversals.isSameTree(p, q));
+    }
+
+    @Test
+    void testIsSameTree_Example3() {
+        // p = [1,2,1], q = [1,1,2]
+        TreeTraversals.TreeNode p = new TreeTraversals.TreeNode(1, new TreeTraversals.TreeNode(2), new TreeTraversals.TreeNode(1));
+        TreeTraversals.TreeNode q = new TreeTraversals.TreeNode(1, new TreeTraversals.TreeNode(1), new TreeTraversals.TreeNode(2));
+        assertFalse(TreeTraversals.isSameTree(p, q));
+    }
+
+    @Test
+    void testIsSameTree_BothEmpty() {
+        TreeTraversals.TreeNode p = null;
+        TreeTraversals.TreeNode q = null;
+        assertTrue(TreeTraversals.isSameTree(p, q));
+    }
+
+    @Test
+    void testIsSameTree_OneEmpty() {
+        TreeTraversals.TreeNode p = new TreeTraversals.TreeNode(1);
+        TreeTraversals.TreeNode q = null;
+        assertFalse(TreeTraversals.isSameTree(p, q));
+    }
+
+    @Test
+    void testIsSameTree_DifferentValues() {
+        TreeTraversals.TreeNode p = new TreeTraversals.TreeNode(1, new TreeTraversals.TreeNode(2), new TreeTraversals.TreeNode(3));
+        TreeTraversals.TreeNode q = new TreeTraversals.TreeNode(1, new TreeTraversals.TreeNode(2), new TreeTraversals.TreeNode(4));
+        assertFalse(TreeTraversals.isSameTree(p, q));
+    }
+
+    @Test
+    void testIsSameTree_DifferentStructure() {
+        TreeTraversals.TreeNode p = new TreeTraversals.TreeNode(1, new TreeTraversals.TreeNode(2, new TreeTraversals.TreeNode(3), null), null);
+        TreeTraversals.TreeNode q = new TreeTraversals.TreeNode(1, new TreeTraversals.TreeNode(2), null);
+        assertFalse(TreeTraversals.isSameTree(p, q));
+    }
+
+    @Test
+    void testIsSameTree_DeepIdenticalTrees() {
+        TreeTraversals.TreeNode p = new TreeTraversals.TreeNode(1,
+                new TreeTraversals.TreeNode(2,
+                        new TreeTraversals.TreeNode(4),
+                        new TreeTraversals.TreeNode(5)),
+                new TreeTraversals.TreeNode(3,
+                        new TreeTraversals.TreeNode(6),
+                        new TreeTraversals.TreeNode(7))
+        );
+        TreeTraversals.TreeNode q = new TreeTraversals.TreeNode(1,
+                new TreeTraversals.TreeNode(2,
+                        new TreeTraversals.TreeNode(4),
+                        new TreeTraversals.TreeNode(5)),
+                new TreeTraversals.TreeNode(3,
+                        new TreeTraversals.TreeNode(6),
+                        new TreeTraversals.TreeNode(7))
+        );
+        assertTrue(TreeTraversals.isSameTree(p, q));
     }
     
 }

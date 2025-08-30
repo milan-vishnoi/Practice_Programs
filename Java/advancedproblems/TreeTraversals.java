@@ -273,5 +273,22 @@ public class TreeTraversals {
         return isSameTree(p.left,q.left) && isSameTree(p.right,q.right);
         
     }
+
+    //Leetcode Problem https://leetcode.com/problems/invert-binary-tree/
+   public static TreeNode invertTree(TreeNode root) {
+
+        if(root==null)
+        return root;
+
+        TreeNode temp = root.left;
+        root.left = root.right;
+        root.right = temp;
+
+        invertTree(root.left);
+        invertTree(root.right);
+
+        return root;
+        
+    }
     
 }

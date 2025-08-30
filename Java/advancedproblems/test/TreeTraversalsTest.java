@@ -574,5 +574,97 @@ public class TreeTraversalsTest {
         );
         assertTrue(TreeTraversals.isSameTree(p, q));
     }
+
+    // --- Test Cases for invertTree (LeetCode 226) ---
+
+    @Test
+    void testInvertTree_Example1() {
+        TreeTraversals.TreeNode root = new TreeTraversals.TreeNode(4,
+                new TreeTraversals.TreeNode(2,
+                        new TreeTraversals.TreeNode(1),
+                        new TreeTraversals.TreeNode(3)),
+                new TreeTraversals.TreeNode(7,
+                        new TreeTraversals.TreeNode(6),
+                        new TreeTraversals.TreeNode(9))
+        );
+        TreeTraversals.TreeNode expected = new TreeTraversals.TreeNode(4,
+                new TreeTraversals.TreeNode(7,
+                        new TreeTraversals.TreeNode(9),
+                        new TreeTraversals.TreeNode(6)),
+                new TreeTraversals.TreeNode(2,
+                        new TreeTraversals.TreeNode(3),
+                        new TreeTraversals.TreeNode(1))
+        );
+        assertTrue(TreeTraversals.isSameTree(expected, TreeTraversals.invertTree(root)));
+    }
+
+    @Test
+    void testInvertTree_Example2() {
+        TreeTraversals.TreeNode root = new TreeTraversals.TreeNode(2,
+                new TreeTraversals.TreeNode(1),
+                new TreeTraversals.TreeNode(3)
+        );
+        TreeTraversals.TreeNode expected = new TreeTraversals.TreeNode(2,
+                new TreeTraversals.TreeNode(3),
+                new TreeTraversals.TreeNode(1)
+        );
+        assertTrue(TreeTraversals.isSameTree(expected, TreeTraversals.invertTree(root)));
+    }
+
+    @Test
+    void testInvertTree_EmptyTree() {
+        TreeTraversals.TreeNode root = null;
+        TreeTraversals.TreeNode expected = null;
+        assertTrue(TreeTraversals.isSameTree(expected, TreeTraversals.invertTree(root)));
+    }
+
+    @Test
+    void testInvertTree_SingleNodeTree() {
+        TreeTraversals.TreeNode root = new TreeTraversals.TreeNode(1);
+        TreeTraversals.TreeNode expected = new TreeTraversals.TreeNode(1);
+        assertTrue(TreeTraversals.isSameTree(expected, TreeTraversals.invertTree(root)));
+    }
+
+    @Test
+    void testInvertTree_LeftSkewedTree() {
+        TreeTraversals.TreeNode root = new TreeTraversals.TreeNode(1,
+                new TreeTraversals.TreeNode(2,
+                        new TreeTraversals.TreeNode(3,
+                                new TreeTraversals.TreeNode(4),
+                                null),
+                        null),
+                null
+        );
+        TreeTraversals.TreeNode expected = new TreeTraversals.TreeNode(1,
+                null,
+                new TreeTraversals.TreeNode(2,
+                        null,
+                        new TreeTraversals.TreeNode(3,
+                                null,
+                                new TreeTraversals.TreeNode(4)))
+        );
+        assertTrue(TreeTraversals.isSameTree(expected, TreeTraversals.invertTree(root)));
+    }
+
+    @Test
+    void testInvertTree_RightSkewedTree() {
+        TreeTraversals.TreeNode root = new TreeTraversals.TreeNode(1,
+                null,
+                new TreeTraversals.TreeNode(2,
+                        null,
+                        new TreeTraversals.TreeNode(3,
+                                null,
+                                new TreeTraversals.TreeNode(4)))
+        );
+        TreeTraversals.TreeNode expected = new TreeTraversals.TreeNode(1,
+                new TreeTraversals.TreeNode(2,
+                        new TreeTraversals.TreeNode(3,
+                                new TreeTraversals.TreeNode(4),
+                                null),
+                        null),
+                null
+        );
+        assertTrue(TreeTraversals.isSameTree(expected, TreeTraversals.invertTree(root)));
+    }
     
 }

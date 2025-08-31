@@ -234,5 +234,96 @@ public class TreeProblems1Test {
         );
         assertTrue(TreeProblems1.isSameTree(expected, TreeProblems1.invertTree(root)));
     }
+
+    // --- Test Cases for isSymmetric (LeetCode 101) ---
+
+    @Test
+    void testIsSymmetric_Example1() {
+        TreeProblems1.TreeNode root = new TreeProblems1.TreeNode(1,
+                new TreeProblems1.TreeNode(2,
+                        new TreeProblems1.TreeNode(3),
+                        new TreeProblems1.TreeNode(4)),
+                new TreeProblems1.TreeNode(2,
+                        new TreeProblems1.TreeNode(4),
+                        new TreeProblems1.TreeNode(3))
+        );
+        assertTrue(TreeProblems1.isSymmetric(root));
+    }
+
+    @Test
+    void testIsSymmetric_Example2() {
+        TreeProblems1.TreeNode root = new TreeProblems1.TreeNode(1,
+                new TreeProblems1.TreeNode(2,
+                        null,
+                        new TreeProblems1.TreeNode(3)),
+                new TreeProblems1.TreeNode(2,
+                        null,
+                        new TreeProblems1.TreeNode(3))
+        );
+        assertFalse(TreeProblems1.isSymmetric(root));
+    }
+
+    @Test
+    void testIsSymmetric_EmptyTree() {
+        TreeProblems1.TreeNode root = null;
+        assertTrue(TreeProblems1.isSymmetric(root));
+    }
+
+    @Test
+    void testIsSymmetric_SingleNodeTree() {
+        TreeProblems1.TreeNode root = new TreeProblems1.TreeNode(1);
+        assertTrue(TreeProblems1.isSymmetric(root));
+    }
+
+    @Test
+    void testIsSymmetric_AsymmetricTree_OneSideMissing() {
+        TreeProblems1.TreeNode root = new TreeProblems1.TreeNode(1,
+                new TreeProblems1.TreeNode(2),
+                null);
+        assertFalse(TreeProblems1.isSymmetric(root));
+    }
+
+    @Test
+    void testIsSymmetric_AsymmetricTree_DifferentValues() {
+        TreeProblems1.TreeNode root = new TreeProblems1.TreeNode(1,
+                new TreeProblems1.TreeNode(2,
+                        new TreeProblems1.TreeNode(3),
+                        new TreeProblems1.TreeNode(4)),
+                new TreeProblems1.TreeNode(2,
+                        new TreeProblems1.TreeNode(3),
+                        new TreeProblems1.TreeNode(5))
+        );
+        assertFalse(TreeProblems1.isSymmetric(root));
+    }
+
+    @Test
+    void testIsSymmetric_AsymmetricTree_DeepNodes() {
+        TreeProblems1.TreeNode root = new TreeProblems1.TreeNode(1,
+                new TreeProblems1.TreeNode(2,
+                        new TreeProblems1.TreeNode(3,
+                                new TreeProblems1.TreeNode(4),
+                                null),
+                        null),
+                new TreeProblems1.TreeNode(2,
+                        null,
+                        new TreeProblems1.TreeNode(3,
+                                null,
+                                new TreeProblems1.TreeNode(4)))
+        );
+        assertTrue(TreeProblems1.isSymmetric(root));
+    }
+
+    @Test
+    void testIsSymmetric_ComplexSymmetricTree() {
+        TreeProblems1.TreeNode root = new TreeProblems1.TreeNode(10,
+                new TreeProblems1.TreeNode(5,
+                        new TreeProblems1.TreeNode(1, null, null),
+                        new TreeProblems1.TreeNode(7, null, null)),
+                new TreeProblems1.TreeNode(5,
+                        new TreeProblems1.TreeNode(7, null, null),
+                        new TreeProblems1.TreeNode(1, null, null))
+        );
+        assertTrue(TreeProblems1.isSymmetric(root));
+    }
     
 }

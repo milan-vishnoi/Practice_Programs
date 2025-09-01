@@ -55,7 +55,7 @@ public class TreeProblems1 {
     //Leetcode Problem https://leetcode.com/problems/symmetric-tree/
     public static boolean isSymmetric(TreeNode root) {
 
-        if(root==null || (root.left== null && root.right==null))
+        if(root==null)
         return true;
 
         return checkMirror(root.left,root.right);

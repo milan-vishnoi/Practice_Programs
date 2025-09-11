@@ -1,5 +1,8 @@
 package advancedproblems;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class TreeProblems1 {
    public static class TreeNode {
        public int val;
@@ -71,6 +74,33 @@ public class TreeProblems1 {
         return false;
 
         return checkMirror(p.left,q.right) && checkMirror(p.right,q.left);
+    }
+    
+    //Leetcode problem https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/
+    static int preIndex;
+    public static TreeNode buildTree(int[] preorder, int[] inorder)
+    {
+        TreeNode result = null;
+        preIndex=0;
+        Map<Integer,Integer> inMap = new HashMap<>();
+        for(int i=0;i<inorder.length;i++)
+        inMap.put(inorder[i],i);
+        result = construct(preorder,0,inorder.length-1,inMap);
+
+        return result;        
+    }
+
+    private static TreeNode construct(int[] preorder,int inStart, int inEnd, Map<Integer,Integer> inMap)
+    {
+        if(inStart>inEnd)
+        return null;
+
+        TreeNode root = new TreeNode(preorder[preIndex++]);
+        int rootIndex = inMap.get(root.val);
+        root.left = construct(preorder, inStart, rootIndex-1, inMap);
+        root.right = construct(preorder, rootIndex+1, inEnd, inMap);
+
+        return  root;
     }
 
     

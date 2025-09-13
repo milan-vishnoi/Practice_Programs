@@ -111,10 +111,10 @@ public class TreeProblems1 {
         if(postIndex<0)
         return result;
         Map<Integer,Integer> inMap = new HashMap<>();
-        for(int i=0;i<=postIndex;i++)
+        for(int i=0;i<inorder.length;i++)
         inMap.put(inorder[i],i);
         
-        result = construct2(postorder,0,postIndex,inMap);
+        result = construct2(postorder,0,inorder.length-1,inMap);
 
         return result;
     }

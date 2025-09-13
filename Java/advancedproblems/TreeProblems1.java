@@ -103,5 +103,34 @@ public class TreeProblems1 {
         return  root;
     }
 
-    
+    //Leetcode Problem https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/
+    static int postIndex;
+    public static TreeNode buildTree2(int[] inorder, int[] postorder) {
+        TreeNode result = null;
+        postIndex = postorder.length-1;
+        if(postIndex<0)
+        return result;
+        Map<Integer,Integer> inMap = new HashMap<>();
+        for(int i=0;i<=postIndex;i++)
+        inMap.put(inorder[i],i);
+        
+        result = construct2(postorder,0,postIndex,inMap);
+
+        return result;
+    }
+
+    private static TreeNode construct2(int[] postorder,int inStart,int inEnd,Map<Integer,Integer> inMap)
+    {
+        if(inStart>inEnd)
+        return null;
+
+        TreeNode root = new TreeNode(postorder[postIndex--]);
+        int rootIndex = inMap.get(root.val);
+
+        root.right = construct2(postorder,rootIndex+1,inEnd,inMap);
+        root.left = construct2(postorder,inStart,rootIndex-1,inMap);
+
+        return root;
+    }
+
 }

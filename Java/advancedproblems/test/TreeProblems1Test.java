@@ -401,5 +401,79 @@ public class TreeProblems1Test {
         assertTrue(TreeProblems1.isSameTree(expected, TreeProblems1.buildTree(preorder, inorder)));
     }
 
+    // --- Test Cases for buildTree2 (LeetCode 106) ---
+
+    @Test
+    void testBuildTree2_Example1() {
+        int[] inorder = {9, 3, 15, 20, 7};
+        int[] postorder = {9, 15, 7, 20, 3};
+        TreeProblems1.TreeNode expected = new TreeProblems1.TreeNode(3,
+                new TreeProblems1.TreeNode(9),
+                new TreeProblems1.TreeNode(20,
+                        new TreeProblems1.TreeNode(15),
+                        new TreeProblems1.TreeNode(7))
+        );
+        assertTrue(TreeProblems1.isSameTree(expected, TreeProblems1.buildTree2(inorder, postorder)));
+    }
+
+    @Test
+    void testBuildTree2_Example2() {
+        int[] inorder = {-1};
+        int[] postorder = {-1};
+        TreeProblems1.TreeNode expected = new TreeProblems1.TreeNode(-1);
+        assertTrue(TreeProblems1.isSameTree(expected, TreeProblems1.buildTree2(inorder, postorder)));
+    }
+
+    @Test
+    void testBuildTree2_EmptyArrays() {
+        int[] inorder = {};
+        int[] postorder = {};
+        TreeProblems1.TreeNode expected = null;
+        assertTrue(TreeProblems1.isSameTree(expected, TreeProblems1.buildTree2(inorder, postorder)));
+    }
+
+    @Test
+    void testBuildTree2_FullBinaryTree() {
+        int[] inorder = {4, 2, 5, 1, 6, 3, 7};
+        int[] postorder = {4, 5, 2, 6, 7, 3, 1};
+        TreeProblems1.TreeNode expected = new TreeProblems1.TreeNode(1,
+                new TreeProblems1.TreeNode(2,
+                        new TreeProblems1.TreeNode(4),
+                        new TreeProblems1.TreeNode(5)),
+                new TreeProblems1.TreeNode(3,
+                        new TreeProblems1.TreeNode(6),
+                        new TreeProblems1.TreeNode(7))
+        );
+        assertTrue(TreeProblems1.isSameTree(expected, TreeProblems1.buildTree2(inorder, postorder)));
+    }
+
+    @Test
+    void testBuildTree2_LeftSkewedTree() {
+        int[] inorder = {4, 3, 2, 1};
+        int[] postorder = {4, 3, 2, 1};
+        TreeProblems1.TreeNode expected = new TreeProblems1.TreeNode(1,
+                new TreeProblems1.TreeNode(2,
+                        new TreeProblems1.TreeNode(3,
+                                new TreeProblems1.TreeNode(4),
+                                null),
+                        null),
+                null);
+        assertTrue(TreeProblems1.isSameTree(expected, TreeProblems1.buildTree2(inorder, postorder)));
+    }
+
+    @Test
+    void testBuildTree2_RightSkewedTree() {
+        int[] inorder = {1, 2, 3, 4};
+        int[] postorder = {4, 3, 2, 1};
+        TreeProblems1.TreeNode expected = new TreeProblems1.TreeNode(1,
+                null,
+                new TreeProblems1.TreeNode(2,
+                        null,
+                        new TreeProblems1.TreeNode(3,
+                                null,
+                                new TreeProblems1.TreeNode(4)))
+        );
+        assertTrue(TreeProblems1.isSameTree(expected, TreeProblems1.buildTree2(inorder, postorder)));
+    }
     
 }

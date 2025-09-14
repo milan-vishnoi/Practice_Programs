@@ -133,4 +133,35 @@ public class TreeProblems1 {
         return root;
     }
 
+    //Leetcode Problem https://leetcode.com/problems/construct-binary-tree-from-preorder-and-postorder-traversal/
+    public static TreeNode constructFromPrePost(int[] preorder, int[] postorder) {
+        TreeNode result = null;
+        Map<Integer,Integer> postMap = new HashMap<>();
+        for(int i=0;i<postorder.length;i++)
+        postMap.put(postorder[i],i);
+
+        result = construct(preorder,0,preorder.length-1,postorder,0,postorder.length-1,postMap);
+
+        return result;
+    }
+
+    private static TreeNode construct(int[] preorder,int preStart, int preEnd,int[] postorder,int postStart, int postEnd,Map<Integer,Integer> postMap)
+    {
+        if(preStart>preEnd || postStart>postEnd)
+        return null;
+        TreeNode root = new TreeNode(preorder[preStart]);
+        if(preStart==preEnd)
+         return root;
+
+        int leftVal = preorder[preStart+1];
+        int leftIndex = postMap.get(leftVal);
+        int leftSize = leftIndex - postStart+1; 
+
+        root.left = construct(preorder,preStart+1,preStart+leftSize,postorder,postStart,leftIndex,postMap);
+        root.right = construct(preorder,preStart+leftSize+1,preEnd,postorder,leftIndex+1,postEnd-1,postMap);
+
+        return root;
+
+    }
+
 }

@@ -475,5 +475,62 @@ public class TreeProblems1Test {
         );
         assertTrue(TreeProblems1.isSameTree(expected, TreeProblems1.buildTree2(inorder, postorder)));
     }
+
+    // --- Test Cases for constructFromPrePost (LeetCode 889) ---
+
+    @Test
+    void testConstructFromPrePost_Example1() {
+        int[] preorder = {1, 2, 4, 5, 3, 6, 7};
+        int[] postorder = {4, 5, 2, 6, 7, 3, 1};
+        TreeProblems1.TreeNode expected = new TreeProblems1.TreeNode(1,
+                new TreeProblems1.TreeNode(2,
+                        new TreeProblems1.TreeNode(4),
+                        new TreeProblems1.TreeNode(5)),
+                new TreeProblems1.TreeNode(3,
+                        new TreeProblems1.TreeNode(6),
+                        new TreeProblems1.TreeNode(7))
+        );
+        assertTrue(TreeProblems1.isSameTree(expected, TreeProblems1.constructFromPrePost(preorder, postorder)));
+    }
+
+    @Test
+    void testConstructFromPrePost_Example2() {
+        int[] preorder = {1, 2, 3};
+        int[] postorder = {2, 3, 1};
+        TreeProblems1.TreeNode expected = new TreeProblems1.TreeNode(1,
+                new TreeProblems1.TreeNode(2, null, null),
+                new TreeProblems1.TreeNode(3, null, null));
+        assertTrue(TreeProblems1.isSameTree(expected, TreeProblems1.constructFromPrePost(preorder, postorder)));
+    }
+
+    @Test
+    void testConstructFromPrePost_EmptyArrays() {
+        int[] preorder = {};
+        int[] postorder = {};
+        TreeProblems1.TreeNode expected = null;
+        assertTrue(TreeProblems1.isSameTree(expected, TreeProblems1.constructFromPrePost(preorder, postorder)));
+    }
+
+    @Test
+    void testConstructFromPrePost_SingleNode() {
+        int[] preorder = {1};
+        int[] postorder = {1};
+        TreeProblems1.TreeNode expected = new TreeProblems1.TreeNode(1);
+        assertTrue(TreeProblems1.isSameTree(expected, TreeProblems1.constructFromPrePost(preorder, postorder)));
+    }
+
+    @Test
+    void testConstructFromPrePost_LeftSkewedTree() {
+        int[] preorder = {1, 2, 3, 4};
+        int[] postorder = {4, 3, 2, 1};
+        TreeProblems1.TreeNode expected = new TreeProblems1.TreeNode(1,
+                new TreeProblems1.TreeNode(2,
+                        new TreeProblems1.TreeNode(3,
+                                new TreeProblems1.TreeNode(4),
+                                null),
+                        null),
+                null);
+        assertTrue(TreeProblems1.isSameTree(expected, TreeProblems1.constructFromPrePost(preorder, postorder)));
+    }
     
 }

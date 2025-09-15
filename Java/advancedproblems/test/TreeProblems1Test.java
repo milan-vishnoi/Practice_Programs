@@ -4,8 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
+import advancedproblems.TreeProblems1;
 import advancedproblems.TreeProblems1;
 
 public class TreeProblems1Test {
@@ -531,6 +536,86 @@ public class TreeProblems1Test {
                         null),
                 null);
         assertTrue(TreeProblems1.isSameTree(expected, TreeProblems1.constructFromPrePost(preorder, postorder)));
+    }
+
+    // --- Test Cases for rightSideView (LeetCode 199) ---
+
+    @Test
+    void testRightSideView_Example1() {
+        // [1,2,3,null,5,null,4]
+        TreeProblems1.TreeNode root = new TreeProblems1.TreeNode(1,
+                new TreeProblems1.TreeNode(2, null, new TreeProblems1.TreeNode(5)),
+                new TreeProblems1.TreeNode(3, null, new TreeProblems1.TreeNode(4))
+        );
+        List<Integer> expected = Arrays.asList(1, 3, 4);
+        assertEquals(expected, TreeProblems1.rightSideView(root));
+    }
+
+    @Test
+    void testRightSideView_Example2() {
+        // [1,null,3]
+        TreeProblems1.TreeNode root = new TreeProblems1.TreeNode(1,
+                null,
+                new TreeProblems1.TreeNode(3)
+        );
+        List<Integer> expected = Arrays.asList(1, 3);
+        assertEquals(expected, TreeProblems1.rightSideView(root));
+    }
+
+    @Test
+    void testRightSideView_EmptyTree() {
+        TreeProblems1.TreeNode root = null;
+        List<Integer> expected = Collections.emptyList();
+        assertEquals(expected, TreeProblems1.rightSideView(root));
+    }
+
+    @Test
+    void testRightSideView_SingleNodeTree() {
+        TreeProblems1.TreeNode root = new TreeProblems1.TreeNode(1);
+        List<Integer> expected = Arrays.asList(1);
+        assertEquals(expected, TreeProblems1.rightSideView(root));
+    }
+
+    @Test
+    void testRightSideView_FullBinaryTree() {
+        TreeProblems1.TreeNode root = new TreeProblems1.TreeNode(1,
+                new TreeProblems1.TreeNode(2,
+                        new TreeProblems1.TreeNode(4),
+                        new TreeProblems1.TreeNode(5)),
+                new TreeProblems1.TreeNode(3,
+                        new TreeProblems1.TreeNode(6),
+                        new TreeProblems1.TreeNode(7))
+        );
+        List<Integer> expected = Arrays.asList(1, 3, 7);
+        assertEquals(expected, TreeProblems1.rightSideView(root));
+    }
+
+    @Test
+    void testRightSideView_LeftSkewedTree() {
+        TreeProblems1.TreeNode root = new TreeProblems1.TreeNode(1,
+                new TreeProblems1.TreeNode(2,
+                        new TreeProblems1.TreeNode(3,
+                                new TreeProblems1.TreeNode(4),
+                                null),
+                        null),
+                null
+        );
+        List<Integer> expected = Arrays.asList(1, 2, 3, 4);
+        assertEquals(expected, TreeProblems1.rightSideView(root));
+    }
+
+    @Test
+    void testRightSideView_RightSkewedTree() {
+        TreeProblems1.TreeNode root = new TreeProblems1.TreeNode(1,
+                null,
+                new TreeProblems1.TreeNode(2,
+                        null,
+                        new TreeProblems1.TreeNode(3,
+                                null,
+                                new TreeProblems1.TreeNode(4)))
+        );
+        List<Integer> expected = Arrays.asList(1, 2, 3, 4);
+        assertEquals(expected, TreeProblems1.rightSideView(root));
     }
     
 }

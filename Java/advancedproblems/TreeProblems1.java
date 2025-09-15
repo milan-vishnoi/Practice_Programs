@@ -1,6 +1,10 @@
 package advancedproblems;
 
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Deque;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class TreeProblems1 {
@@ -162,6 +166,33 @@ public class TreeProblems1 {
 
         return root;
 
+    }
+
+    //Leetcode Problem https://leetcode.com/problems/binary-tree-right-side-view/
+    public static List<Integer> rightSideView(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        if(root==null)
+        return result;
+        Deque<TreeNode> nodeQue = new ArrayDeque<>();
+        nodeQue.add(root);
+
+        int size;
+
+        while(!nodeQue.isEmpty())
+        {
+            size = nodeQue.size();
+            result.add(nodeQue.peekLast().val);
+            for(int i=0;i<size;i++)
+            {
+                TreeNode node = nodeQue.pollFirst();
+                if(node.left!=null)
+                nodeQue.add(node.left);
+                if(node.right!=null)
+                nodeQue.add(node.right);
+            }
+        }
+
+        return result;
     }
 
 }

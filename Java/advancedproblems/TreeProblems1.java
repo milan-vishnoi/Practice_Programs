@@ -195,4 +195,24 @@ public class TreeProblems1 {
         return result;
     }
 
+
+    //Leetcode Problem https://leetcode.com/problems/path-sum/
+    public static boolean hasPathSum(TreeNode root, int targetSum) {
+        if(root==null)
+        return false;
+
+       targetSum = targetSum-root.val;
+        if(root.left==null&&root.right==null && targetSum==0)
+            return true;
+        boolean leftPath=false, rightPath=false;
+        if(root.left!=null)
+        leftPath = hasPathSum(root.left,targetSum);
+
+        if(root.right!=null)
+         rightPath = hasPathSum(root.right,targetSum);
+
+
+        return leftPath || rightPath;
+        
+    }
 }

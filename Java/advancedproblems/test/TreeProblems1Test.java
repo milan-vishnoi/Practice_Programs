@@ -11,6 +11,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import advancedproblems.TreeProblems1;
+import advancedproblems.TreeTraversals;
 import advancedproblems.TreeProblems1;
 
 public class TreeProblems1Test {
@@ -616,6 +617,99 @@ public class TreeProblems1Test {
         );
         List<Integer> expected = Arrays.asList(1, 2, 3, 4);
         assertEquals(expected, TreeProblems1.rightSideView(root));
+    }
+
+    // --- Test Cases for hasPathSum (LeetCode 112) ---
+
+    @Test
+    void testHasPathSum_Example1() {
+        TreeProblems1.TreeNode root = new TreeProblems1.TreeNode(5,
+                new TreeProblems1.TreeNode(4,
+                        new TreeProblems1.TreeNode(11,
+                                new TreeProblems1.TreeNode(7),
+                                new TreeProblems1.TreeNode(2)),
+                        null),
+                new TreeProblems1.TreeNode(8,
+                        new TreeProblems1.TreeNode(13),
+                        new TreeProblems1.TreeNode(4,
+                                null,
+                                new TreeProblems1.TreeNode(1)))
+        );
+        int targetSum = 22;
+        assertTrue(TreeProblems1.hasPathSum(root, targetSum));
+    }
+
+    @Test
+    void testHasPathSum_Example2() {
+        TreeProblems1.TreeNode root = new TreeProblems1.TreeNode(1,
+                new TreeProblems1.TreeNode(2),
+                new TreeProblems1.TreeNode(3)
+        );
+        int targetSum = 5;
+        assertFalse(TreeProblems1.hasPathSum(root, targetSum));
+    }
+
+    @Test
+    void testHasPathSum_EmptyTree() {
+        TreeProblems1.TreeNode root = null;
+        int targetSum = 0;
+        assertFalse(TreeProblems1.hasPathSum(root, targetSum));
+    }
+
+    @Test
+    void testHasPathSum_SingleNodeTree_True() {
+        TreeProblems1.TreeNode root = new TreeProblems1.TreeNode(1);
+        int targetSum = 1;
+        assertTrue(TreeProblems1.hasPathSum(root, targetSum));
+    }
+
+    @Test
+    void testHasPathSum_SingleNodeTree_False() {
+        TreeProblems1.TreeNode root = new TreeProblems1.TreeNode(1);
+        int targetSum = 0;
+        assertFalse(TreeProblems1.hasPathSum(root, targetSum));
+    }
+
+    @Test
+    void testHasPathSum_LeftSkewedTree() {
+        TreeProblems1.TreeNode root = new TreeProblems1.TreeNode(1,
+                new TreeProblems1.TreeNode(2,
+                        new TreeProblems1.TreeNode(3,
+                                new TreeProblems1.TreeNode(4),
+                                null),
+                        null),
+                null);
+        int targetSum = 10;
+        assertTrue(TreeProblems1.hasPathSum(root, targetSum));
+    }
+
+    @Test
+    void testHasPathSum_NegativeNumbers_True() {
+        TreeProblems1.TreeNode root = new TreeProblems1.TreeNode(1,
+                new TreeProblems1.TreeNode(2,
+                        new TreeProblems1.TreeNode(-5),
+                        null),
+                new TreeProblems1.TreeNode(3));
+        int targetSum = -2;
+        assertTrue(TreeProblems1.hasPathSum(root, targetSum));
+    }
+
+    @Test
+    void testHasPathSum_NoPathExists() {
+        TreeProblems1.TreeNode root = new TreeProblems1.TreeNode(5,
+                new TreeProblems1.TreeNode(4,
+                        new TreeProblems1.TreeNode(11,
+                                new TreeProblems1.TreeNode(7),
+                                new TreeProblems1.TreeNode(2)),
+                        null),
+                new TreeProblems1.TreeNode(8,
+                        new TreeProblems1.TreeNode(13),
+                        new TreeProblems1.TreeNode(4,
+                                null,
+                                new TreeProblems1.TreeNode(1)))
+        );
+        int targetSum = 20;
+        assertFalse(TreeProblems1.hasPathSum(root, targetSum));
     }
     
 }

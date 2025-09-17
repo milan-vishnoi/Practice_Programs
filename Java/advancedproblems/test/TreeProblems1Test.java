@@ -711,5 +711,101 @@ public class TreeProblems1Test {
         int targetSum = 20;
         assertFalse(TreeProblems1.hasPathSum(root, targetSum));
     }
+
+    // --- Test Cases for pathSum (LeetCode 113) ---
+
+    @Test
+    void testPathSum_Example1() {
+        TreeProblems1.TreeNode root = new TreeProblems1.TreeNode(5,
+                new TreeProblems1.TreeNode(4,
+                        new TreeProblems1.TreeNode(11,
+                                new TreeProblems1.TreeNode(7),
+                                new TreeProblems1.TreeNode(2)),
+                        null),
+                new TreeProblems1.TreeNode(8,
+                        new TreeProblems1.TreeNode(13),
+                        new TreeProblems1.TreeNode(4,
+                                new TreeProblems1.TreeNode(5),
+                                new TreeProblems1.TreeNode(1)))
+        );
+        int targetSum = 22;
+        List<List<Integer>> expected = Arrays.asList(
+                Arrays.asList(5, 4, 11, 2),
+                Arrays.asList(5, 8, 4, 5)
+        );
+        assertEquals(expected, TreeProblems1.pathSum(root, targetSum));
+    }
+
+    @Test
+    void testPathSum_Example2() {
+        TreeProblems1.TreeNode root = new TreeProblems1.TreeNode(1,
+                new TreeProblems1.TreeNode(2),
+                new TreeProblems1.TreeNode(3)
+        );
+        int targetSum = 5;
+        List<List<Integer>> expected = Collections.emptyList();
+        assertEquals(expected, TreeProblems1.pathSum(root, targetSum));
+    }
+
+    @Test
+    void testPathSum_EmptyTree() {
+        TreeProblems1.TreeNode root = null;
+        int targetSum = 0;
+        List<List<Integer>> expected = Collections.emptyList();
+        assertEquals(expected, TreeProblems1.pathSum(root, targetSum));
+    }
+
+    @Test
+    void testPathSum_SingleNode_True() {
+        TreeProblems1.TreeNode root = new TreeProblems1.TreeNode(1);
+        int targetSum = 1;
+        List<List<Integer>> expected = Arrays.asList(Arrays.asList(1));
+        assertEquals(expected, TreeProblems1.pathSum(root, targetSum));
+    }
+
+    @Test
+    void testPathSum_SingleNode_False() {
+        TreeProblems1.TreeNode root = new TreeProblems1.TreeNode(1);
+        int targetSum = 2;
+        List<List<Integer>> expected = Collections.emptyList();
+        assertEquals(expected, TreeProblems1.pathSum(root, targetSum));
+    }
+
+    @Test
+    void testPathSum_LeftSkewedTree() {
+        TreeProblems1.TreeNode root = new TreeProblems1.TreeNode(1,
+                new TreeProblems1.TreeNode(2,
+                        new TreeProblems1.TreeNode(3,
+                                new TreeProblems1.TreeNode(4),
+                                null),
+                        null),
+                null);
+        int targetSum = 10;
+        List<List<Integer>> expected = Arrays.asList(
+                Arrays.asList(1, 2, 3, 4)
+        );
+        assertEquals(expected, TreeProblems1.pathSum(root, targetSum));
+    }
+
+    @Test
+    void testPathSum_NegativeNumbers() {
+        TreeProblems1.TreeNode root = new TreeProblems1.TreeNode(10,
+                new TreeProblems1.TreeNode(5,
+                        new TreeProblems1.TreeNode(3,
+                                new TreeProblems1.TreeNode(3),
+                                new TreeProblems1.TreeNode(-2)),
+                        new TreeProblems1.TreeNode(2,
+                                null,
+                                new TreeProblems1.TreeNode(1))),
+                new TreeProblems1.TreeNode(-3,
+                        null,
+                        new TreeProblems1.TreeNode(11)));
+        int targetSum = 18;
+        List<List<Integer>> expected = Arrays.asList(
+                Arrays.asList(10, 5, 2,1),
+                Arrays.asList(10, -3,11)
+        );
+        assertEquals(expected, TreeProblems1.pathSum(root, targetSum));
+    }
     
 }

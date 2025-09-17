@@ -215,4 +215,33 @@ public class TreeProblems1 {
         return leftPath || rightPath;
         
     }
+
+    //Leetcode Problem https://leetcode.com/problems/path-sum-ii/
+    public static List<List<Integer>> pathSum(TreeNode root, int targetSum) {
+       List<List<Integer>> result = new ArrayList<>();
+        if(root == null)
+        return result;
+
+        calculateSum(root,targetSum,new ArrayList<>(),result);
+        return result;
+        
+    }
+
+    private static void calculateSum(TreeNode root, int targetSum, List<Integer> path,List<List<Integer>> result)
+    {
+        targetSum = targetSum - root.val;
+
+        path.add(root.val);
+        if(root.left==null && root.right==null && targetSum==0)
+        {
+           result.add(path);
+           return;
+        }
+
+        if(root.left!=null)
+        calculateSum(root.left,targetSum,new ArrayList<>(path),result);
+
+        if(root.right!=null)
+        calculateSum(root.right,targetSum,new ArrayList<>(path),result);
+    }
 }

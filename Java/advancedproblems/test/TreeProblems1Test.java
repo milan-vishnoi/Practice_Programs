@@ -807,5 +807,84 @@ public class TreeProblems1Test {
         );
         assertEquals(expected, TreeProblems1.pathSum(root, targetSum));
     }
+
+    // --- Test Cases for diameterOfBinaryTree (LeetCode 543) ---
+
+    @Test
+    void testDiameterOfBinaryTree_Example1() {
+        // [1,2,3,4,5]
+        TreeProblems1.TreeNode root = new TreeProblems1.TreeNode(1,
+                new TreeProblems1.TreeNode(2,
+                        new TreeProblems1.TreeNode(4),
+                        new TreeProblems1.TreeNode(5)),
+                new TreeProblems1.TreeNode(3)
+        );
+        int expected = 3;
+        assertEquals(expected, TreeProblems1.diameterOfBinaryTree(root));
+    }
+
+    @Test
+    void testDiameterOfBinaryTree_Example2() {
+        // [1,2]
+        TreeProblems1.TreeNode root = new TreeProblems1.TreeNode(1, new TreeProblems1.TreeNode(2), null);
+        int expected = 1;
+        assertEquals(expected, TreeProblems1.diameterOfBinaryTree(root));
+    }
+
+    @Test
+    void testDiameterOfBinaryTree_EmptyTree() {
+        TreeProblems1.TreeNode root = null;
+        int expected = 0;
+        assertEquals(expected, TreeProblems1.diameterOfBinaryTree(root));
+    }
+
+    @Test
+    void testDiameterOfBinaryTree_SingleNodeTree() {
+        TreeProblems1.TreeNode root = new TreeProblems1.TreeNode(1);
+        int expected = 0;
+        assertEquals(expected, TreeProblems1.diameterOfBinaryTree(root));
+    }
+
+    @Test
+    void testDiameterOfBinaryTree_LeftSkewedTree() {
+        TreeProblems1.TreeNode root = new TreeProblems1.TreeNode(1,
+                new TreeProblems1.TreeNode(2,
+                        new TreeProblems1.TreeNode(3,
+                                new TreeProblems1.TreeNode(4),
+                                null),
+                        null),
+                null
+        );
+        int expected = 3;
+        assertEquals(expected, TreeProblems1.diameterOfBinaryTree(root));
+    }
+
+    @Test
+    void testDiameterOfBinaryTree_RightSkewedTree() {
+        TreeProblems1.TreeNode root = new TreeProblems1.TreeNode(1,
+                null,
+                new TreeProblems1.TreeNode(2,
+                        null,
+                        new TreeProblems1.TreeNode(3,
+                                null,
+                                new TreeProblems1.TreeNode(4)))
+        );
+        int expected = 3;
+        assertEquals(expected, TreeProblems1.diameterOfBinaryTree(root));
+    }
+
+    @Test
+    void testDiameterOfBinaryTree_UnbalancedTree() {
+        TreeProblems1.TreeNode root = new TreeProblems1.TreeNode(10,
+                new TreeProblems1.TreeNode(5,
+                        new TreeProblems1.TreeNode(3),
+                        new TreeProblems1.TreeNode(7,
+                                null,
+                                new TreeProblems1.TreeNode(8))),
+                new TreeProblems1.TreeNode(15)
+        );
+        int expected = 4;
+        assertEquals(expected, TreeProblems1.diameterOfBinaryTree(root));
+    }
     
 }

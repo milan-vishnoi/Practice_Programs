@@ -253,4 +253,31 @@ public class TreeProblems1 {
         path.remove(path.size()-1);
         }
     }
+
+    //Leetcode problem https://leetcode.com/problems/diameter-of-binary-tree/
+    static int diameter;
+    public static int diameterOfBinaryTree(TreeNode root) {
+        if(root==null)
+        return 0;
+
+        diameter= 0;
+
+        calculateHeight(root);
+
+        return diameter;
+        
+    }
+
+    private static int calculateHeight(TreeNode root)
+    {
+        if(root==null)
+        return 0;
+
+        int leftHeight = calculateHeight(root.left);
+        int rightHeight = calculateHeight(root.right);
+
+        diameter = Math.max(diameter,leftHeight+rightHeight);
+
+        return 1+Math.max(leftHeight,rightHeight);
+    }
 }

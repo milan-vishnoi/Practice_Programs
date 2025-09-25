@@ -886,5 +886,105 @@ public class TreeProblems1Test {
         int expected = 4;
         assertEquals(expected, TreeProblems1.diameterOfBinaryTree(root));
     }
+
+    // --- Test Cases for lowestCommonAncestor (LeetCode 236) ---
+
+    @Test
+    void testLowestCommonAncestor_Example1() {
+        // [3,5,1,6,2,0,8,null,null,7,4]
+        TreeProblems1.TreeNode root = new TreeProblems1.TreeNode(3);
+        TreeProblems1.TreeNode p = new TreeProblems1.TreeNode(5);
+        TreeProblems1.TreeNode q = new TreeProblems1.TreeNode(1);
+
+        root.left = p;
+        root.right = q;
+        p.left = new TreeProblems1.TreeNode(6);
+        p.right = new TreeProblems1.TreeNode(2,
+                new TreeProblems1.TreeNode(7),
+                new TreeProblems1.TreeNode(4));
+        q.left = new TreeProblems1.TreeNode(0);
+        q.right = new TreeProblems1.TreeNode(8);
+
+        TreeProblems1.TreeNode result = TreeProblems1.lowestCommonAncestor(root, p, q);
+        assertEquals(3, result.val);
+    }
+
+    @Test
+    void testLowestCommonAncestor_Example2() {
+        TreeProblems1.TreeNode root = new TreeProblems1.TreeNode(3);
+        TreeProblems1.TreeNode p = new TreeProblems1.TreeNode(5);
+        TreeProblems1.TreeNode q = new TreeProblems1.TreeNode(4);
+
+        root.left = p;
+        root.right = new TreeProblems1.TreeNode(1,
+                new TreeProblems1.TreeNode(0),
+                new TreeProblems1.TreeNode(8));
+        p.left = new TreeProblems1.TreeNode(6);
+        p.right = new TreeProblems1.TreeNode(2,
+                new TreeProblems1.TreeNode(7),
+                q);
+
+        TreeProblems1.TreeNode result = TreeProblems1.lowestCommonAncestor(root, p, q);
+        assertEquals(5, result.val);
+    }
+
+    @Test
+    void testLowestCommonAncestor_Example3() {
+        TreeProblems1.TreeNode p = new TreeProblems1.TreeNode(1);
+        TreeProblems1.TreeNode q = new TreeProblems1.TreeNode(2);
+        p.left = q;
+
+        TreeProblems1.TreeNode result = TreeProblems1.lowestCommonAncestor(p, p, q);
+        assertEquals(1, result.val);
+    }
+
+    @Test
+    void testLowestCommonAncestor_OneNodeIsRoot() {
+        TreeProblems1.TreeNode root = new TreeProblems1.TreeNode(10,
+                new TreeProblems1.TreeNode(5),
+                new TreeProblems1.TreeNode(15)
+        );
+        TreeProblems1.TreeNode p = root.left;
+        TreeProblems1.TreeNode q = root;
+        TreeProblems1.TreeNode result = TreeProblems1.lowestCommonAncestor(root, p, q);
+        assertEquals(10, result.val);
+    }
+
+    @Test
+    void testLowestCommonAncestor_P_and_Q_SameNode() {
+        TreeProblems1.TreeNode root = new TreeProblems1.TreeNode(10,
+                new TreeProblems1.TreeNode(5),
+                new TreeProblems1.TreeNode(15)
+        );
+        TreeProblems1.TreeNode p = root.left;
+        TreeProblems1.TreeNode q = root.left;
+        TreeProblems1.TreeNode result = TreeProblems1.lowestCommonAncestor(root, p, q);
+        assertEquals(5, result.val);
+    }
+
+    @Test
+    void testLowestCommonAncestor_P_Ancestor_of_Q() {
+        TreeProblems1.TreeNode p = new TreeProblems1.TreeNode(10);
+        TreeProblems1.TreeNode q = new TreeProblems1.TreeNode(5);
+        p.left = q;
+        TreeProblems1.TreeNode result = TreeProblems1.lowestCommonAncestor(p, p, q);
+        assertEquals(10, result.val);
+    }
+
+    @Test
+    void testLowestCommonAncestor_P_and_Q_in_Different_Subtrees() {
+        TreeProblems1.TreeNode root = new TreeProblems1.TreeNode(6,
+                new TreeProblems1.TreeNode(2,
+                        new TreeProblems1.TreeNode(0),
+                        new TreeProblems1.TreeNode(4)),
+                new TreeProblems1.TreeNode(8,
+                        new TreeProblems1.TreeNode(7),
+                        new TreeProblems1.TreeNode(9))
+        );
+        TreeProblems1.TreeNode p = root.left.left;
+        TreeProblems1.TreeNode q = root.right.right;
+        TreeProblems1.TreeNode result = TreeProblems1.lowestCommonAncestor(root, p, q);
+        assertEquals(6, result.val);
+    }
     
 }

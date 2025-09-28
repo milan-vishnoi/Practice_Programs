@@ -320,12 +320,11 @@ public class TreeProblems1 {
     {
        if(root==null)
         return 0;
-        int leftSum = calculateSum(root.left);
-        int rightSum = calculateSum(root.right);
-        int currentSum = Math.max(root.val+leftSum,root.val+rightSum);
-        int currentMax = Math.max(currentSum,root.val);
-        maxSum = Math.max(maxSum,Math.max(currentMax,root.val+leftSum+rightSum));
+        int leftSum = Math.max(0,calculateSum(root.left));
+        int rightSum = Math.max(0,calculateSum(root.right));
+        int currentSum = root.val + Math.max(leftSum,rightSum);
+        maxSum = Math.max(maxSum,root.val+leftSum+rightSum);
 
-        return currentMax;
+        return currentSum;
     }
 }

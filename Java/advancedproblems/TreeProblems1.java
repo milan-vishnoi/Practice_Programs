@@ -301,4 +301,31 @@ public class TreeProblems1 {
         return right;
         
     }
+
+    //Leetcode Problem https://leetcode.com/problems/binary-tree-maximum-path-sum/
+    static int maxSum;
+    public static int maxPathSum(TreeNode root) {
+        if(root==null)
+        return 0;
+
+        maxSum = Integer.MIN_VALUE;
+
+       calculateSum(root);
+
+        return maxSum;
+        
+    }
+
+    private static int calculateSum(TreeNode root)
+    {
+       if(root==null)
+        return 0;
+        int leftSum = calculateSum(root.left);
+        int rightSum = calculateSum(root.right);
+        int currentSum = Math.max(root.val+leftSum,root.val+rightSum);
+        int currentMax = Math.max(currentSum,root.val);
+        maxSum = Math.max(maxSum,Math.max(currentMax,root.val+leftSum+rightSum));
+
+        return currentMax;
+    }
 }

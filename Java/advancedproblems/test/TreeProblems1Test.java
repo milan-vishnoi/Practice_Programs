@@ -986,5 +986,66 @@ public class TreeProblems1Test {
         TreeProblems1.TreeNode result = TreeProblems1.lowestCommonAncestor(root, p, q);
         assertEquals(6, result.val);
     }
+
+    // --- Test Cases for maxPathSum (LeetCode 124) ---
+
+    @Test
+    void testMaxPathSum_Example1() {
+        TreeProblems1.TreeNode root = new TreeProblems1.TreeNode(1,
+                new TreeProblems1.TreeNode(2),
+                new TreeProblems1.TreeNode(3)
+        );
+        int expected = 6;
+        assertEquals(expected, TreeProblems1.maxPathSum(root));
+    }
+
+    @Test
+    void testMaxPathSum_Example2() {
+        TreeProblems1.TreeNode root = new TreeProblems1.TreeNode(-10,
+                new TreeProblems1.TreeNode(9),
+                new TreeProblems1.TreeNode(20,
+                        new TreeProblems1.TreeNode(15),
+                        new TreeProblems1.TreeNode(7))
+        );
+        int expected = 42;
+        assertEquals(expected, TreeProblems1.maxPathSum(root));
+    }
+
+    @Test
+    void testMaxPathSum_EmptyTree() {
+        TreeProblems1.TreeNode root = null;
+        int expected = 0;
+        assertEquals(expected, TreeProblems1.maxPathSum(root));
+    }
+
+    @Test
+    void testMaxPathSum_SingleNode() {
+        TreeProblems1.TreeNode root = new TreeProblems1.TreeNode(-3);
+        int expected = -3;
+        assertEquals(expected, TreeProblems1.maxPathSum(root));
+    }
+
+    @Test
+    void testMaxPathSum_OnlyNegativeValues() {
+        TreeProblems1.TreeNode root = new TreeProblems1.TreeNode(-1,
+                new TreeProblems1.TreeNode(-2),
+                new TreeProblems1.TreeNode(-3));
+        int expected = -1;
+        assertEquals(expected, TreeProblems1.maxPathSum(root));
+    }
+
+    @Test
+    void testMaxPathSum_DiameterNotThroughRoot() {
+        TreeProblems1.TreeNode root = new TreeProblems1.TreeNode(-1,
+                new TreeProblems1.TreeNode(5,
+                        new TreeProblems1.TreeNode(4),
+                        new TreeProblems1.TreeNode(-3)),
+                new TreeProblems1.TreeNode(6,
+                        new TreeProblems1.TreeNode(2),
+                        new TreeProblems1.TreeNode(1))
+        );
+        int expected = 16;
+        assertEquals(expected, TreeProblems1.maxPathSum(root));
+    }
     
 }

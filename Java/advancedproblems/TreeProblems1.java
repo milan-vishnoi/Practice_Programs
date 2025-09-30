@@ -363,7 +363,7 @@ public class TreeProblems1 {
     //Leetcode Problem https://leetcode.com/problems/serialize-and-deserialize-binary-tree/ (part2)
     // Decodes your encoded data to tree.
     public static TreeNode deserialize(String data) {
-        if (data == null || data == "")
+        if (data == null || data.isEmpty())
             return null;
         String[] serialized = data.split(",");
         Queue<TreeNode> nodeq = new ArrayDeque<>();

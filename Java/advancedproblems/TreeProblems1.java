@@ -4,8 +4,10 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 
 public class TreeProblems1 {
    public static class TreeNode {
@@ -326,5 +328,65 @@ public class TreeProblems1 {
         maxSum = Math.max(maxSum,root.val+leftSum+rightSum);
 
         return currentSum;
+    }
+
+    //Leetcode Problem https://leetcode.com/problems/serialize-and-deserialize-binary-tree/ (part1)
+    // Encodes a tree to a single string.
+    public static String serialize(TreeNode root) {
+        if (root == null)
+            return null;
+        StringBuilder sb = new StringBuilder();
+        Queue<TreeNode> nodeq = new LinkedList<>();
+        nodeq.add(root);
+        int size;
+        int actualLength=0;
+        while (!nodeq.isEmpty()) {
+            size = nodeq.size();
+            for (int i = 0; i < size; i++) {
+                TreeNode node = nodeq.poll();
+                if (node == null) {
+                    sb.append("#,");
+                } else {
+                    sb.append(Integer.toString(node.val)+",");
+                    actualLength = sb.length()-1;
+                    nodeq.add(node.left);
+                    nodeq.add(node.right);
+                }
+
+            }
+        }
+        String s = sb.substring(0,actualLength).toString();
+        return s;
+
+    }
+
+    //Leetcode Problem https://leetcode.com/problems/serialize-and-deserialize-binary-tree/ (part2)
+    // Decodes your encoded data to tree.
+    public static TreeNode deserialize(String data) {
+        if (data == null || data == "")
+            return null;
+        String[] serialized = data.split(",");
+        Queue<TreeNode> nodeq = new ArrayDeque<>();
+
+        TreeNode root = new TreeNode(Integer.parseInt(serialized[0]));
+        TreeNode node;
+        nodeq.add(root);
+        for(int i=1;i<serialized.length;i++)
+        {
+            node = nodeq.poll();
+            if(!serialized[i].equals("#"))
+            {
+                node.left = new TreeNode(Integer.parseInt(serialized[i]));
+                nodeq.add(node.left);
+            }
+            i++;
+            if(i<serialized.length && !serialized[i].equals("#"))
+            {
+            node.right= new TreeNode(Integer.parseInt(serialized[i]));
+            nodeq.add(node.right);
+            }
+
+        }
+        return  root;
     }
 }

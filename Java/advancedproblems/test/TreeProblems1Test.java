@@ -1,5 +1,6 @@
 package advancedproblems.test;
 
+import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -1046,6 +1047,81 @@ public class TreeProblems1Test {
         );
         int expected = 16;
         assertEquals(expected, TreeProblems1.maxPathSum(root));
+    }
+
+    // --- Test Cases for serialize and deserialize (LeetCode 297) ---
+
+    @Test
+    void testSerialization_Example1() {
+        TreeProblems1.TreeNode root = new TreeProblems1.TreeNode(1,
+                new TreeProblems1.TreeNode(2),
+                new TreeProblems1.TreeNode(3,
+                        new TreeProblems1.TreeNode(4),
+                        new TreeProblems1.TreeNode(5))
+        );
+        String serializedString = TreeProblems1.serialize(root);
+        TreeProblems1.TreeNode deserializedTree = TreeProblems1.deserialize(serializedString);
+        assertTrue(TreeProblems1.isSameTree(root, deserializedTree));
+    }
+
+    @Test
+    void testSerialization_EmptyTree() {
+        TreeProblems1.TreeNode root = null;
+        String serializedString = TreeProblems1.serialize(root);
+        TreeProblems1.TreeNode deserializedTree = TreeProblems1.deserialize(serializedString);
+        assertNull(deserializedTree);
+    }
+
+    @Test
+    void testSerialization_SingleNode() {
+        TreeProblems1.TreeNode root = new TreeProblems1.TreeNode(1);
+        String serializedString = TreeProblems1.serialize(root);
+        TreeProblems1.TreeNode deserializedTree = TreeProblems1.deserialize(serializedString);
+        assertTrue(TreeProblems1.isSameTree(root, deserializedTree));
+    }
+
+    @Test
+    void testSerialization_FullBinaryTree() {
+        TreeProblems1.TreeNode root = new TreeProblems1.TreeNode(1,
+                new TreeProblems1.TreeNode(2,
+                        new TreeProblems1.TreeNode(4),
+                        new TreeProblems1.TreeNode(5)),
+                new TreeProblems1.TreeNode(3,
+                        new TreeProblems1.TreeNode(6),
+                        new TreeProblems1.TreeNode(7))
+        );
+        String serializedString = TreeProblems1.serialize(root);
+        TreeProblems1.TreeNode deserializedTree = TreeProblems1.deserialize(serializedString);
+        assertTrue(TreeProblems1.isSameTree(root, deserializedTree));
+    }
+
+    @Test
+    void testSerialization_LeftSkewedTree() {
+        TreeProblems1.TreeNode root = new TreeProblems1.TreeNode(1,
+                new TreeProblems1.TreeNode(2,
+                        new TreeProblems1.TreeNode(3,
+                                new TreeProblems1.TreeNode(4),
+                                null),
+                        null),
+                null);
+        String serializedString = TreeProblems1.serialize(root);
+        TreeProblems1.TreeNode deserializedTree = TreeProblems1.deserialize(serializedString);
+        assertTrue(TreeProblems1.isSameTree(root, deserializedTree));
+    }
+
+    @Test
+    void testSerialization_TreeWithNegativeValues() {
+        TreeProblems1.TreeNode root = new TreeProblems1.TreeNode(-10,
+                new TreeProblems1.TreeNode(9,
+                        new TreeProblems1.TreeNode(-1),
+                        new TreeProblems1.TreeNode(3)),
+                new TreeProblems1.TreeNode(20,
+                        new TreeProblems1.TreeNode(-15),
+                        new TreeProblems1.TreeNode(7))
+        );
+        String serializedString = TreeProblems1.serialize(root);
+        TreeProblems1.TreeNode deserializedTree = TreeProblems1.deserialize(serializedString);
+        assertTrue(TreeProblems1.isSameTree(root, deserializedTree));
     }
     
 }
